@@ -1,0 +1,52 @@
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
+# so vim can use ctrl-s
+stty -ixon
+
+# hack to keep a bash open when starting it with a command
+#[[ $startup_cmd ]] && { declare +x $startup_cmd; eval "$startup_cmd"; }
+
+#autojump line
+[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
+
+
+PATH="$PATH:$HOME/bin"
+PATH="$PATH:$HOME/bin/perl"
+### Added by the Heroku Toolbelt
+PATH="/usr/local/heroku/bin:$PATH"
+#PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#JAVA_HOME="$HOME/Programs/JDK" #set this in /etc/environment
+#PATH="$JAVA_HOME/bin:$PATH"
+#PATH="$HOME/Programs/smartgit/bin:$PATH"
+#PATH="/usr/lib/dart/bin:$PATH"
+#PATH="$HOME/Programs/flutter/bin:$PATH"
+#PATH="/home/andrew/eclipse:$PATH"
+#PATH="/home/andrew/android-studio/bin:$PATH"
+#PATH="/home/andrew/Programs/processing-3.0.1:$PATH"
+#NODE_PATH=$NODE_PATH:/home/andrew/.npm-packages/bin
+#GOPATH="$HOME/Build/go"
+#PATH="$PATH:$GOPATH/bin"
+NPM_PACKAGES="$HOME/.npm-packages"
+PATH="$NPM_PACKAGES/bin:$PATH"
+NODE_PATH=$NODE_PATH:$HOME/.npm-packages/lib/node_modules
+PATH="$PATH:$HOME/.gem/ruby/2.4.0/bin"
+# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+unset MANPATH # delete if you already modified MANPATH elsewhere in your config
+MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
+
+PATH="$PATH:$HOME/Build/imgbrd-grabber/release/Grabber"
+PATH="$PATH:$HOME/Build/prod/tidy-html5/build/cmake/Build/tidy-5/bin"
+PATH="$PATH:$HOME/Build/prod/DrMemory-Linux-1.11.0-2/bin64"
+export VISUAL="nvim"
+#export ANDROID_HOME=/media/androidSdk
+export ANDROID_HOME=~/.buildozer/android/platform/android-sdk-22
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+PATH="$PATH:$ANDROID_HOME/tools"
+PATH="$PATH:$ANDROID_HOME/platform-tools"
+export PASSWORD_STORE_DIR="$HOME/Dropbox/.password-store"

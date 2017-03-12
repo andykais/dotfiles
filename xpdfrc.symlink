@@ -1,0 +1,2 @@
+urlCommand "google-chrome-stable %s"
+continuousView yes

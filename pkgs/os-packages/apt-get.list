@@ -1,0 +1,120 @@
+apt-get --force-yes --yes upgrade
+apt-get --force-yes --yes dist-upgrade
+apt-get --force-yes --yes install ubiquity-slideshow-mint ubiquity-casper libdmraid1.0.0.rc16 ubiquity-frontend-gtk xfsprogs firefox-locale-en language-pack-en dmraid kpartx-boot kpartx language-pack-en-base libnss3-1d jfsutils wamerican grub-gfxpayload-lists gparted
+apt-get --no-upgrade -o Acquire::gpgv::Options::=--ignore-time-conflict -y install grub-efi-amd64-signed
+apt-get --no-upgrade -o Acquire::gpgv::Options::=--ignore-time-conflict -y install shim-signed
+apt-get upgrade
+apt-get install git
+apt-get install dselect
+apt-get -u dselect-upgrade
+apt-get install suckless-tools
+apt-get install python-pip
+apt-get install ranger caca-utils highlight atool w3m poppler-utils mediainfo
+apt-get remove ranger
+apt-get install ranger
+apt-get install dconf-cli
+apt-get install redshift-gtk
+apt-get install autojump
+apt-get remove autojump
+apt-get install mingw32
+apt-get install mingw-w64 mingw-w64-i686-dev mingw-w64-x86-64-dev nsis stow unzip texinfo imagemagick mate-dialogs-common docbook-utils gettext libglib2.0-dev
+apt-get install libgdk-pixbuf2.0-dev texlive texlive-latex-extra texlive-lang-german latex-xcolor libqt4-dev-bin
+apt-get --no-install-recommends --yes install libreadline6-dev libssl-dev libyaml-dev libsqlite3-dev libgdbm-dev libncurses5-dev automake libtool libffi-dev
+apt-get install libkrb5-dev
+apt-get -f install
+apt-get -f install
+apt-get install xbacklight
+apt-get install python-scipy
+apt-get install python-matplotlib
+apt-get install python-tk
+apt-get install ghex
+apt-get install --reinstall grub-efi-amd64
+apt-get install ufraw
+apt-get install oracle-java8-installer
+apt-get install -y heroku-toolbelt
+apt-get install libapache2-mod-php5
+apt-get install php5-cli
+apt-get install php5-mysql
+apt-get install simplescreenrecorder
+apt-get install simplescreenrecorder-lib:i386
+apt-get remove simplescreenrecorder
+apt-get install gtk-recordmydesktop
+apt-get remove gtk-recordmydesktop
+apt-get install vlc-plugin-libde265
+apt-get install -qq qt5-qmake qtbase5-dev qtdeclarative5-dev qtscript5-dev qtmultimedia5-dev libpulse-dev
+apt-get autoremove
+apt-get install gtk-chtheme
+apt-get install libqt5sql5-mysql
+apt-get install php5-imagick
+apt-get install php-pear
+apt-get install php5-dev
+apt-get install libmagickwand-dev libmagickcore-dev
+apt-get install python-virtualenv
+apt-get install python3-dev
+apt-get install silentcast
+apt-get remove silentcast
+apt-get install byzanz
+apt-get install gccgo-go
+apt-get install mcomix
+apt-get install nmap
+apt-get install deluge
+apt-get install libapache2-mod-wsgi
+apt-get install libapache2-mod-xsendfile
+apt-get remove libapache2-mod-python libapache2-mod-wsgi
+apt-get install libapache2-mod-wsgi-py3
+apt-get install python-dev
+apt-get install libgmp3-dev
+apt-get install libmpfr-dev libmpfr-doc libmpfr4 libmpfr4-dbg
+apt-get install python-wxtools
+apt-get install qemu-kvm
+apt-get install qemu-utils
+apt-get install vlc
+apt-get autoremove
+apt-get install vlc
+apt-get upgrade
+apt-get install mpv
+apt-get dist-upgrade
+apt-get install audacity
+apt-get install libgimp2.0-dev libpcre3-dev
+apt-get install python-pygame
+apt-get install python-gpgme
+apt-get install libaudio-flac-decoder-perl
+/usr/sbin/synaptic --hide-main-window --non-interactive --parent-window-id 44040195 --set-selections-file /tmp/tmpdLuUUM
+apt-get install python3.5
+apt-get install python-gevent
+apt-get install python3-imaging
+apt-get install libzmq3-dev
+apt-get install vim-gtk
+apt-get install vim-nox
+apt-get install exuberant-ctags
+apt-get install build-essential cmake
+apt-get install easytag
+apt-get install silversearcher-ag
+apt-get remove htop
+apt-get install libncursesw5-dev
+apt-get install --install-recommends pipelight-multi
+apt-get install gparted
+apt-get install nfs-common
+apt-get install p7zip-full
+apt-get install pv
+apt-get install wireshark
+apt-get install tshark
+apt-get install software-properties-common
+apt-get install neovim
+apt-get install -y nodejs
+apt-get install node-gyp
+apt-get install ffmpeg
+apt-get install tidy
+apt-get remove tidy
+apt-get install tidy
+apt-get upgrade
+apt-get install xsltproc
+apt-get remove tidy
+apt-get install gpac
+apt-get --allow-unauthenticated install sur5r-keyring
+apt-get upgrade
+apt-get --reinstall install openssh-server openssh-client
+apt-get upgrade
+apt-get install pass
+apt-get install gnupg2
+apt-get upgrade
