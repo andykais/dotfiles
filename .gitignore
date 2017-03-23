@@ -1,16 +1,12 @@
 .netrwhist
 npm-debug.log
 
-plug.vim.old
 
-config/ranger/history
 bin/data
 
-config/nvim/spell
-config/nvim/shada
-config/nvim/plugged
-config/ranger/history
-config/ranger/bookmarks
-config/ranger/tagged
-vim/vim.symlink/spell/
-vim/vim.symlink/plugged/
+configs-xdg-dir/nvim/spell
+configs-xdg-dir/nvim/plugged
+configs-xdg-dir/nvim/plugged
+configs-xdg-dir/ranger/history
+configs-xdg-dir/ranger/bookmarks
+configs-xdg-dir/ranger/tagged

@@ -47,7 +47,7 @@ Plug 'mattn/emmet-vim', { 'for': ['html','javascript'] }
 Plug 'gregsexton/MatchTag'
 "Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'tpope/vim-markdown'
-Plug 'suan/vim-instant-markdown', {'do': 'yarn add global instant-markdown-d'}
+Plug 'suan/vim-instant-markdown', {'do': 'yarn global add instant-markdown-d'}
 Plug 'vimwiki/vimwiki'
 "nnoremap <leader>v <Plug>TaskList
 Plug 'junegunn/vim-easy-align'
@@ -61,9 +61,9 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-clang'
 Plug 'carlitux/deoplete-ternjs'
-"Plug 'ensime/ensime-vim', {'do': 'UpdateRemotePlugins'}
 Plug 'derekwyatt/vim-scala'
-Plug 'neomake/neomake', {'do': 'yarn add global eslint_d eslint babel-eslint eslint-plugin-flowtype'}
+Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
+Plug 'neomake/neomake', {'do': 'yarn global add eslint_d eslint babel-eslint eslint-plugin-flowtype'}
 call plug#end()
 
 "------------------------------------------------------------

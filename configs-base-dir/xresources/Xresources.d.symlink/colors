@@ -1,0 +1,67 @@
+!xterm*foreground:     #DDDDDD
+!xterm*background:     #121212
+!!black
+!xterm*color0:         #353535
+!xterm*color8:         #666666
+!!red
+!xterm*color1:         #AE4747
+!xterm*color9:         #EE6363
+!!green
+!xterm*color2:         #556B2F
+!xterm*color10:        #9ACD32
+!!brown/yellow
+!xterm*color3:         #DAA520
+!xterm*color11:        #FFC125
+!!blue
+!xterm*color4:         #6F99B4
+!xterm*color12:        #7C96B0
+!!magenta
+!xterm*color5:         #8B7B8B
+!xterm*color13:        #D8BFD8
+!!cyan
+!xterm*color6:         #A7A15E
+!xterm*color14:        #F0E68C
+!!white
+!xterm*color7:         #DDDDDD
+!xterm*color15:        #FFFFFF
+
+!-------------------------------------------------------------------------------
+! Colors
+
+!*background: #181818
+*background: #1e1c1c
+*foreground: #c0c0c0
+*cursorColor: #93a1a1
+
+!! black dark/light
+!*color0: #121212
+*color0: #132226
+*color8: #2e3436
+
+!! red dark/light
+*color1: #a35b66
+*color9: #ab6b74
+
+!! green dark/light
+*color2: #99ab6f
+*color10: #acb972
+
+!! yellow dark/light
+*color3: #ca9733
+*color11: #ccaa69
+
+!! blue dark/light
+*color4: #495d6e
+*color12: #687987
+
+!! magenta dark/light
+*color5: #825969
+*color13: #977381
+
+!! cyan dark/light
+*color6: #839191
+*color14: #98a4a4
+
+!! white dark/light
+*color7: #e0e0e0
+color15: #e5e5e5

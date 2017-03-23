@@ -1,0 +1,4 @@
+#include "/home/andrew/.Xresources.d/xterm"
+#include "/home/andrew/.Xresources.d/fonts"
+!#include "/home/andrew/.Xresources.d/solarized"
+#include "/home/andrew/.Xresources.d/colors"

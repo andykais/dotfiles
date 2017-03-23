@@ -1,3 +1,5 @@
+alias psg='ps ax | ag '
+alias lessh='LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s" less -M '
 alias ndone='notify-send -t 3 "CMD finished!" "in folder $(basename $PWD) with code $?"'
 alias l='ls -hl --group-directories-first'
 alias la='ls -ahl --group-directories-first'

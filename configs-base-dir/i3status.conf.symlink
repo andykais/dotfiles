@@ -13,12 +13,9 @@ general {
 
 order += "volume master"
 #order += "ipv6"
-#order += "disk /home/andrew"
 order += "disk /"
-order += "disk /media"
-#order += "disk /media/shared"
-order += "wireless wlp3s0"
-order += "ethernet enp0s25"
+order += "wireless wlo1"
+order += "ethernet eno1"
 order += "ethernet usb0"
 order += "cpu_usage"
 order += "cpu_temperature 0"
@@ -26,13 +23,13 @@ order += "battery 0"
 order += "load"
 order += "tztime local"
 
-wireless wlp3s0 {
+wireless wlo1  {
     format_up = "W: (%quality at %essid) %ip"
         format_down = "W: down"
 #min_width = 100
 }
 
-ethernet enp0s25 {
+ethernet eno1 {
 # if you use %speed, i3status requires root privileges
     format_up = "E: %ip (%speed)"
         format_down = "E: down"
@@ -68,19 +65,9 @@ disk "/" {
     format = "%avail"
 }
 
-disk "/media" {
-    format = "%avail"
-}
-
-#disk "/media/windows" {
-#format = "%avail"
-#}
-
 volume master {
     format = "♪: %volume"
         device = "default"
         mixer = "Master"
         mixer_idx = 0
 }
-
-

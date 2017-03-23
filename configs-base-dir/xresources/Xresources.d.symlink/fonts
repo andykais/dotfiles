@@ -1,0 +1,4 @@
+xterm*faceName: xft:xos4 Terminess Powerline
+!xterm*faceName: xft:SourceCodePro for Powerline
+!xterm*boldFont: xft:xos4 Terminess Powerline:style=Bold
+xterm*faceSize: 9

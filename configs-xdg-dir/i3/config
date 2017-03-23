@@ -31,7 +31,8 @@ floating_modifier $mod
 
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec urxvtc
+#bindsym $mod+Return exec urxvtc
+bindsym $mod+Return exec uxterm
 bindsym $mod+Shift+Return exec fancy_terminal.sh
 
 # kill focused window
@@ -170,7 +171,7 @@ bar {
   #status_command /home/andrew/bin/perl/i3_wrapper.pl
   position top
   tray_output LVDS1
-  font pango: xos4 Terminess Powerline 10
+  font pango: xos4 Terminess Powerline 9
   #font pango: Sauce Code Pro 10
   colors {
     #background #232323
@@ -184,7 +185,7 @@ client.focused          #91BF3D	#91BF3D	#000000	#00DA8E
 #client.urgent           #C10004 #900000 #ffffff #900000
 
 # change font
-  font pango: xos4 Terminess Powerline 10
+  font pango: xos4 Terminess Powerline 9
 
 # no borders
 new_window normal 0 px
@@ -197,8 +198,8 @@ new_window normal 0 px
 bindsym XF86AudioMute exec amixer -q set Master toggle && killall -USR1 i3status
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && killall -USR1 i3status
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && killall -USR1 i3status
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
@@ -213,25 +214,23 @@ exec --no-startup-id redshift-gtk -c ~/.config/redshift.conf
 #exec --no-startup-id nm-applet
 exec --no-startup-id ~/bin/launch_network_tray_app.sh
 #exec --no-startup-id moni.sh 
-exec --no-startup-id slideshow.sh
+exec --no-startup-id ~/bin/slideshow.sh
 #exec --no-startup-id sh ~/.fehbg &
 #start wifi tray applet
 #exec --no-startup-id nm-applet
 
 #chrome start
-bindsym $mod+g exec optirun google-chrome-stable --profile-directory=Default
+bindsym $mod+g exec google-chrome-stable --profile-directory=Default
 #bindsym $mod+g exec optirun google-chrome-stable --profile-directory=Default --ignore-gpu-blacklist 
 #bindsym $mod+g exec optirun google-chrome-stable --profile-directory=Default --disable-gpu-sandbox
-bindsym $mod+Shift+g exec google-chrome-stable --profile-directory=Default
 
 # ktorrent start
 bindsym $mod+t exec ktorrent
 
 #screenshot saved in Pictures/screenshots using PrtSc
-bindsym $mod+Print exec screenshot.sh root
+bindsym $mod+Print exec ~/bin/screenshot.sh root
 #screenshot a section of the screen
-#bindsym $mod+Shift+Print exec screenshot.sh box
-bindsym $mod+Shift+Print exec screenshot.sh box
+bindsym $mod+Shift+Print exec ~/bin/screenshot.sh box
 
 # switch workspaces
 bindsym $mod+Shift+s exec ~/.config/i3/switch.py
@@ -241,12 +240,13 @@ bindsym $mod+Shift+s exec ~/.config/i3/switch.py
 #keepassx shortcut
 bindsym $mod+k exec keepassx2
 #passmenu shortcut
-bindsym $mod+Shift+d exec keepass-dmenu --database ~/Dropbox/keepass/oneLockToHoldThemAll.kdbx --keyfile ~/Dropbox/keepass/oneKeyToRuleThemAll.key --cache-password 100
+#bindsym $mod+Shift+d exec keepass-dmenu --database ~/Dropbox/keepass/oneLockToHoldThemAll.kdbx --keyfile ~/Dropbox/keepass/oneKeyToRuleThemAll.key --cache-password 100
+bindsym $mod+Shift+d exec ~/.npm-packages/bin/keepass-dmenu --database ~/Dropbox/keepass/oneLockToHoldThemAll.kdbx --keyfile ~/Dropbox/keepass/oneKeyToRuleThemAll.key --cache-password 100
 #vlc shortcut
 bindsym $mod+Shift+v exec vlc
 
 #open a terminal
-bindsym $mod+z exec urxvtc
+bindsym $mod+z exec uxterm
 
 #toggle the monitor the workspace is displayed on
 bindsym $mod+Shift+m move workspace to output left
@@ -256,7 +256,7 @@ bindsym $mod+Mod1+e workspace next_on_output
 bindsym $mod+Mod1+w workspace prev_on_output
 
 #bindsym $mod+Shift+l exec cocaine.sh off && sudo pm-suspend
-bindsym $mod+l exec i3locker.sh
+bindsym $mod+l exec ~/bin/i3locker.sh
 bindsym $mod+Shift+l exec i3lock -c 000000
 
 #########################################

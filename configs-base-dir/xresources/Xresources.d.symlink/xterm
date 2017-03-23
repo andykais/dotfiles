@@ -1,0 +1,7 @@
+xterm*termName: xterm-256color
+
+xterm*selectToClipboard: true
+!! xterm selects text just by highlighting
+xterm*VT100.Translations: #override \
+  Shift Ctrl <Key>V: insert-selection(CLIPBOARD) \n
+!Shift Ctrl <Key>C: copy-selection(CLIPBOARD)
