@@ -6,8 +6,8 @@ do
     clear\
         && echo "[Running \"$@\" on files changes in $(pwd) at $(date +'%r')]"\
         && echo ""\
-        && echo "$@" > /home/andrew/bin/data/lastroc.sh\
-        && bash /home/andrew/bin/data/lastroc.sh 0>/dev/null  \
+        && echo "$@" > $HOME/bin/data/lastroc.sh\
+        && bash $HOME/bin/data/lastroc.sh 0>/dev/null  \
         && sleep .3;
 
     inotifywait -qre close_write --format "$FORMAT" .

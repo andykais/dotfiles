@@ -168,7 +168,6 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
   status_command i3status
-  #status_command /home/andrew/bin/perl/i3_wrapper.pl
   position top
   tray_output LVDS1
   font pango: xos4 Terminess Powerline 9

@@ -18,8 +18,8 @@ alias docker-rmi='docker rmi $(docker images -q)'
 
 alias srcb='source ~/.bash_profile'
 
-alias red='redshift-gtk -c /home/andrew/.config/redshift.conf'
-alias process='processing-java --sketch=$PWD --output=/home/andrew/Downloads/tmp --force --run'
+alias red='redshift-gtk -c $HOME/.config/redshift.conf'
+alias process='processing-java --sketch=$PWD --output=$HOME/Downloads/tmp --force --run'
 alias lock='gnome-screensaver-command -l'
 alias tm='truecrypt /media/raspi/important_documents /media/truecrypt7/'
 alias td='truecrypt -d'

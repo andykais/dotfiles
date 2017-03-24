@@ -1,7 +1,7 @@
 #/bin/bash
 
 nloops=1
-stat_path=/home/andrew/bin/data
+stat_path=$HOME/bin/data
 > $stat_path/ping
 > $stat_path/down
 > $stat_path/uplo

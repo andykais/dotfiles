@@ -1,13 +1,13 @@
 #!/bin/bash
 
 i="000"
-FILE="/home/andrew/Pictures/screenshots/screenshot($i).png"
+FILE="$HOME/Pictures/screenshots/screenshot($i).png"
 
 while  [ -f $FILE ];
 do
     i=$(( 10#$i+1 ))
     printf -v i "%03d" $i
-    FILE="/home/andrew/Pictures/screenshots/screenshot($i).png"
+    FILE="$HOME/Pictures/screenshots/screenshot($i).png"
 done
 
 case "$1" in

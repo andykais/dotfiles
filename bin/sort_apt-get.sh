@@ -1,6 +1,6 @@
 #!/bin/bash
 
-current_all="/home/andrew/bin/data/installed_currently.txt"
+current_all="$HOME/bin/data/installed_currently.txt"
 
 # Get all currently installed programs
 dpkg --get-selections > "$current_all"
