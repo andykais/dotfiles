@@ -1,5 +1,3 @@
-xrdb -load .Xresource
 xset b off
-xbindkeys
 
 exec i3

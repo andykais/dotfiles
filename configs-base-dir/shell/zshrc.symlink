@@ -51,12 +51,12 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z dirhistory docker)
-save_aliases=$(alias -L)
+plugins=(z dirhistory docker)
+#save_aliases=$(alias -L)
 source $ZSH/oh-my-zsh.sh
 # remove oh-my-zsh aliases
-unalias -m '*'
-eval $save_aliases; unset save_aliases
+#unalias -m '*'
+#eval $save_aliases; unset save_aliases
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"

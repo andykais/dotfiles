@@ -10,6 +10,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/NERDtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-vinegar'
 "Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -273,6 +274,12 @@ autocmd BufNewFile,BufRead *.js,*.jsx.*.json,*.yml setlocal softtabstop=2
 
 
 
+"netrw file browser config
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
+let g:netrw_winsize = 25
+
 "------------------------------------------------------------
 "Plugin Specific Settings
 
@@ -287,18 +294,19 @@ nnoremap <C-\> :NERDTreeToggle<CR>
 inoremap <C-\> <C-O>:NERDTreeToggle<CR>
 vnoremap <C-\> <C-C>:NERDTreeToggle<CR>
 
-"nerdtree-git-plugin config
-let g:NERDTreeIndicatorMapCustom = {
-            \ "Modified"  : "*",
-            \ "Staged"    : "✚",
-            \ "Untracked" : "+",
-            \ "Renamed"   : "➜",
-            \ "Unmerged"  : "═",
-            \ "Deleted"   : "-",
-            \ "Dirty"     : "✘",
-            \ "Clean"     : "✔︎",
-            \ "Unknown"   : "?"
-            \ }
+""nerdtree-git-plugin config
+""let g:NERDTreeIndicatorMapCustom = {
+            ""\ "Modified"  : "~",
+            ""\ "Staged"    : "+",
+            ""\ "Untracked" : "*",
+            ""\ "Renamed"   : "»",
+            ""\ "Unmerged"  : "═",
+            ""\ "Deleted"   : "-",
+            ""\ "Dirty"     : "x",
+            ""\ "Clean"     : "ø",
+            ""\ "Unknown"   : "?"
+            ""\ }
+"let g:NERDTreeUseSimpleIndicator = 1
 
 "airline config
 let g:airline_powerline_fonts=1
@@ -460,6 +468,11 @@ autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
     "inoremap <silent><expr><C-@> deoplete#mappings#manual_complete()
 "endif
 "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+
+"ensime config
+let ensime_server_v2=1
+
+
 
 "vim-instant-markdown
 let g:instant_markdown_autostart = 0
