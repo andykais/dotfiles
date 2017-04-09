@@ -1,4 +1,9 @@
+!term*font: xft:Terminess,xft:Inconsolata\ for\ Powerline
+
+
 xterm*faceName: xos4 Terminess Powerline
+!xterm*faceName: SauceCodePro Nerd Font
+
 !xterm*faceName: xft:SourceCodePro for Powerline
 !xterm*boldFont: xft:xos4 Terminess Powerline:style=Bold
 xterm*faceSize: 9

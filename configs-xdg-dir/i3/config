@@ -140,26 +140,26 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
+    # These bindings trigger as soon as you enter the resize mode
 
-        # Pressing left will shrink the window’s width.
-        # Pressing right will grow the window’s width.
-        # Pressing up will shrink the window’s height.
-        # Pressing down will grow the window’s height.
-        bindsym j resize shrink width 10 px or 10 ppt
-        bindsym k resize grow height 10 px or 10 ppt
-        bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+    # Pressing left will shrink the window’s width.
+    # Pressing right will grow the window’s width.
+    # Pressing up will shrink the window’s height.
+    # Pressing down will grow the window’s height.
+    bindsym j resize shrink width 10 px or 10 ppt
+    bindsym k resize grow height 10 px or 10 ppt
+    bindsym l resize shrink height 10 px or 10 ppt
+    bindsym semicolon resize grow width 10 px or 10 ppt
 
-        # same bindings, but for the arrow keys
-        bindsym Left resize shrink width 10 px or 10 ppt
-        bindsym Down resize grow height 10 px or 10 ppt
-        bindsym Up resize shrink height 10 px or 10 ppt
-        bindsym Right resize grow width 10 px or 10 ppt
+    # same bindings, but for the arrow keys
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
@@ -167,15 +167,15 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-  status_command i3status
-  position top
-  tray_output LVDS1
-  font pango: xos4 Terminess Powerline 9
-  #font pango: Sauce Code Pro 10
-  colors {
-    #background #232323
-    statusline #DCDCDC
-  }
+    status_command i3status
+    position top
+    tray_output LVDS1
+    font pango: xos4 Terminess Powerline 9
+    #font pango: Sauce Code Pro 10
+    colors {
+      #background #232323
+      statusline #DCDCDC
+    }
 }
 #colorsclass		border	bckgrnd text	font
 client.focused          #91BF3D	#91BF3D	#000000	#00DA8E
@@ -197,8 +197,8 @@ new_window normal 0 px
 bindsym XF86AudioMute exec amixer -q set Master toggle && killall -USR1 i3status
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && killall -USR1 i3status
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && killall -USR1 i3status
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+#bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+#bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
@@ -212,16 +212,18 @@ exec --no-startup-id dropbox
 exec --no-startup-id redshift-gtk -c ~/.config/redshift.conf
 #exec --no-startup-id cmst -w5 -m
 #exec --no-startup-id nm-applet
-exec --no-startup-id ~/bin/launch_network_tray_app.sh
+#exec --no-startup-id ~/bin/launch_network_tray_app.sh
 #exec --no-startup-id moni.sh 
 exec --no-startup-id ~/bin/slideshow.sh
 #exec --no-startup-id sh ~/.fehbg &
 #start wifi tray applet
-#exec --no-startup-id nm-applet
+exec --no-startup-id nm-applet
+exec --no-startup-id blueman-applet
+exec --no-startup-id /usr/lib/notify-osd/notify-osd
 
 #chrome start
 bindsym $mod+g exec google-chrome-stable --profile-directory=Default
-#bindsym $mod+g exec optirun google-chrome-stable --profile-directory=Default --ignore-gpu-blacklist 
+#bindsym $mod+g exec optirun google-chrome-stable --profile-directory=Default --ignore-gpu-blacklist
 #bindsym $mod+g exec optirun google-chrome-stable --profile-directory=Default --disable-gpu-sandbox
 
 # ktorrent start
@@ -270,10 +272,7 @@ bindsym $mod+Shift+l exec i3lock -c 000000
 # class=WM_CLASS(STRING) 
 # instance=WM_NAME(STRING) 
 for_window [window_role="pop-up"] floating enable focus true
-for_window [class="net-minecraft-bootstrap-Bootstrap" instance="sun-awt-X11-XFramePeer"] floating enable
-for_window [class="Minecraft 1.8.8"] floating enable
-for_window [class="Minecraft 1.6.2"] floating enable
+#for_window [class="Minecraft 1.11.2"] floating enable
+for_window [title="Minecraft.*"] floating enable
 assign [class="Ktorrent"] → 10
-for_window [class="Grabber" instance="Batch download - Grabber"] floating enable
-for_window [class="Python" instance="Youtube-DLG"] floating enable
 for_window [class="Steam" instance="Steam - News (1 of 4)"] floating enable

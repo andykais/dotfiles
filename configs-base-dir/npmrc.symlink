@@ -1,2 +1,2 @@
-prefix=~/.npm-packages
+prefix=/home/andrew/.npm-packages
 python=/usr/bin/python2

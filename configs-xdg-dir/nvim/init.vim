@@ -32,7 +32,7 @@ Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json'
 "Plug 'hail2u/vim-css3-syntax'
 Plug 'junegunn/rainbow_parentheses.vim'
-"Plug 'pangloss/vim-javascript', {'branch': 'develop'}
+"Plug 'pangloss/vim-javascript'
 "Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 "Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
 "Plug 'moll/vim-node', { 'for': 'javascript' }
@@ -56,14 +56,14 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/SyntaxAttr.vim'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'Chiel92/vim-autoformat'
+Plug 'Chiel92/vim-autoformat', {'do': 'yarn global add js-beautify'}
 "Plug 'wesQ3/vim-windowswap' "Swap your windows without ruining your layout
 "Plug 'majutsushi/tagbar'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-clang'
 Plug 'carlitux/deoplete-ternjs'
 Plug 'derekwyatt/vim-scala'
-Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
+"Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
 Plug 'neomake/neomake', {'do': 'yarn global add eslint_d eslint babel-eslint eslint-plugin-flowtype'}
 call plug#end()
 
