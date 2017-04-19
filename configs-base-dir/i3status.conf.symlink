@@ -7,67 +7,78 @@
 # If the above line is not correctly displayed, fix your editor first!
 
 general {
-    colors = true
-        interval = 5
+  colors = true
+  interval = 5
 }
 
 order += "volume master"
-#order += "ipv6"
 order += "disk /"
-order += "wireless wlo1"
-order += "ethernet eno1"
+order += "ipv6"
+order += "run_watch VPN"
+order += "wireless wlp4s0"
+order += "ethernet enp0s31f6"
 order += "ethernet usb0"
 order += "cpu_usage"
 order += "cpu_temperature 0"
 order += "battery 0"
+order += "battery 1"
 order += "load"
 order += "tztime local"
 
-wireless wlo1  {
-    format_up = "W: (%quality at %essid) %ip"
-        format_down = "W: down"
-#min_width = 100
+wireless wlp4s0  {
+  format_up = "W: (%quality, %bitrate / %frequency at %essid) %ip"
+  format_down = "W: down"
 }
 
-ethernet eno1 {
-# if you use %speed, i3status requires root privileges
-    format_up = "E: %ip (%speed)"
-        format_down = "E: down"
+ethernet enp0s31f6 {
+  format_up = "E: %ip (%speed)"
+  format_down = "E: down"
 }
 ethernet usb0 {
 
-    format_up = "U: %ip (%speed)"
-        format_down = "U: down"
+  format_up = "U: %ip (%speed)"
+  format_down = "U: down"
 }
 cpu_usage {
-    format = " CPU: %usage "
+  format = " CPU: %usage "
 }
 cpu_temperature 0 {
-    format = " TEMP %degrees °C "
+  format = " TEMP %degrees °C "
 }
 battery 0 {
-    format = "%status %percentage %remaining"
-    status_chr = "⚡ CHR"
-    status_bat = "BAT"
-    status_unk = "UNK"
-    status_full = "☻ FULL"
+  format = "%status %percentage %remaining"
+  status_chr = "⚡ CHR"
+  status_bat = "BAT"
+  status_unk = "UNK"
+  status_full = "☻ FULL"
+}
+battery 1 {
+  format = "%status %percentage %remaining"
+  status_chr = "⚡ CHR"
+  status_bat = "BAT"
+  status_unk = "UNK"
+  status_full = "☻ FULL"
 }
 
 tztime local {
-    format = "%Y-%m-%d %H:%M:%S"
+  format = "%Y-%m-%d %H:%M:%S"
 }
 
 load {
-    format = "%1min"
+  format = "%1min"
 }
 
 disk "/" {
-    format = "%avail"
+  format = "%avail"
 }
 
 volume master {
-    format = "♪: %volume"
-        device = "default"
-        mixer = "Master"
-        mixer_idx = 0
+  format = "♪: %volume"
+  device = "default"
+  mixer = "Master"
+  mixer_idx = 0
+}
+
+run_watch VPN {
+  pidfile = "/var/run/vpnc/pid"
 }

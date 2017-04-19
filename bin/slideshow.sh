@@ -5,7 +5,8 @@ wait=$((60 * 60))
 
 # in the future, could load files from a general bin/config file
 # sed -c -i "s/\($TARGET_KEY *= *\).*/\1$REPLACEMENT_VALUE/" $CONFIG_FILE
-dir="$(< $HOME/bin/data/slideshow_all.txt)"
+#dir="$(< $HOME/bin/data/slideshow_all.txt)"
+dir=~/Pictures/wallpapers
 
 # finds the image files in $dir
 # optionally can add --max-depth 1 to keep from searching subdirs

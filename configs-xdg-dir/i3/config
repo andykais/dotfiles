@@ -169,7 +169,7 @@ bindsym $mod+r mode "resize"
 bar {
     status_command i3status
     position top
-    tray_output LVDS1
+    tray_output primary
     font pango: xos4 Terminess Powerline 9
     #font pango: Sauce Code Pro 10
     colors {
@@ -197,8 +197,8 @@ new_window normal 0 px
 bindsym XF86AudioMute exec amixer -q set Master toggle && killall -USR1 i3status
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && killall -USR1 i3status
 bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && killall -USR1 i3status
-#bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-#bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
@@ -211,7 +211,6 @@ exec --no-startup-id xrdb -load .Xresources
 exec --no-startup-id dropbox
 exec --no-startup-id redshift-gtk -c ~/.config/redshift.conf
 #exec --no-startup-id cmst -w5 -m
-#exec --no-startup-id nm-applet
 #exec --no-startup-id ~/bin/launch_network_tray_app.sh
 #exec --no-startup-id moni.sh 
 exec --no-startup-id ~/bin/slideshow.sh
