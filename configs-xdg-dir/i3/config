@@ -203,6 +203,9 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
+bindsym $mod+p exec playerctl play-pause
+bindsym $mod+equal exec playerctl next
+bindsym $mod+minus exec playerctl previous
 
 #run on startup
 #exec --no-startup-id xbacklight -set 100
@@ -273,5 +276,7 @@ bindsym $mod+Shift+l exec i3lock -c 000000
 for_window [window_role="pop-up"] floating enable focus true
 for_window [title="Minecraft.*"] floating enable
 for_window [class="Arandr"] floating enable
-assign [class="Ktorrent"] → 10
+assign [class="ktorrent"] → 10
+assign [class="Spotify"] → 10
+for_window [class="Spotify"] move to workspace 10
 for_window [class="Steam" instance="Steam - News (1 of 4)"] floating enable

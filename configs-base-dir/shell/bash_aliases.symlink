@@ -13,7 +13,9 @@ alias lstat='stat -c "%a %n" '
 alias dusort='sudo du -h --max-depth=1 | sort -h -r'
 alias pacres='yaourt -Qq -e --date'
 alias docker-stop='docker stop $(docker ps -q)'
-alias docker-rm='docker rm $(docker ps -a -q)'
+function docker-rm() {
+  docker rm $(docker ps -a 2&>1 | awk 'NR>1' | grep "$1" | awk '{print $1}')
+}
 alias docker-rmi='docker rmi $(docker images -q)'
 
 
@@ -42,13 +44,13 @@ alias gb='git branch'
 #alias bjb='bundle exec jekyll build --watch --no-watch=".idea"'
 #alias bjs='bundle exec jekyll serve --watch'
 bjs() {
-    bundle exec jekyll serve --watch
+  bundle exec jekyll serve --watch
 }
 bgu() {
-    bundle exec guard
+  bundle exec guard
 }
 title(){
-    echo -ne "\033]0;$1\007"
+  echo -ne "\033]0;$1\007"
 }
 alias susp='sudo pm-suspend'
 alias re='sudo reboot'
@@ -56,21 +58,21 @@ alias r='rsync -a'
 alias o='xdg-open'
 alias terminator='terminator -l refresh -p stay_open'
 function jumprange(){
-    j "$1"; ranger
+  j "$1"; ranger
 }
 alias jr='jumprange'
 
 alias pdfl='pdflatex'
 function sorthuman(){
-    sudo du -mh "$1" | sort -hr | head -n 20
+  sudo du -mh "$1" | sort -hr | head -n 20
 }
 alias humansize='sorthuman'
 
 function notify() {
-while true
-do
+  while true
+  do
     inotifywait -qre close_write .
-done
+  done
 }
 alias notify='notify'
 alias recordBox5s='byzanz-window --rectangle --duration=5 --delay=3 --cursor'

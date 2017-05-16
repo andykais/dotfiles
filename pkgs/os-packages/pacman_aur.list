@@ -1,7 +1,13 @@
 packer
 google-chrome
-dropbox-cli
-discord
+powerline-fonts-git
+xorg-server-utils
+ttf-impallari-dosis
+dropbox
 spotify
-postman-bin
-minecraft
+private-internet-access-vpn
+ffmpeg0.10
+dbvis
+staruml
+libopenssl-1.0-compat
+libcurl-openssl-1.0

@@ -145,7 +145,7 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 set history=1000 " change history to 1000
-set textwidth=90
+set textwidth=150
 
 "faster screen redraw
 set ttyfast

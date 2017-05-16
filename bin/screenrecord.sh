@@ -18,4 +18,4 @@ if [ ! -z "$1" ]; then
   DURATION=$1
 fi
 
-byzanz-record --duration=$DURATION $FILE
+byzanz-record --duration=$DURATION $FILE $2

@@ -2,6 +2,7 @@
 
 i="000"
 FILE="$HOME/Pictures/screenshots/screenshot($i).png"
+mkdir -p $HOME/Pictures/screenshots
 
 while  [ -f $FILE ];
 do

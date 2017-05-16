@@ -25,15 +25,7 @@ gtk themes
 - gtk-chtheme
 - qt4-qtconfig
 
-### Non Packaged programs
-- [megasync](mega.nz)
-- [robomongo](https://robomongo.org/download)
-- [steam](http://store.steampowered.com/about/)
-
-### Configure VPN
-[privatetunnel](https://www.privatetunnel.com/phome/user/#/Help)
-
-### Environment Specific
+### OS Specific
 #### Mint
 - `.config/ranger/scope.sh` sets highlight to `/usr/bin/highlight`
 - make sure terminal uses login script
