@@ -89,6 +89,11 @@ get_manga() {
       zip_chapter $formatted_chapter
     fi
   done <<< $urls
+  
+  if [[ $(bc -l <<< "$current_chapter < $STOP") = 1 ]]; then
+    echo "Range exceeded available chapters."
+  fi
+  
   exit
 }
 

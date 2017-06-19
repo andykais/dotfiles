@@ -25,7 +25,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'othree/html5.vim'
 Plug 'mxw/vim-jsx'
-"Plug 'flowtype/vim-flow', {'for': 'javascript'}
+Plug 'flowtype/vim-flow', {'for': 'javascript'}
 "Plug 'thiderman/vim-supervisord'
 "Plug 'stephenway/postcss.vim'
 "Plug 'cakebaker/scss-syntax.vim'
@@ -44,7 +44,7 @@ Plug 'ternjs/tern_for_vim', {'do': 'yarn install'}
 "Plug 'Valloric/YouCompleteMe', {'do': './install.py --tern-completer', 'for': ['javascript', 'html', 'css', 'c++']}
 "autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
 "Plug 'ramitos/jsctags',{'do': 'npm install'}
-Plug 'mattn/emmet-vim', { 'for': ['html','javascript'] }
+Plug 'mattn/emmet-vim'
 Plug 'gregsexton/MatchTag'
 "Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'tpope/vim-markdown'
@@ -61,7 +61,7 @@ Plug 'Chiel92/vim-autoformat', {'do': 'yarn global add js-beautify'}
 "Plug 'majutsushi/tagbar'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-clang'
-Plug 'carlitux/deoplete-ternjs'
+Plug 'carlitux/deoplete-ternjs', {'do': 'yarn global add tern'}
 Plug 'derekwyatt/vim-scala'
 "Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
 Plug 'neomake/neomake', {'do': 'yarn global add eslint_d eslint babel-eslint eslint-plugin-flowtype'}
@@ -145,7 +145,7 @@ set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 set history=1000 " change history to 1000
-set textwidth=150
+set textwidth=110
 
 "faster screen redraw
 set ttyfast
@@ -317,6 +317,11 @@ let g:airline_powerline_fonts=1
 
 "tern config
 " only runs when the cwd has a .tern-project in the root
+let g:tern_request_timeout = 1
+let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
+
+let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent"]
 
 
 "YouCompleteMe config
@@ -362,10 +367,14 @@ inoremap <C-f> <C-O>:Autoformat<CR>
 "javascript-vim config
 let g:javascript_plugin_flow=1
 
+"vim-flow
+let g:flow#enable = 0"
+
 "neomake config
 autocmd! BufWritePost *.html,*.css,*.scss,*.js,*.json,*.yml,*.sh Neomake
 "let g:neomake_javascript_enabled_makers = ['eslint_d', 'flow']
 let g:neomake_javascript_enabled_makers = ['eslint_d']
+
 let g:jsx_ext_required = 0
 
 "let g:neomake_javascript_enabled_makers = ['babel-eslint']
@@ -409,6 +418,7 @@ map -a        :call SyntaxAttr()<CR>
 "autocmd FileType javascript,c let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_at_startup = 1
 set completeopt-=preview
+let g:deoplete#file#enable_buffer_path=1
 "let g:deoplete#sources={} 
 "let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips'] 
 "let g:deoplete#omni_patterns={} 

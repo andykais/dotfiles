@@ -1,37 +1,28 @@
 alias psg='ps ax | ag '
-alias lessh='LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s" less -M '
 alias ndone='notify-send -t 3 "CMD finished!" "in folder $(basename $PWD) with code $?"'
+alias v='nvim'
+alias pstop='watch -n1 "ps aux --sort=-pcpu | head -n 6"'
+alias lstat='stat -c "%a %n" '
+alias dusort='sudo du -h --max-depth=1 | sort -h -r'
+alias fg='find . * | grep $1'
+alias t='i3-sensible-terminal &'
+alias susp='sudo pm-suspend'
+alias rebo='sudo reboot'
+alias o='xdg-open'
+alias pdfl='pdflatex'
 alias ls='ls --color=tty'
 alias l='ls -hl --group-directories-first'
 alias la='ls -ahl --group-directories-first'
 alias apt-get='$HOME/bin/apt-log.sh'
-alias v='nvim'
-alias pstop='watch -n1 "ps -Ao user,uid,comm,pid,pcpu,tty --sort=-pcpu | head -n 6"'
-alias pstop='watch -n1 "ps aux --sort=-pcpu | head -n 6"'
-alias lstat='stat -c "%a %n" '
-#alias dusort='du -achd1  * | sort -hr
-alias dusort='sudo du -h --max-depth=1 | sort -h -r'
-alias pacres='yaourt -Qq -e --date'
+
+
+
+# docker aliases
 alias docker-stop='docker stop $(docker ps -q)'
+alias docker-rmi='docker rmi $(docker images -a -q)'
 function docker-rm() {
   docker rm $(docker ps -a 2&>1 | awk 'NR>1' | grep "$1" | awk '{print $1}')
 }
-alias docker-rmi='docker rmi $(docker images -q)'
-
-
-alias srcb='source ~/.bash_profile'
-
-alias red='redshift-gtk -c $HOME/.config/redshift.conf'
-alias process='processing-java --sketch=$PWD --output=$HOME/Downloads/tmp --force --run'
-alias lock='gnome-screensaver-command -l'
-alias tm='truecrypt /media/raspi/important_documents /media/truecrypt7/'
-alias td='truecrypt -d'
-alias fg='find . * | grep $1'
-alias t='i3-sensible-terminal &'
-#alias convert='mkdir mp3s/ && pacpl * -to mp3 --outdir mp3s/'
-#allows vim to capture ctrl-s
-#alias vim='stty -ixon; vim'
-
 
 #git aliases
 alias ga='git add --all .'
@@ -40,39 +31,29 @@ alias gph='git push'
 alias gstat='git status'
 alias gd='git diff $@ --name-only'
 alias gb='git branch'
-#ruby aliases
-#alias bjb='bundle exec jekyll build --watch --no-watch=".idea"'
-#alias bjs='bundle exec jekyll serve --watch'
+function gdf() {
+  current_branch=$(git rev-parse --abbrev-ref HEAD)
+  git diff --name-only $current_branch $(git merge-base $current_branch master)
+}
+
+# ruby bundler aliases
 bjs() {
   bundle exec jekyll serve --watch
 }
 bgu() {
   bundle exec guard
 }
+
+
 title(){
   echo -ne "\033]0;$1\007"
 }
-alias susp='sudo pm-suspend'
-alias re='sudo reboot'
-alias r='rsync -a'
-alias o='xdg-open'
-alias terminator='terminator -l refresh -p stay_open'
-function jumprange(){
-  j "$1"; ranger
-}
-alias jr='jumprange'
-
-alias pdfl='pdflatex'
 function sorthuman(){
   sudo du -mh "$1" | sort -hr | head -n 20
 }
-alias humansize='sorthuman'
-
 function notify() {
   while true
   do
     inotifywait -qre close_write .
   done
 }
-alias notify='notify'
-alias recordBox5s='byzanz-window --rectangle --duration=5 --delay=3 --cursor'

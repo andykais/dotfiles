@@ -66,6 +66,7 @@ tztime local {
 
 load {
   format = "%1min"
+  max_threshold = "1.5"
 }
 
 disk "/" {
