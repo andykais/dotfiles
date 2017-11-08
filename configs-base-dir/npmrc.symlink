@@ -1,3 +1,4 @@
 prefix=/home/andrew/.npm-packages
-python=/usr/bin/python2
-//registry.npmjs.org/:_authToken=a6c3c40d-fe1c-4c99-adb2-7d2937ae5a14
+//registry.npmjs.org/:_authToken=e1aed868-7414-4a7d-b8b9-3f505cbc8dbe
+loglevel=warn
+save=true

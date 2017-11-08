@@ -1,10 +1,11 @@
+[[ -e ~/.bash_aliases_secret ]] && . ~/.bash_aliases_secret
+
 alias psg='ps ax | ag '
 alias ndone='notify-send -t 3 "CMD finished!" "in folder $(basename $PWD) with code $?"'
 alias v='nvim'
 alias pstop='watch -n1 "ps aux --sort=-pcpu | head -n 6"'
 alias lstat='stat -c "%a %n" '
 alias dusort='sudo du -h --max-depth=1 | sort -h -r'
-alias fg='find . * | grep $1'
 alias t='i3-sensible-terminal &'
 alias susp='sudo pm-suspend'
 alias rebo='sudo reboot'
@@ -24,10 +25,22 @@ function docker-rm() {
   docker rm $(docker ps -a 2&>1 | awk 'NR>1' | grep "$1" | awk '{print $1}')
 }
 
+# docker steam
+function docker_helper() {
+    pushd ~/docker/$1
+    docker-compose rm -fa "$1"
+    docker-compose run -d --name "$1" "$@"
+    popd
+}
+
+function steam() {
+    docker_helper "$FUNCNAME" "$@"
+}
+
 #git aliases
 alias ga='git add --all .'
+alias gaA='git add -A'
 alias gc='git commit -m $1'
-alias gph='git push'
 alias gstat='git status'
 alias gd='git diff $@ --name-only'
 alias gb='git branch'

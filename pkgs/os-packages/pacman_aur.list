@@ -1,6 +1,5 @@
 packer
 google-chrome
-powerline-fonts-git
 xorg-server-utils
 ttf-impallari-dosis
 dropbox
@@ -8,8 +7,6 @@ spotify
 private-internet-access-vpn
 ffmpeg0.10
 dbvis
-wxgtk
-staruml
 libopenssl-1.0-compat
 libcurl-openssl-1.0
 tmate
@@ -21,3 +18,14 @@ virtualbox-ext-oracle
 apacman
 apacman-deps
 perl-term-shellui
+python2-pypdf2
+quiterss
+musictube
+minecraft
+kops
+perl-padwalker
+nerd-fonts-git
+glib
+gtk
+libxaw3dxft
+xpaint

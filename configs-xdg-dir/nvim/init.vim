@@ -19,20 +19,24 @@ Plug 'tpope/vim-repeat'
 Plug 'jiangmiao/auto-pairs'
 Plug 'vim-airline/vim-airline'
 Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'chr4/nginx.vim'
 "Plug 'scrooloose/syntastic'
 "Plug 'bigfish/vim-js-context-coloring'
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
+Plug 'mustache/vim-mustache-handlebars'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'othree/html5.vim'
 Plug 'mxw/vim-jsx'
+Plug 'elzr/vim-json'
 Plug 'flowtype/vim-flow', {'for': 'javascript'}
 "Plug 'thiderman/vim-supervisord'
 "Plug 'stephenway/postcss.vim'
 "Plug 'cakebaker/scss-syntax.vim'
-Plug 'elzr/vim-json'
-"Plug 'hail2u/vim-css3-syntax'
+Plug 'hail2u/vim-css3-syntax'
+"Plug 'amadeus/vim-css'
+"Plug 'fleischie/vim-styled-components'
 Plug 'junegunn/rainbow_parentheses.vim'
-"Plug 'pangloss/vim-javascript'
+Plug 'pangloss/vim-javascript'
 "Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 "Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
 "Plug 'moll/vim-node', { 'for': 'javascript' }
@@ -40,7 +44,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 "Plug 'othree/yajs.vim', {'for': 'javascript'}
 "Plug 'maksimr/vim-jsbeautify', {'for': 'javascript'}
 "Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-Plug 'ternjs/tern_for_vim', {'do': 'yarn install'}
+" Plug 'ternjs/tern_for_vim', {'do': 'yarn install'}
 "Plug 'Valloric/YouCompleteMe', {'do': './install.py --tern-completer', 'for': ['javascript', 'html', 'css', 'c++']}
 "autocmd! User YouCompleteMe if !has('vim_starting') | call youcompleteme#Enable() | endif
 "Plug 'ramitos/jsctags',{'do': 'npm install'}
@@ -60,11 +64,22 @@ Plug 'Chiel92/vim-autoformat', {'do': 'yarn global add js-beautify'}
 "Plug 'wesQ3/vim-windowswap' "Swap your windows without ruining your layout
 "Plug 'majutsushi/tagbar'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins' }
+
+"Plug 'wokalski/autocomplete-flow'
+" For func argument completion
+"Plug 'Shougo/neosnippet'
+"Plug 'Shougo/neosnippet-snippets'
+
 Plug 'zchee/deoplete-clang'
 Plug 'carlitux/deoplete-ternjs', {'do': 'yarn global add tern'}
-Plug 'derekwyatt/vim-scala'
+" Plug 'derekwyatt/vim-scala'
 "Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
-Plug 'neomake/neomake', {'do': 'yarn global add eslint_d eslint babel-eslint eslint-plugin-flowtype'}
+"Plug 'neomake/neomake', {'do': 'yarn global add eslint_d eslint babel-eslint eslint-plugin-flowtype'}
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
+Plug 'w0rp/ale', { 'for': 'javascript' }
+Plug 'mileszs/ack.vim'
+Plug 'timakro/vim-searchant'
+Plug 'wakatime/vim-wakatime'
 call plug#end()
 
 "------------------------------------------------------------
@@ -72,6 +87,8 @@ call plug#end()
 
 set t_Co=256
 colorscheme seoul256
+"colorscheme onehalflight
+"let g:airline_theme='onehalfdark'
 "colorscheme xoria256
 "colorscheme monokai
 "colors zenburn
@@ -190,7 +207,8 @@ map <C-c> "+y<CR>
 " search using visual selection
 noremap // y/<C-R>"<CR>
 " toggle search highlighting with space
-nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
+" nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
+" nnoremap <silent> <Space> <Plug>SearchantStop
 " pageup/pagedown now move half a page
 nnoremap <PageDown> <C-d>
 nnoremap <PageUp> <C-u>
@@ -201,14 +219,19 @@ nnoremap <c-y> 2<c-y>
 nnoremap <leader>ev :Explore ~/.vim/settings<CR>jj
 nnoremap <leader>sv :source $MYVIMRC<CR>
 " faster switching between splits
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
-inoremap <C-J> <C-O><C-W><C-J>
-inoremap <C-K> <C-O><C-W><C-K>
-inoremap <C-L> <C-O><C-W><C-L>
-inoremap <C-H> <C-O><C-W><C-H>
+nnoremap ê <C-W><C-J>
+nnoremap ë <C-W><C-K>
+nnoremap ì <C-W><C-L>
+nnoremap è <C-W><C-H>
+inoremap ê <C-O><C-W><C-J>
+inoremap ë <C-O><C-W><C-K>
+inoremap ì <C-O><C-W><C-L>
+inoremap è <C-O><C-W><C-H>
+" move through wrapped text normally
+imap <silent> <Down> <C-o>gj
+imap <silent> <Up> <C-o>gk
+nmap <silent> <Down> gj
+nmap <silent> <Up> gk
 " associate proper syntaxes with files
 au BufNewFile,BufRead .bash_aliases call SetFileTypeSH("bash")
 autocmd BufNewFile,BufRead .babelrc call SetFileTypeSH("json")
@@ -233,9 +256,14 @@ autocmd BufRead,BufNewFile *.md,*.tex setlocal spell spelllang=en_us
 autocmd BufRead,BufNewFile *.md,*.yml,*.tex set wrap linebreak nolist
 autocmd BufRead,BufNewFile *.sh,*.c,*.cpp set textwidth=180
 autocmd BufRead,BufNewFile *.js,*.jsx set backupcopy=yes
+"Add missing filetypes
 autocmd BufRead,BufNewFile docker-*.yml set filetype=docker-compose
 autocmd BufRead,BufNewFile docker-*.yml set nowrap
-autocmd BufRead,BufNewFile .eslintrc set filetype=json
+autocmd BufRead,BufNewFile test-project.txt set filetype=Dockerfile
+autocmd BufRead,BufNewFile .eslintrc,.tern-project set filetype=json
+autocmd BufRead,BufNewFile *.js.flow set filetype=javascript
+autocmd BufRead,BufNewFile build.sbt set filetype=scala
+autocmd BufRead,BufNewFile *.template set filetype=mustache
 
 
 autocmd BufRead,BufNewFile *.md set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
@@ -279,6 +307,9 @@ let g:netrw_liststyle = 3
 let g:netrw_banner = 0
 let g:netrw_browse_split = 4
 let g:netrw_winsize = 25
+"nnoremap <C-\> :Lexplore<CR>
+"inoremap <C-\> <C-O>:Lexplore<CR>
+"vnoremap <C-\> <C-C>:Lexplore<CR>
 
 "------------------------------------------------------------
 "Plugin Specific Settings
@@ -308,21 +339,17 @@ vnoremap <C-\> <C-C>:NERDTreeToggle<CR>
             ""\ }
 "let g:NERDTreeUseSimpleIndicator = 1
 
+"
+"nerdcommenter config
+let NERDSpaceDelims=1
+
+
 "airline config
 let g:airline_powerline_fonts=1
 "let g:airline_left_sep=''
 "let g:airline_right_sep=''
 "let g:airline_theme='base16'
 ":AirlineRefresh
-
-"tern config
-" only runs when the cwd has a .tern-project in the root
-let g:tern_request_timeout = 1
-let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
-
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
-
 
 "YouCompleteMe config
 "set omnifunc=syntaxcomplete#Complete
@@ -355,8 +382,8 @@ nmap ga <Plug>(EasyAlign)
 
 "Autoformat config
 "autocmd BufWrite *.html,*.css,*.scss,*.js,*.json,*.sh,*.pl,*.hs,*.c,*.cpp,*.h,*.tex  :Autoformat
-noremap <C-f> :Autoformat<CR>
-inoremap <C-f> <C-O>:Autoformat<CR>
+noremap <C-S-f> :Autoformat<CR>
+inoremap <C-S-f> <C-O>:Autoformat<CR>
 "javascript folding
 "folding settings
 "set foldmethod=indent   "fold based on indent
@@ -371,9 +398,9 @@ let g:javascript_plugin_flow=1
 let g:flow#enable = 0"
 
 "neomake config
-autocmd! BufWritePost *.html,*.css,*.scss,*.js,*.json,*.yml,*.sh Neomake
+"autocmd! BufWritePost *.html,*.css,*.scss,*.js,*.json,*.yml,*.sh Neomake
 "let g:neomake_javascript_enabled_makers = ['eslint_d', 'flow']
-let g:neomake_javascript_enabled_makers = ['eslint_d']
+"let g:neomake_javascript_enabled_makers = ['eslint_d']
 
 let g:jsx_ext_required = 0
 
@@ -392,6 +419,20 @@ nmap <Leader><Space>p :lprev<CR>      " previous error/warning
 
 let g:vim_json_syntax_conceal = 0
 let g:neomake_logfile='/tmp/error.log'
+
+" ale
+let g:ale_linters = {
+\  'javascript': ['standard']
+\}
+" Only run linters on file save
+let g:ale_lint_on_text_changed = 'never'
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 0
+autocmd FileType javascript noremap <C-f> :silent !standard --fix %<CR>
+ ":cannot call alelint after because async function ALELint<CR>
+" autocmd FileType javascript noremap <C-S-f> :ALELint<CR>
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
 "editorconfig config
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
@@ -419,6 +460,8 @@ map -a        :call SyntaxAttr()<CR>
 let g:deoplete#enable_at_startup = 1
 set completeopt-=preview
 let g:deoplete#file#enable_buffer_path=1
+" auto complete paths relative to working file
+"set autochdir
 "let g:deoplete#sources={} 
 "let g:deoplete#sources._=['buffer', 'member', 'tag', 'file', 'omni', 'ultisnips'] 
 "let g:deoplete#omni_patterns={} 
@@ -447,7 +490,14 @@ let g:deoplete#file#enable_buffer_path=1
 let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
 let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
 " deoplete-ternjs
+"tern config
+" only runs when the cwd has a .tern-project in the root
+"let g:tern_request_timeout = 1
+"let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
+
 let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent"]
+
 
 
 "if exists('g:plugs["tern_for_vim"]')
@@ -516,3 +566,8 @@ let g:ctrlp_root_markers = ['build.sbt', 'package.json']
 "\ 'dir':  '\v\.(git|hg|svn|minecraft)$',
 "\ 'file': '\v\.(exe|so|dll)$',
 "\ }
+
+" ack.vim
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif

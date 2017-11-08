@@ -49,6 +49,6 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 PATH="$PATH:$ANDROID_HOME/tools"
 PATH="$PATH:$ANDROID_HOME/platform-tools"
 PATH="$PATH:$HOME/Build/prod/gzrt"
-export PASSWORD_STORE_DIR="$HOME/Dropbox/.password-store"
+PATH="$PATH:$HOME/Build/dev/okcollege/libs/scripts"
 export EDITOR="nvim"
 export VISUAL="nvim"

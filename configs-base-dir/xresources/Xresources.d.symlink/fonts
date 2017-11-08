@@ -1,13 +1,17 @@
 !term*font: xft:Terminess,xft:Inconsolata\ for\ Powerline
 
 
-xterm*faceName: xos4 Terminess Powerline
-!xterm*faceName: Disos
-!xterm*faceName: xft:SourceCodePro for Powerline
-!xterm*faceName: TerminessTTF Nerd Font
-!xterm*faceName: SauceCodePro Nerd Font
+! xterm*faceSize: 10
+xterm*faceName: xos4 Terminus
+! xterm*faceName: Hurmit NF
+! xterm*faceName: Inconsolata Nerd Font Mono
+! xterm*faceName: TerminessTTF Nerd Font Mono
+! xterm*faceName: RobotoMono Nerd Font Mono
 
-!xterm*boldFont: xft:xos4 Terminess Powerline:style=Bold
+
+
+
 xterm*faceSize: 10
+
 
 ! vim: set filetype=xdefaults :

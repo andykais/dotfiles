@@ -28,6 +28,7 @@ if [ $operation == "on" ]
   if [ $? != 0 ]
   then
     tmuxinator start $tmuxinator_config
+    #google-chrome-stable
   else
     echo "tmux: $tmuxinator_config session is already running."
     tmux attach -t $tmuxinator_config
