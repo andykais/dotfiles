@@ -1,4 +1,6 @@
 prefix=/home/andrew/.npm-packages
 //registry.npmjs.org/:_authToken=e1aed868-7414-4a7d-b8b9-3f505cbc8dbe
-loglevel=warn
+loglevel=error
 save=true
+init.author.name=Andrew Kaiser
+init.license=MIT

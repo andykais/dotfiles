@@ -1,3 +1,4 @@
+info fsevents@1.1.2: The platform "linux" is incompatible with this module.
 info "fsevents@1.1.2" is an optional dependency and failed compatibility check. Excluding it from installation.
 info "@okcollege/okc-manager@0.3.54" has binaries:
 info "browser-sync@2.18.12" has binaries:
@@ -8,6 +9,6 @@ info "flow-bin@0.53.1" has binaries:
 info "gitbook-cli@2.3.0" has binaries:
 info "http-server@0.9.0" has binaries:
 info "instant-markdown-d@0.1.0" has binaries:
-info "js-beautify@1.6.14" has binaries:
+info "js-beautify@1.7.5" has binaries:
 info "keepass-dmenu@1.3.3" has binaries:
-info "tern@0.21.0" has binaries:
+info "neovim@3.5.0" has binaries:

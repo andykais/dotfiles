@@ -5,7 +5,7 @@ const child_process = require('child_process')
 const os = require('os')
 const { promisify } = require('util')
 const [ exec, read ] = [ child_process.exec, fs.readFile ].map(f => promisify(f))
-const DEBUG = Boolean(process.env.DEBUG)
+const DEBUG = process.env.DEBUG === 'true'
 const header = JSON.stringify({ version: 1 }) + '[\n[]'
 const colors = {
   healthy: '#00ff00',
@@ -18,6 +18,25 @@ const unicodes = {
   lightningBolt: '⚡', // console.log('\u{26A1}')
   upload: '↑',
   download: '↓',
+  moonPhases: [
+    { char: '🌑', time: 184566, phase: 'new' },
+    { char: '🌒', time: 553699, phase: 'waxingCrescent' },
+    { char: '🌓', time: 922831, phase: 'firstQuarter' }, // 
+    { char: '🌔', time: 1291963, phase: 'waxingGibbous'}, // waxingGibbous
+    { char: '🌕', time: 1661096, phase: 'full' }, // full
+    { char: '🌖', time: 2030228, phase: 'waningGibbous' }, // waningGibbous
+    { char: '🌗', time: 2399361, phase: 'thirdQuarter' }, // thirdQuarter
+    { char: '🌘', time: 2768493, phase: 'waningCrescent' } // waningCrescent
+    // { char: '🌑', time: 184566, phase: 'new' },
+    // { char: '🌒', time: 553699, phase: 'waxingCrescent' },
+    // { char: '🌓', time: 922831, phase: 'firstQuarter' },
+    // { char: '🌔', time: 1291963, phase: 'waxingGibbous'},
+    // { char: '🌕', time: 1661096, phase: 'full' },
+    // { char: '🌖', time: 2030228, phase: 'waningGibbous' },
+    // { char: '🌗', time: 2399361, phase: 'thirdQuarter' },
+    // { char: '🌘', time: 2768493, phase: 'waningCrescent' }
+
+  ],
   capacity: (percent) =>
   ['▁', '▂', '▃', '▄', '▅', '▆', '▇', '█']
     .find((char, i, { length }) => percent / 100 <= (i + 1) / length)
@@ -61,18 +80,6 @@ const parseTable = (tableString, columnKeys, optFunc) => {
     })
 }
 
-const getDate = () => 
-  (new Date(Date.now())).toLocaleString('en-us', {
-    weekday: 'short',
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    timeZoneName: 'short',
-  }).replace(/,/g, '')
-
 const humanReadable = (bytes, { sigfig = 2, unitsFunc } = {}) => {
   const {
     readable,
@@ -101,6 +108,57 @@ track.log = title => {
 const delay = (ms) => new Promise((resolve, reject) => setTimeout(resolve, ms))
 
 // info grabbers
+const getDate = () => {
+  const now = Date.now()
+  // moon phase
+  // TODO use https://github.com/mourner/suncalc
+  // const moonPhase = (() => {
+    // const lp = 2551443
+    // const newMoon = 592500
+    // const phase = ( now - newMoon ) % lp
+    // const phaseNumber = ( ( phase / 86400 ) + 1) * 100000
+    // const { char } = unicodes.moonPhases.find(({ time }) => phaseNumber < time) || unicodes.moonPhases[unicodes.moonPhases.length - 1]
+    // return char
+  // })()
+
+  const date = (new Date(now)).toLocaleString('en-us', {
+    weekday: 'short',
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    timeZoneName: 'short',
+  }).replace(/,/g, '')
+
+  return {
+    name: 'time',
+    full_text: date
+  }
+}
+
+const getTimeSinceShutdown = async () => {
+  const timeSinceStr = await read('/proc/uptime')
+  const [ secondsSince ] = timeSinceStr.toString().split(' ').map(parseInt)
+  debug(secondsSince)
+  let val
+  if (secondsSince > 86400) {
+    val = (secondsSince / 60 / 60 / 24).toFixed(1) + 'd'
+  } else if (secondsSince > 3600) {
+    val = parseInt(secondsSince / 60 / 60) + 'h'
+  } else if (secondsSince > 60) {
+    val = parseInt(secondsSince / 60) + 'm'
+  } else {
+    val = parseInt(secondsSince) + 's'
+  }
+  debug(secondsSince / 60 / 60 / 24)
+  debug(val)
+  return {
+    name: 'timeSince',
+    full_text: `startup ${val} ago`
+  }
+}
 const getBatteries = async () => {
   const { stdout } = await exec('acpi -b')
   const batteries = stdout.split('\n')
@@ -331,13 +389,14 @@ const getNetwork = async () => {
 
 const getStatus = async () => {
   // [ batteries, cpu, mem, temp, network ]
-  const [ cpu, mem ] = [ getCPU, getMem ].map(f => f()) // get sync
-  const [ batteries, temp, volume, network, disks ] = await Promise.all([ // get async
+  const [ date, cpu, mem ] = [ getDate, getCPU, getMem, ].map(f => f()) // get sync
+  const [ batteries, temp, volume, network, disks, timeSince ] = await Promise.all([ // get async
     getBatteries(),
     getTemp(),
     getVolume(),
     getNetwork(),
-    getDiskSpace()
+    getDiskSpace(),
+    getTimeSinceShutdown()
   ])
   return [
     volume,
@@ -347,10 +406,8 @@ const getStatus = async () => {
     temp,
     ...disks,
     ...batteries,
-    {
-      name: 'time',
-      full_text: getDate()
-    }
+    timeSince,
+    date
   ].map(entry => DEBUG ? entry : ({ ...entry, separator: true, separator_block_width: 16 }))
 }
 
@@ -365,7 +422,7 @@ const printStatus = async () => {
     debug(error)
     i3log({ name: 'bad', full_text: error.message, color: colors.sick })
   }
-  // if (DEBUG) process.exit(0)
+  if (DEBUG) process.exit(0)
 }
 
 let killing = false
@@ -398,7 +455,7 @@ loopPrint()
  * [x] four bars for the 4 cores: _--_ at their different percentages
  * [ ] show moon phases unicode chars
  * [x] networks measure speed from from start of second to end of second
- * [ ] show disk space
+ * [x] show disk space
  * [ ] show music play pause
  * [ ] number of keys pressed since startup
  * [ ] time since last reboot

@@ -9,27 +9,30 @@ rm -f $TMP_FILE
 
 
 official_packages() {
-  grep -Fxv -f <(pacman -Qqm) <(pacman -Qqe)
+  pacman -Qeni | grep 'Name\|Install Date\|Version' | sed 's/^.*:\s//g' | paste - - -
 }
 aur_packages() {
-  pacman -Qqm
+  pacman -Qmi | grep 'Name\|Install Date\|Version' | sed 's/^.*:\s//g' | paste - - -
 }
 
 list_packages() {
   pacman_command="$1"
 
-  $pacman_command |
-  while read package
-  do
-    line=$(grep -m 1 " installed $package " /var/log/pacman.log)
-
-    original_date=$(perl -ne 'print $1 if /\[(.*?)\]/' <<< "$line")
-    formatted_date=$(sed -E 's/02:(..)$/03:\1/' <<< "$original_date")
-    numerical_date=$(date --date="$formatted_date" "+%s")
-    version_number=$(awk '{print $6}' <<< "$line")
-    echo "$numerical_date $package $version_number $original_date" >> $TMP_FILE
-  done
-  sort -k 1 $TMP_FILE | awk '{print $2}'
+  $pacman_command \
+    | awk 'BEGIN{FS=OFS="\t"}{
+      cmd = "date -d \""$3"\" +%s";
+      cmd | getline d;
+      print $1, $2, d;
+      close(cmd);
+    }' \
+    | sort -k 3 \
+    | awk 'BEGIN{FS=OFS="\t"}{
+      cmd = "date -d \"@"$3"\"";
+      cmd | getline d;
+      print $1, $2, d;
+      close(cmd);
+    }' \
+    | column -t
 }
 
 

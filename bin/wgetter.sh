@@ -24,6 +24,7 @@ wget_options() {
     -D 4.bp.blogspot.com
     -D 217.23.10.62
     -D rc.itdragons.com
+    -D readcomics.io
     -H
   '
 }
@@ -66,7 +67,7 @@ wget_and_name() {
   DEBUG "wget_and_name $1 ($website_string)"
   wget \
     --spider \
-    -l1 \
+    -l0 \
     --force-html \
     $(wget_options) \
     $website_string 2>&1 \
@@ -167,11 +168,7 @@ get_comic() {
       cyborg*|moon-girl*)
         website_string=$VIEW_COMIC/$TITLE-$(printf '%02d' $url_chapter)
         ;;
-      rick-and-morty)
-        website_string=$COMIC_EXTRA/$TITLE/chapter-$url_chapter/full
-        NAME_IN_ORDER=true
-        ;;
-      duck-avenger|adventure-time*|the-totally-awesome-hulk-2016|over-the-garden-wall*)
+      lumberjanes|rick-and-morty|duck-avenger|adventure-time*|the-totally-awesome-hulk-2016|over-the-garden-wall*)
         website_string=$COMIC_EXTRA/$TITLE/chapter-$url_chapter/full
         NAME_IN_ORDER=true
         ;;

@@ -12,8 +12,11 @@ confirm 'clean yarn cache?' \
 confirm 'remove non-running docker containers?' \
   && tee_command docker rm $(echo $(docker ps -q --no-trunc) $(docker ps -a -q --no-trunc) | sed 's|\s|\n|g'  | sort | uniq -u)
 
-confirm 'remove non-running docker images?' \
-  && tee_command echo $(docker images | grep "^<none>" | awk "{print $3}")
+confirm 'remove dangling docker images?' \
+  && tee_command docker rmi $(docker images -f dangling=true -q)
 
 confirm 'remove un-tagged docker images?' \
   && tee_command docker rmi $(docker images | grep "[a-z\/0-9]*\s*<none>" | awk "{print \$3}")
+
+confirm 'remove dangling docker volumes?' \
+  && tee_command docker volume rm $(docker volume ls -f dangling=true -q)

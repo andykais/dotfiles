@@ -229,6 +229,15 @@ exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 exec --no-startup-id /usr/lib/notify-osd/notify-osd
 
+######################
+# Set up trackpoint  #
+######################
+exec "synclient TouchpadOff=1"
+# exec "xinput set-prop \"SynPS/2 Synaptics TouchPad\" 143 1 0 0 0 1 0 0 0 100000"
+exec "xinput set-prop \"TPPS/2 IBM TrackPoint\" 142 0.5, 0.000000, 0.000000, 0.000000, 0.5, 0.000000, 0.000000, 0.000000, 1.0000"
+exec "xset m 7/2 0"
+exec "synclient VertScrollDelta=-99"
+
 #chrome start
 bindsym $mod+g exec google-chrome-stable --profile-directory=Default
 #bindsym $mod+g exec optirun google-chrome-stable --profile-directory=Default --ignore-gpu-blacklist
@@ -279,10 +288,14 @@ bindsym $mod+Shift+l exec i3lock -c 000000
 # run xprop
 # class=WM_CLASS(STRING) 
 # instance=WM_NAME(STRING) 
-for_window [window_role="pop-up"] floating enable focus true
+# for_window [window_role="pop-up"] floating enable focus true
 for_window [title="Minecraft.*"] floating enable
 for_window [class="Arandr"] floating enable
 assign [class="ktorrent"] → 10
 assign [class="Spotify"] → 10
 for_window [class="Spotify"] move to workspace 10
 for_window [class="Steam" instance="Steam - News (1 of 4)"] floating enable
+no_focus [class="love"]
+no_focus [title="src/main.py"]
+# for_window [title="src/demo-pyglet.py"] floating disable
+focus_on_window_activation none

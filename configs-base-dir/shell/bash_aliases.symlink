@@ -17,6 +17,23 @@ alias la='ls -ahl --group-directories-first'
 alias apt-get='$HOME/bin/apt-log.sh'
 
 
+alias pacman='pacman_wrapper'
+function pacman_wrapper() {
+  for arg in $@
+  do
+    [[ $arg =~ -*s* ]] && purpose_is_search=true
+    [[ $arg =~ ^[^-] ]] && search_string=$arg
+  done
+
+  if [[ $purpose_is_search = true ]]
+  then
+    command pacman $@ \
+      | GREP_COLOR='01;33' grep -Ei --color=always "^|$search_string" \
+      | GREP_COLOR='01;31' grep -E --color=always '^|\[installed\]'
+  else
+    command pacman $@ 
+  fi
+}
 
 # docker aliases
 alias docker-stop='docker stop $(docker ps -q)'

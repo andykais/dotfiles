@@ -33,6 +33,8 @@ Plug 'flowtype/vim-flow', {'for': 'javascript'}
 "Plug 'stephenway/postcss.vim'
 "Plug 'cakebaker/scss-syntax.vim'
 Plug 'hail2u/vim-css3-syntax'
+Plug 'hdima/python-syntax'
+Plug 'leafo/moonscript-vim'
 "Plug 'amadeus/vim-css'
 "Plug 'fleischie/vim-styled-components'
 Plug 'junegunn/rainbow_parentheses.vim'
@@ -72,14 +74,16 @@ Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins' }
 
 Plug 'zchee/deoplete-clang'
 Plug 'carlitux/deoplete-ternjs', {'do': 'yarn global add tern'}
-" Plug 'derekwyatt/vim-scala'
-"Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
+Plug 'zchee/deoplete-jedi'
+Plug 'derekwyatt/vim-scala'
+Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
 "Plug 'neomake/neomake', {'do': 'yarn global add eslint_d eslint babel-eslint eslint-plugin-flowtype'}
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'w0rp/ale', { 'for': 'javascript' }
 Plug 'mileszs/ack.vim'
 Plug 'timakro/vim-searchant'
 Plug 'wakatime/vim-wakatime'
+Plug 'Vimjas/vim-python-pep8-indent'
 call plug#end()
 
 "------------------------------------------------------------
@@ -228,10 +232,10 @@ inoremap ë <C-O><C-W><C-K>
 inoremap ì <C-O><C-W><C-L>
 inoremap è <C-O><C-W><C-H>
 " move through wrapped text normally
-imap <silent> <Down> <C-o>gj
-imap <silent> <Up> <C-o>gk
-nmap <silent> <Down> gj
-nmap <silent> <Up> gk
+" imap <silent> <Down> <C-o>gj
+" imap <silent> <Up> <C-o>gk
+" nmap <silent> <Down> gj
+" nmap <silent> <Up> gk
 " associate proper syntaxes with files
 au BufNewFile,BufRead .bash_aliases call SetFileTypeSH("bash")
 autocmd BufNewFile,BufRead .babelrc call SetFileTypeSH("json")
@@ -456,8 +460,21 @@ map -a        :call SyntaxAttr()<CR>
 "inoremap <c-f> ^O:normal zi^M|call ForceFoldmethodIndent()^M
 
 " deoplete config
-"autocmd FileType javascript,c let g:deoplete#enable_at_startup = 1
+" Activate deoplete
 let g:deoplete#enable_at_startup = 1
+
+" Start autocompletion right away
+" let g:deoplete#auto_complete_start_length = 1
+
+" init variables
+let g:deoplete#sources = {}
+
+let g:deoplete#sources.javascript = ['buffer', 'tern']
+let g:deoplete#sources#ternjs#types = 1
+let g:deoplete#sources#ternjs#docs = 1
+let g:deoplete#sources#ternjs#filter = 0
+let g:deoplete#sources#ternjs#guess = 0
+" autocmd FileType javascript,c let g:deoplete#enable_at_startup = 1
 set completeopt-=preview
 let g:deoplete#file#enable_buffer_path=1
 " auto complete paths relative to working file
@@ -487,16 +504,16 @@ let g:deoplete#file#enable_buffer_path=1
 
 " Deoplete Plugins
 " deoplete-clang
+let g:deoplete#auto_complete_start_length = 1
 let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
 let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
 " deoplete-ternjs
-"tern config
 " only runs when the cwd has a .tern-project in the root
 "let g:tern_request_timeout = 1
 "let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
 
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
+" let g:tern#command = ["tern"]
+" let g:tern#arguments = ["--persistent"]
 
 
 
@@ -530,7 +547,7 @@ autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 
 "ensime config
-let ensime_server_v2=1
+" let ensime_server_v2=1
 
 
 
@@ -554,7 +571,7 @@ autocmd BufRead,BufNewFile ~/vwiki/diary/diary.md :VimwikiDiaryGenerateLinks
 
 "ctrlp config
 "only show files that are not ignored by git
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:ctrlp_user_command = ['.gitignore', 'cd %s && ag --hidden -g .']
 let g:ctrlp_root_markers = ['build.sbt', 'package.json']
 
 "if exists("g:ctrlp_user_command")
