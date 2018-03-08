@@ -9,6 +9,12 @@ tee_command() {
 confirm 'clean yarn cache?' \
   && tee_command yarn cache clean
 
+confirm 'clean pip cache?' \
+  && tee_command rm -rf ~/.cache/pip
+
+confirm 'clean pacman cache?' \
+  && tee_command sudo pacman -Sc
+
 confirm 'remove non-running docker containers?' \
   && tee_command docker rm $(echo $(docker ps -q --no-trunc) $(docker ps -a -q --no-trunc) | sed 's|\s|\n|g'  | sort | uniq -u)
 

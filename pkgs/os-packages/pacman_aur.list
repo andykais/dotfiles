@@ -1,41 +1,20 @@
-libtxc_dxtn                  1.0.1-6          Thu  Apr  13  18:00:18  EDT  2017
-xorg-server-utils            7.6-4            Thu  Apr  13  18:00:33  EDT  2017
-google-chrome                57.0.2987.133-1  Thu  Apr  13  19:04:02  EDT  2017
-ttf-impallari-dosis          1.7-1            Fri  Apr  14  16:17:27  EDT  2017
-st                           0.7-1            Sun  Apr  16  10:32:31  EDT  2017
-dropbox                      23.4.18-1        Sun  Apr  16  14:24:35  EDT  2017
-private-internet-access-vpn  3.3.2-2          Wed  Apr  19  15:22:45  EDT  2017
-dbvis                        9.5.7-1          Fri  Apr  28  23:49:12  EDT  2017
-libopenssl-1.0-compat        1.0.2.k-3        Thu  May  4   16:04:38  EDT  2017
-libcurl-openssl-1.0          7.54.0-1         Thu  May  4   16:05:44  EDT  2017
-spotify                      1.0.53.758-2     Thu  May  4   16:10:22  EDT  2017
-tmate                        2.2.1-2          Tue  May  23  11:19:30  EDT  2017
-google-cloud-sdk             155.0.0-1        Wed  May  24  13:53:38  EDT  2017
-ngrok                        2.1.18-1         Wed  May  24  17:42:47  EDT  2017
-ttf-google-fonts-git         20170530-1       Wed  May  31  01:38:01  EDT  2017
-tidy-html5                   5.4.0-1          Wed  Jun  7   16:01:03  EDT  2017
-virtualbox-ext-oracle        5.1.22-1         Thu  Jun  8   03:07:01  EDT  2017
-apacman                      3.1-1            Mon  Jun  12  14:19:41  EDT  2017
-apacman-deps                 0.9-1            Mon  Jun  12  14:21:41  EDT  2017
-perl-term-shellui            0.92-4           Mon  Jun  12  14:34:07  EDT  2017
-quiterss                     0.18.6-1         Wed  Jun  21  14:32:37  EDT  2017
-python2-pypdf2               1.26.0-1         Fri  Jul  7   11:18:30  EDT  2017
-lib32-libtxc_dxtn            1.0.1-5          Sun  Jul  9   10:02:43  EDT  2017
-musictube                    1.6-1            Fri  Jul  14  16:37:17  EDT  2017
-minecraft                    latest-26        Fri  Sep  1   22:45:42  EDT  2017
-kops                         1.7.0-1          Tue  Oct  3   12:26:54  EDT  2017
-perl-padwalker               2.2-1            Sat  Oct  7   13:27:02  EDT  2017
-nerd-fonts-git               r551.91395cd9-1  Wed  Oct  18  00:09:13  EDT  2017
-glib                         1.2.10-14        Wed  Oct  18  01:29:11  EDT  2017
-gtk                          1.2.10-16        Wed  Oct  18  01:31:25  EDT  2017
-libxfont                     1.5.3-1          Tue  Oct  24  21:06:21  EDT  2017
-libxaw3dxft                  1:1.6.2d-1       Tue  Nov  7   22:16:20  EST  2017
-xpaint                       2.10.1-2         Tue  Nov  7   22:21:31  EST  2017
-gputest                      0.7.0-1          Thu  Nov  9   15:58:12  EST  2017
-gimmage                      0.2.3-7          Fri  Nov  10  03:10:20  EST  2017
-glxosd                       3.2.2-1          Sun  Nov  12  19:04:41  EST  2017
-xcftools                     1.0.7-3          Mon  Nov  13  08:41:20  EST  2017
-gpointing-device-settings    1.5.1-5          Sat  Nov  18  02:13:23  EST  2017
-phantomjs                    2.1.1-9          Mon  Dec  4   18:30:30  EST  2017
-snownews                     1.5.12-11        Mon  Dec  4   18:30:35  EST  2017
-ffmpeg0.10                   0.10.16-3        Wed  Jan  17  01:15:33  EST  2018
+xorg-server-utils           7.6-4           2017-04-13 22:00
+google-chrome               57.0.2987.133-1 2017-04-13 18:04
+ttf-impallari-dosis         1.7-1           2017-04-14 15:17
+dropbox                     23.4.18-1       2017-04-16 13:24
+spotify                     1.0.53.758-2    2017-05-04 16:10
+private-internet-access-vpn 3.3.2-2         2017-04-19 15:22
+tmate                       2.2.1-2         2018-03-07 22:42
+google-cloud-sdk            155.0.0-1       2017-05-24 13:53
+ngrok                       2.1.18-1        2017-05-24 17:42
+ttf-google-fonts-git        20170530-1      2017-05-31 01:38
+virtualbox-ext-oracle       5.1.22-1        2017-06-08 03:07
+apacman                     3.1-1           2017-06-12 14:19
+apacman-deps                0.9-1           2017-06-12 14:21
+minecraft                   latest-26       2017-09-01 22:45
+nerd-fonts-git              r551.91395cd9-1 2017-10-18 00:09
+xpaint                      2.10.1-2        2017-11-07 22:21
+gputest                     0.7.0-1         2017-11-09 15:58
+glxosd                      3.2.2-1         2017-11-12 19:04
+cava                        0.6.0-1         2018-02-16 17:56
+llpp                        25-1            2018-03-06 12:37

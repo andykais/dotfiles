@@ -267,7 +267,7 @@ const networkData = [
     hide_if_down: true
   },
 ].map(e => ({
-  bytes: byteData,
+  bytes: {...byteData},
   devices: new Set(),
   ...e
 }))

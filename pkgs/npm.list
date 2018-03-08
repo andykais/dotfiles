@@ -1,12 +1,3 @@
-/home/andrew/.npm-packages/lib
-├── @okcollege/core@0.0.79 -> /home/andrew/Build/dev/okcollege/libs/core
-├── @okcollege/dcs-schema@0.0.0 -> /home/andrew/Build/dev/data-collection-system/libs/sample-schema
-├── @okcollege/postcore-data@0.0.13 -> /home/andrew/Build/dev/okcollege/libs/postcore-data
-├── @okcollege/scrape-lib@0.1.3 -> /home/andrew/Build/dev/okcollege/libs/scrape-lib
-├── @okcollege/types@0.0.88 -> /home/andrew/Build/dev/okcollege/libs/types
-├── @okcollege/web-mui-components@0.0.113 -> /home/andrew/Build/dev/okcollege/libs/web-mui-components/build
-├──  error: ENOENT: no such file or directory, open '/home/andrew/.npm-packages/lib/node_modules/gatsby/package.json
-├── gatsby-plugin-favicon@2.0.0 -> /home/andrew/Build/scratchwork/gatsby-plugin-favicon
-├── tern@0.21.0
-└── undefined@0.1.0
+~/.npm-packages/lib
+└── tern@0.21.0
 

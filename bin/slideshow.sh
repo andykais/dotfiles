@@ -1,48 +1,56 @@
 #!/bin/bash
 
-# wait (in seconds) for background to change
-wait=$((60 * 60))
 
-# in the future, could load files from a general bin/config file
-# sed -c -i "s/\($TARGET_KEY *= *\).*/\1$REPLACEMENT_VALUE/" $CONFIG_FILE
-#dir="$(< $HOME/bin/data/slideshow_all.txt)"
-dir=~/Pictures/wallpapers
+wallpaper_dir=~/Pictures/wallpapers
+current_wallpaper_cache=$HOME/bin/data/slideshow_latest.txt
+seconds_to_wait=$((60 * 60))
 
-# finds the image files in $dir
-# optionally can add --max-depth 1 to keep from searching subdirs
-sorted_wallpapers=$(find "$dir/" -regex ".*\.\(jpg\|gif\|png\|jpeg\)" | sort -n)
+# gets an alphanumeric list of the wallpapers
+get_wallpapers() {
+  sorted_wallpapers=$(find "$wallpaper_dir/" -regex ".*\.\(jpg\|gif\|png\|jpeg\)" | sort -n)
+  echo "$sorted_wallpapers"
+  echo "$sorted_wallpapers" | head -1
+}
+# gets the last used wallpaper
+get_current_wallpaper() {
+  if [ -a "$current_wallpaper_cache" ]
+  then
+    wallpaper_from_cache=$(cat "$current_wallpaper_cache")
+    if [ -a "$wallpaper_from_cache" ]
+    then
+      echo $wallpaper_from_cache
+    else
+      get_wallpapers | head -1
+    fi
+  else
+    get_wallpapers | head -1
+  fi
+}
+# sets and logs the background image
+set_current_wallpaper() {
+  echo $1 > $current_wallpaper_cache
+  echo setting $1
+  feh --bg-max "$1"
+}
+# gets the next wallpaper from the directory
+get_next() {
+  current_val=$(get_current_wallpaper)
+  found_current=false
+  while read wallpaper
+  do
+    next_val=$wallpaper
+    [[ $found_current == true ]] && break
+    [[ $wallpaper == $current_val ]] && found_current=true
+  done < <(get_wallpapers)
+  echo $next_val
+}
 
-#used to find place of last used background image
-# var storing last used wallpaper
-if [ -a "$HOME/bin/data/slideshow_latest.txt" ]
-then
-  previous_latest="$(cat $HOME/bin/data/slideshow_latest.txt)"
-fi
-found_latest=false
-dont_care_about_latest=false
-IFS=$'\n'
 
-
+echo "Wallpaper changes every $(( seconds_to_wait / 60 )) minutes. Press enter to skip ahead."
+wallpaper=$(get_current_wallpaper)
 while true
 do
-  # first round starts after latest (if it exists)
-  # after that, it loops from the top
-  while read line
-  do
-    if [[ $line == $previous_latest ]]
-    then
-      found_latest=true
-    fi
-
-    if $found_latest || $dont_care_about_latest
-    then
-      set -x
-      feh --bg-max "$line"
-      set +x
-      fc -ln -1
-      echo $line > $HOME/bin/data/slideshow_latest.txt
-      sleep $wait
-    fi
-  done <<< $sorted_wallpapers
-  dont_care_about_latest=true
+  set_current_wallpaper "$wallpaper"
+  read -t $seconds_to_wait -s
+  wallpaper=$(get_next)
 done

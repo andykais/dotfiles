@@ -7,12 +7,12 @@ PKGS_DIR=$HOME/.dotfiles/pkgs
 
 if hash npm 2>/dev/null; then
   echo "backing up npm"
-  npm list -g --depth=0 > $PKGS_DIR/npm.list
+  npm list -g --depth=0 | sed "s/\/home\/$USER/~/" > $PKGS_DIR/npm.list
 fi
 
 if hash yarn 2>/dev/null; then
   echo "backing up yarn"
-  yarn global ls --no-progress 2> /dev/null | grep info > $PKGS_DIR/yarn.list
+  yarn global list --no-progress 2> /dev/null | grep info > $PKGS_DIR/yarn.list
 fi
 
 if hash apm 2>/dev/null; then
@@ -20,12 +20,14 @@ if hash apm 2>/dev/null; then
   apm list > $PKGS_DIR/apm.list
 fi
 
-if hash pip 2>/dev/null; then
-  echo "backing up pip"
-  pip freeze --user > $PKGS_DIR/pip.list
-elif hash pip3 2>/dev/null; then
+if hash pip3 2>/dev/null; then
   echo "backing up pip3"
-  pip3 freeze --user > $PKGS_DIR/pip.list
+  pip3 freeze --user > $PKGS_DIR/pip3.list
+fi
+
+if hash pip2 2>/dev/null; then
+  echo "backing up pip2"
+  pip2 freeze --user > $PKGS_DIR/pip2.list
 fi
 
 if hash gem 2>/dev/null; then
@@ -41,9 +43,9 @@ fi
 if [ -f /etc/arch-release ]; then
   echo "backing up explicitly installed arch packages"
   #yaourt -Qq -e --date > $PKGS_DIR/os-packages/pacman.list
-  $HOME/.dotfiles/bin/sort_pacman.sh > $PKGS_DIR/os-packages/pacman.list
+  $HOME/.dotfiles/bin/sort_pacman.js > $PKGS_DIR/os-packages/pacman.list
   echo "backing up explicitly installed arch aur packages"
-  $HOME/.dotfiles/bin/sort_pacman.sh aur > $PKGS_DIR/os-packages/pacman_aur.list
+  $HOME/.dotfiles/bin/sort_pacman.js aur > $PKGS_DIR/os-packages/pacman_aur.list
 
 elif [ -f /etc/debian_version ]; then
   echo "backing up manually installed debian packages"

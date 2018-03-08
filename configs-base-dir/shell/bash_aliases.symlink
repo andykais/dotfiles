@@ -15,6 +15,7 @@ alias ls='ls --color=tty'
 alias l='ls -hl --group-directories-first'
 alias la='ls -ahl --group-directories-first'
 alias apt-get='$HOME/bin/apt-log.sh'
+alias tar-preview='tar -tf'
 
 
 alias pacman='pacman_wrapper'

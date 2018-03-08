@@ -32,7 +32,7 @@ floating_modifier $mod
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
 #bindsym $mod+Return exec urxvtc
-bindsym $mod+Return exec uxterm
+bindsym $mod+Return exec --no-startup-id uxterm
 bindsym $mod+Shift+Return exec fancy_terminal.sh
 
 # kill focused window
@@ -234,8 +234,8 @@ exec --no-startup-id /usr/lib/notify-osd/notify-osd
 ######################
 exec "synclient TouchpadOff=1"
 # exec "xinput set-prop \"SynPS/2 Synaptics TouchPad\" 143 1 0 0 0 1 0 0 0 100000"
-exec "xinput set-prop \"TPPS/2 IBM TrackPoint\" 142 0.5, 0.000000, 0.000000, 0.000000, 0.5, 0.000000, 0.000000, 0.000000, 1.0000"
-exec "xset m 7/2 0"
+exec "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' -0.4"
+# exec "xset m 7/2 0"
 exec "synclient VertScrollDelta=-99"
 
 #chrome start
