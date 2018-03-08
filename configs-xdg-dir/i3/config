@@ -218,12 +218,9 @@ exec --no-startup-id xrdb -load .Xresources
 #exec --no-startup-id urxvtd -q -o -f
 exec --no-startup-id dropbox
 exec --no-startup-id redshift-gtk -c ~/.config/redshift.conf
-#exec --no-startup-id cmst -w5 -m
-#exec --no-startup-id ~/bin/launch_network_tray_app.sh
 #exec --no-startup-id moni.sh 
-#exec --no-startup-id ~/bin/slideshow.sh
-exec --no-startup-id ~/.fehbg
-#exec --no-startup-id sh ~/.fehbg &
+exec --no-startup-id ~/bin/slideshow.sh
+#exec --no-startup-id sh ~/.fehbg
 #start wifi tray applet
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
