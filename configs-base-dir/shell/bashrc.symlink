@@ -1,57 +1,29 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# MAN page coloring
+export LESS=-R
+export LESS_TERMCAP_me=$(printf '\e[0m')
+export LESS_TERMCAP_se=$(printf '\e[0m')
+export LESS_TERMCAP_ue=$(printf '\e[0m')
+export LESS_TERMCAP_mb=$(printf '\e[1;32m')
+export LESS_TERMCAP_md=$(printf '\e[1;34m')
+export LESS_TERMCAP_us=$(printf '\e[1;32m')
+export LESS_TERMCAP_so=$(printf '\e[1;44;1m')
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# so vim can use ctrl-s
-stty -ixon
-
-# hack to keep a bash open when starting it with a command
-#[[ $startup_cmd ]] && { declare +x $startup_cmd; eval "$startup_cmd"; }
-
-#autojump line
-[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
-
-
-PATH="$PATH:$HOME/bin"
-PATH="$PATH:$HOME/bin/perl"
-### Added by the Heroku Toolbelt
-PATH="/usr/local/heroku/bin:$PATH"
-#PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-#JAVA_HOME="$HOME/Programs/JDK" #set this in /etc/environment
-#PATH="$JAVA_HOME/bin:$PATH"
-#PATH="$HOME/Programs/smartgit/bin:$PATH"
-#PATH="/usr/lib/dart/bin:$PATH"
-#PATH="$HOME/Programs/flutter/bin:$PATH"
-#PATH="$HOME/eclipse:$PATH"
-#PATH="$HOME/android-studio/bin:$PATH"
-#PATH="$HOME/Programs/processing-3.0.1:$PATH"
-#NODE_PATH=$NODE_PATH:$HOME/.npm-packages/bin
-#GOPATH="$HOME/Build/go"
-#PATH="$PATH:$GOPATH/bin"
-NPM_PACKAGES="$HOME/.npm-packages"
-PATH="$NPM_PACKAGES/bin:$PATH"
-NODE_PATH=$NODE_PATH:$HOME/.npm-packages/lib/node_modules
-PATH="$PATH:$HOME/.gem/ruby/2.4.0/bin"
-# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
-unset MANPATH # delete if you already modified MANPATH elsewhere in your config
-MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
-
-PATH="$PATH:$HOME/Build/imgbrd-grabber/release/Grabber"
-PATH="$PATH:$HOME/Build/prod/tidy-html5/build/cmake/Build/tidy-5/bin"
-PATH="$PATH:$HOME/Build/prod/DrMemory-Linux-1.11.0-2/bin64"
-#export ANDROID_HOME=/media/androidSdk
-export ANDROID_HOME=~/.buildozer/android/platform/android-sdk-22
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
-PATH="$PATH:$ANDROID_HOME/tools"
-PATH="$PATH:$ANDROID_HOME/platform-tools"
-PATH="$PATH:$HOME/Build/prod/gzrt"
-PATH="$PATH:$HOME/Build/dev/okcollege/libs/scripts"
-PATH="$PATH:$HOME/Build/dev/telebum2/compose/manager/"
-PATH="$PATH:$HOME/.cargo/bin/"
-alias run-dockerized="$HOME/Build/prod/dockerized/cli/run-dockerized.js"
 export EDITOR="nvim"
 export VISUAL="nvim"
+source ~/.bash_aliases
+
+# nodejs & npm
+export NPM_PACKAGES=~/.npm-packages
+unset MANPATH # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
+export MANPATH=$NPM_PACKAGES/share/man:$(manpath)
+export NODE_PATH=$NODE_PATH:~/.npm-packages/lib/node_modules
+export PATH=$NPM_PACKAGES/bin:$PATH
+# java
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+# rust
+export PATH=$PATH:~/.cargo/bin
+# personal scripts
+export PATH=$PATH:~/bin
+# project scripts
+export PATH=$PATH:~/Build/dev/okcollege/libs/scripts
+export PATH=$PATH:~/Build/dev/telebum2/compose/manager

@@ -1,17 +1,20 @@
 !term*font: xft:Terminess,xft:Inconsolata\ for\ Powerline
 
 
-! xterm*faceSize: 10
+xterm*faceSize: 10
 xterm*faceName: xos4 Terminus
 ! xterm*faceName: Hurmit NF
 ! xterm*faceName: Inconsolata Nerd Font Mono
 ! xterm*faceName: TerminessTTF Nerd Font Mono
 ! xterm*faceName: RobotoMono Nerd Font Mono
 
-
-
-
-xterm*faceSize: 10
-
-
-! vim: set filetype=xdefaults :
+! for the weird fonts
+! xterm*scaleHeight: 0.9
+! Xterm*locale: true
+! Xft.dpi: 96
+! Xft.autohint: 0
+! Xft.lcdfilter: lcddefault
+! Xft.hintstyle: hintslight
+! Xft.hinting: 1
+! Xft.antialias: 1
+Xft.rgba: rgb

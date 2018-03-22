@@ -32,8 +32,8 @@ floating_modifier $mod
 # start a terminal
 #bindsym $mod+Return exec i3-sensible-terminal
 #bindsym $mod+Return exec urxvtc
-bindsym $mod+Return exec --no-startup-id uxterm
-bindsym $mod+Shift+Return exec fancy_terminal.sh
+bindsym $mod+Return exec --no-startup-id i3-sensible-terminal
+bindsym $mod+Shift+Return exec --no-startup-id fancy_terminal.sh
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -120,16 +120,16 @@ bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
 
-bindsym $mod+Mod1+1 exec ~/bin/python/swap_ws.py 1
-bindsym $mod+Mod1+2 exec ~/bin/python/swap_ws.py 2
-bindsym $mod+Mod1+3 exec ~/bin/python/swap_ws.py 3
-bindsym $mod+Mod1+4 exec ~/bin/python/swap_ws.py 4
-bindsym $mod+Mod1+5 exec ~/bin/python/swap_ws.py 5
-bindsym $mod+Mod1+6 exec ~/bin/python/swap_ws.py 6
-bindsym $mod+Mod1+7 exec ~/bin/python/swap_ws.py 7
-bindsym $mod+Mod1+8 exec ~/bin/python/swap_ws.py 8
-bindsym $mod+Mod1+9 exec ~/bin/python/swap_ws.py 9
-bindsym $mod+Mod1+0 exec ~/bin/python/swap_ws.py 10
+bindsym $mod+Mod1+1 exec --no-startup-id ~/bin/python/swap_ws.py 1
+bindsym $mod+Mod1+2 exec --no-startup-id ~/bin/python/swap_ws.py 2
+bindsym $mod+Mod1+3 exec --no-startup-id ~/bin/python/swap_ws.py 3
+bindsym $mod+Mod1+4 exec --no-startup-id ~/bin/python/swap_ws.py 4
+bindsym $mod+Mod1+5 exec --no-startup-id ~/bin/python/swap_ws.py 5
+bindsym $mod+Mod1+6 exec --no-startup-id ~/bin/python/swap_ws.py 6
+bindsym $mod+Mod1+7 exec --no-startup-id ~/bin/python/swap_ws.py 7
+bindsym $mod+Mod1+8 exec --no-startup-id ~/bin/python/swap_ws.py 8
+bindsym $mod+Mod1+9 exec --no-startup-id ~/bin/python/swap_ws.py 9
+bindsym $mod+Mod1+0 exec --no-startup-id ~/bin/python/swap_ws.py 10
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
@@ -231,7 +231,7 @@ exec --no-startup-id /usr/lib/notify-osd/notify-osd
 ######################
 exec "synclient TouchpadOff=1"
 # exec "xinput set-prop \"SynPS/2 Synaptics TouchPad\" 143 1 0 0 0 1 0 0 0 100000"
-exec "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' -0.4"
+exec "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' -0.5"
 # exec "xset m 7/2 0"
 exec "synclient VertScrollDelta=-99"
 
@@ -244,25 +244,22 @@ bindsym $mod+g exec google-chrome-stable --profile-directory=Default
 bindsym $mod+t exec ktorrent
 
 #screenshot saved in Pictures/screenshots using PrtSc
-bindsym $mod+Print exec ~/bin/screenshot.sh root
+bindsym $mod+Print exec --no-startup-id ~/bin/screenshot.sh root
 #screenshot a section of the screen
-bindsym $mod+Shift+Print exec ~/bin/screenshot.sh box
+bindsym $mod+Shift+Print exec --no-startup-id ~/bin/screenshot.sh box
 
 # switch workspaces
-bindsym $mod+Shift+s exec ~/.config/i3/switch.py
+bindsym $mod+Shift+s exec --no-startup-id ~/.config/i3/switch.py
 #i3-msg "rename workspace 1 to temporary; rename workspace 2 to 1; rename workspace temporary to 2"
 
 
 #keepassx shortcut
-bindsym $mod+k exec keepassx2
+bindsym $mod+k exec --no-startup-id keepassx2
 #passmenu shortcut
 #bindsym $mod+Shift+d exec keepass-dmenu --database ~/Dropbox/keepass/oneLockToHoldThemAll.kdbx --keyfile ~/Dropbox/keepass/oneKeyToRuleThemAll.key --cache-password 100
-bindsym $mod+Shift+d exec ~/.npm-packages/bin/keepass-dmenu --database ~/Dropbox/keepass/oneLockToHoldThemAll.kdbx --keyfile ~/Dropbox/keepass/oneKeyToRuleThemAll.key --cache-password 100
-#vlc shortcut
-bindsym $mod+Shift+v exec vlc
-
+bindsym $mod+Shift+d exec --no-startup-id ~/.npm-packages/bin/keepass-dmenu --database ~/Dropbox/keepass/oneLockToHoldThemAll.kdbx --keyfile ~/Dropbox/keepass/oneKeyToRuleThemAll.key --cache-password 100
 #open a terminal
-bindsym $mod+z exec uxterm
+bindsym $mod+z exec --no-startup-id i3-sensible-terminal
 
 #toggle the monitor the workspace is displayed on
 bindsym $mod+Shift+m move workspace to output left
@@ -273,7 +270,7 @@ bindsym $mod+Mod1+w workspace prev_on_output
 
 #bindsym $mod+Shift+l exec cocaine.sh off && sudo pm-suspend
 bindsym $mod+l exec ~/bin/i3locker.sh
-bindsym $mod+Shift+l exec i3lock -c 000000
+bindsym $mod+Shift+l exec --no-startup-id i3lock -c 000000
 
 #########################################
 #				  	#

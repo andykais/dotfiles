@@ -1,4 +1,4 @@
-prefix=/home/andrew/.npm-packages
+prefix=~/.npm-packages
 loglevel=error
 save=true
 init.author.name=Andrew Kaiser

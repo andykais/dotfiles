@@ -242,7 +242,7 @@ inoremap è <C-O><C-W><C-H>
 au BufNewFile,BufRead .bash_aliases call SetFileTypeSH("bash")
 autocmd BufNewFile,BufRead .babelrc call SetFileTypeSH("json")
 "au BufNewFile,BufRead ~/.Xresources/urxvt-unicode call SetFileTypeSH("xdefaults")
-autocmd BufNewFile,BufRead ~/.Xresources.d/* setfiletype xdefaults
+" autocmd BufNewFile,BufRead ~/.Xresources.d/* setfiletype xdefaults
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 
 " Abbreviations
@@ -262,17 +262,17 @@ autocmd BufRead,BufNewFile *.md,*.tex setlocal spell spelllang=en_us
 autocmd BufRead,BufNewFile *.md,*.yml,*.tex set wrap linebreak nolist
 autocmd BufRead,BufNewFile *.sh,*.c,*.cpp set textwidth=180
 autocmd BufRead,BufNewFile *.js,*.jsx set backupcopy=yes
+autocmd BufRead,BufNewFile *.md set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
 "Add missing filetypes
+autocmd BufRead,BufNewFile zshrc.symlink,bash*.symlink set filetype=sh
+autocmd BufRead,BufNewFile ~/.Xresources.d/* set filetype=xdefaults
 autocmd BufRead,BufNewFile docker-*.yml set filetype=docker-compose
 autocmd BufRead,BufNewFile docker-*.yml set nowrap
 autocmd BufRead,BufNewFile test-project.txt set filetype=Dockerfile
 autocmd BufRead,BufNewFile .eslintrc,.tern-project set filetype=json
 autocmd BufRead,BufNewFile *.js.flow set filetype=javascript
-autocmd BufRead,BufNewFile build.sbt set filetype=scala
 autocmd BufRead,BufNewFile *.template set filetype=mustache
 
-
-autocmd BufRead,BufNewFile *.md set com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
 
 "javascript syntax
 "autocmd FileType javascript syntax keyword jsBuiltins watch require
