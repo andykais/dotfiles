@@ -1,5 +1,8 @@
 [[ -e ~/.bash_aliases_secret ]] && . ~/.bash_aliases_secret
 
+# Wayfair aliases
+alias wf_log_turbine='ssh -t admindev "turbine tail COMPILER,ERRORS"'
+
 alias psg='ps ax | ag '
 alias ndone='notify-send -t 3 "CMD finished!" "in folder $(basename $PWD) with code $?"'
 alias v='nvim'
@@ -11,9 +14,9 @@ alias susp='sudo pm-suspend'
 alias rebo='sudo reboot'
 alias o='xdg-open'
 alias pdfl='pdflatex'
-alias ls='ls --color=tty'
-alias l='ls -hl --group-directories-first'
-alias la='ls -ahl --group-directories-first'
+alias ls='ls -G'
+alias l='gls -Flh --group-directories-first --color'
+alias la='gls -aFlh --group-directories-first --color'
 alias apt-get='$HOME/bin/apt-log.sh'
 alias tar-preview='tar -tf'
 

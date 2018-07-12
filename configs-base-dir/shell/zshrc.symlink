@@ -30,12 +30,12 @@
 # ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
- # COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
@@ -86,7 +86,7 @@ source "${HOME}/.zgen/zgen.zsh"
 if ! zgen saved; then
   # plugin list
   zgen oh-my-zsh
-  zgen oh-my-zsh plugins/git
+  # zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/z
   zgen oh-my-zsh plugins/docker
   zgen oh-my-zsh plugins/dirhistory
@@ -97,6 +97,16 @@ if ! zgen saved; then
   # generate the init script from plugins above
   zgen save
 fi
+build_prompt() {
+  RETVAL=$?
+  prompt_status
+  prompt_virtualenv
+  prompt_context
+  prompt_dir
+  prompt_end
+  # git symbolic-ref --short HEAD
+  # git-radar --zsh --fetch
+}
 
 source ~/.bashrc
 
@@ -132,3 +142,6 @@ export LESS_TERMCAP_so=$(printf '\e[1;44;1m')
 export DEBUG="okc*"
 ulimit -n 2048
 # export TERM=xterm-colors
+
+export FPATH="/Users/akaiser/.wf/zsh-completion:$FPATH"
+compinit

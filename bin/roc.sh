@@ -1,15 +1,37 @@
-#!/bin/sh
-FORMAT=$(echo -e "\033[1;33m%w%f\033[0m written at $(date +'%r')")
-EXCLUDE_PATTERN="\.(log|aux|dvi|blg|pdf)"
-clear
-while true
-do
-    clear\
-        && echo "[Running \"$@\" on files changes in $(pwd) at $(date +'%r')]"\
-        && echo ""\
-        && echo "$@" > $HOME/bin/data/lastroc.sh\
-        && bash $HOME/bin/data/lastroc.sh 0>/dev/null  \
-        && sleep .3;
+#!/bin/bash
 
-    inotifywait --exclude $EXCLUDE_PATTERN -qre close_write --format "$FORMAT" .
-done
+FORMAT=$(echo -e "\033[1;33m%w%f\033[0m written at $(date +'%r')")
+EXCLUDE_PATTERN="\.(log|aux|dvi|blg|pdf|lock)"
+leave=false
+clear
+
+
+function task() {
+  clear\
+      && echo "[Running \"$@\" on files changes in $(pwd) at $(date +'%r')]"\
+      && echo ""\
+      && echo "$@" > $HOME/bin/data/lastroc.sh\
+      && bash $HOME/bin/data/lastroc.sh 0>/dev/null
+}
+
+trap ctrl_c INT
+function ctrl_c() {
+  leave=true
+}
+export -f task
+
+task $@
+# while true
+# do
+  # [[ $leave == true ]] && exit
+  # task $@
+  # sleep .3
+  fswatch -o . | xargs -n1 -I{} bash -c 'task "$@"' _ {}
+  # fswatch -0 -e '.log$' -e '.lock$' -e '.aux$' -e '.git' -e '.tern-port$' -e '.pdf$' -e '.dvi$' . \
+    # | xargs echo hoi hi
+    # | while read -d "" event
+    # do
+      # echo 'here'
+      # # task $@
+    # done
+# done

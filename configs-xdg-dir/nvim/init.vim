@@ -11,7 +11,8 @@ Plug 'scrooloose/NERDtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-vinegar'
-"Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
+Plug 'suy/vim-context-commentstring'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -22,12 +23,12 @@ Plug 'vim-airline/vim-airline'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'chr4/nginx.vim'
 "Plug 'scrooloose/syntastic'
-"Plug 'bigfish/vim-js-context-coloring'
+" Plug 'bigfish/vim-js-context-coloring'
 "Plug 'sheerun/vim-polyglot'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'othree/html5.vim'
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 Plug 'elzr/vim-json'
 Plug 'flowtype/vim-flow', {'for': 'javascript'}
 "Plug 'thiderman/vim-supervisord'
@@ -40,12 +41,13 @@ Plug 'leafo/moonscript-vim'
 "Plug 'amadeus/vim-css'
 "Plug 'fleischie/vim-styled-components'
 Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'pangloss/vim-javascript'
-"Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
-"Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
-"Plug 'moll/vim-node', { 'for': 'javascript' }
+" Plug 'pangloss/vim-javascript'
+" Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
+" Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
+" Plug 'moll/vim-node', { 'for': 'javascript' }
 "Plug 'guileen/vim-node-dict'
-"Plug 'othree/yajs.vim', {'for': 'javascript'}
+Plug 'othree/yajs.vim', {'for': 'javascript'}
+Plug 'othree/es.next.syntax.vim', {'for': 'javascript'}
 "Plug 'maksimr/vim-jsbeautify', {'for': 'javascript'}
 "Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 " Plug 'ternjs/tern_for_vim', {'do': 'yarn install'}
@@ -56,7 +58,7 @@ Plug 'mattn/emmet-vim'
 Plug 'gregsexton/MatchTag'
 "Plug 'JamshedVesuna/vim-markdown-preview'
 Plug 'tpope/vim-markdown'
-Plug 'suan/vim-instant-markdown', {'do': 'yarn global add instant-markdown-d'}
+Plug 'suan/vim-instant-markdown', {'do': 'npm -g i instant-markdown-d'}
 Plug 'vimwiki/vimwiki'
 "nnoremap <leader>v <Plug>TaskList
 Plug 'junegunn/vim-easy-align'
@@ -64,7 +66,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/SyntaxAttr.vim'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'Chiel92/vim-autoformat', {'do': 'yarn global add js-beautify'}
+Plug 'Chiel92/vim-autoformat', {'do': 'npm -g i js-beautify'}
 "Plug 'wesQ3/vim-windowswap' "Swap your windows without ruining your layout
 "Plug 'majutsushi/tagbar'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins' }
@@ -75,25 +77,36 @@ Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins' }
 "Plug 'Shougo/neosnippet-snippets'
 
 Plug 'zchee/deoplete-clang'
-Plug 'carlitux/deoplete-ternjs', {'do': 'yarn global add tern'}
+Plug 'carlitux/deoplete-ternjs', {'do': 'npm -g i tern'}
 Plug 'zchee/deoplete-jedi'
+Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
 Plug 'derekwyatt/vim-scala'
-Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
+" Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
 "Plug 'neomake/neomake', {'do': 'yarn global add eslint_d eslint babel-eslint eslint-plugin-flowtype'}
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
 Plug 'w0rp/ale', { 'for': 'javascript' }
 Plug 'mileszs/ack.vim'
-Plug 'timakro/vim-searchant'
+" Plug 'timakro/vim-searchant'
 Plug 'wakatime/vim-wakatime'
 Plug 'Vimjas/vim-python-pep8-indent'
+" Plug 'python-mode/python-mode', { 'branch': 'develop', 'do': 'git submodule update --init --recursive' }
+Plug 'francoiscabrol/ranger.vim'
+Plug 'rbgrouleff/bclose.vim'
+Plug 'prettier/vim-prettier', {
+  \ 'do': 'npm install',
+  \ 'for': ['python', 'javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'php'] }
+Plug 'jparise/vim-graphql'
+Plug 'Quramy/vim-js-pretty-template'
 call plug#end()
+
+set exrc
 
 "------------------------------------------------------------
 "Theme Settings
 
 set t_Co=256
 colorscheme seoul256
-"colorscheme onehalflight
+" colorscheme onehalflight
 "let g:airline_theme='onehalfdark'
 "colorscheme xoria256
 "colorscheme monokai
@@ -122,7 +135,11 @@ set title " set terminal title
 "set encoding=utf8
 
 "set term=ansi
+set nocompatible
 syntax on
+filetype off
+filetype plugin on
+filetype plugin indent on
 " highlight searchs
 "set hlsearch
 "set incsearch
@@ -147,9 +164,6 @@ set tabstop=2
 " :verbose set tabstop?
 set softtabstop=2
 set expandtab
-"autocmd BufRead,BufNewFile makefile setlocal noexpandtab
-autocmd FileType make setlocal noexpandtab
-autocmd BufRead,BufNewFile makefile set nonu
 "autocmd BufRead,BufNewFile makefile setlocal shiftwidth=4 tabstop=4 noexpandtab
 " show whitespaces
 set list
@@ -173,11 +187,13 @@ set textwidth=110
 "faster screen redraw
 set ttyfast
 set diffopt+=vertical
-"filetype indent plugin on
-filetype plugin on
-set nocompatible
 "set omnifunc=syntaxcomplete#Complete
 
+"autocmd BufRead,BufNewFile makefile setlocal noexpandtab
+autocmd FileType make setlocal noexpandtab
+autocmd BufRead,BufNewFile makefile set nonu
+" autocmd FileType python set shiftwidth=4 softtabstop=0 tabstop=4 expandtab
+autocmd FileType python set shiftwidth=4
 
 "-----------------------------------------------------------
 "Mapping Settings
@@ -213,7 +229,7 @@ map <C-c> "+y<CR>
 " search using visual selection
 noremap // y/<C-R>"<CR>
 " toggle search highlighting with space
-" nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
+nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
 " nnoremap <silent> <Space> <Plug>SearchantStop
 " pageup/pagedown now move half a page
 nnoremap <PageDown> <C-d>
@@ -240,7 +256,7 @@ inoremap è <C-O><C-W><C-H>
 " nmap <silent> <Up> gk
 " associate proper syntaxes with files
 au BufNewFile,BufRead .bash_aliases call SetFileTypeSH("bash")
-autocmd BufNewFile,BufRead .babelrc call SetFileTypeSH("json")
+autocmd BufNewFile,BufRead .babelrc,.prettierrc call SetFileTypeSH("json")
 "au BufNewFile,BufRead ~/.Xresources/urxvt-unicode call SetFileTypeSH("xdefaults")
 autocmd BufNewFile,BufRead ~/.Xresources.d/* setfiletype xdefaults
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
@@ -325,7 +341,7 @@ let g:netrw_winsize = 25
 let g:NERDTreeQuitOnOpen=0
 let NERDTreeChDirMode=1
 let NERDTreeShowHidden=1
-let NERDTreeIgnore=['\.git$', '\.idea$', '\~$']
+let NERDTreeIgnore=['\.git$', '\.idea$', '\~$', '__pycache__', '\.egg-info$', '\.eggs$']
 autocmd BufRead,BufNewFile $HOME let NERDTreeShowHidden=0
 nnoremap <C-\> :NERDTreeToggle<CR>
 inoremap <C-\> <C-O>:NERDTreeToggle<CR>
@@ -348,6 +364,14 @@ vnoremap <C-\> <C-C>:NERDTreeToggle<CR>
 "
 "nerdcommenter config
 let NERDSpaceDelims=1
+
+"vim-commentary
+" let g:context#commentstring#table['javascript.jsx'] = {
+      " \ 'jsComment' : '// %s',
+      " \ 'jsImport' : '// %s',
+      " \ 'jsxStatment' : '// %s',
+      " \ 'jsxRegion' : '{/*%s*/}',
+" \}
 
 
 "airline config
@@ -528,6 +552,9 @@ let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
 
 "endif
 
+"deoplete jedi
+let g:python3_host_prog = '/usr/local/bin/python3'
+
  "deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
@@ -573,8 +600,10 @@ autocmd BufRead,BufNewFile ~/vwiki/diary/diary.md :VimwikiDiaryGenerateLinks
 
 "ctrlp config
 "only show files that are not ignored by git
-let g:ctrlp_user_command = ['.gitignore', 'cd %s && ag --hidden -g .']
-let g:ctrlp_root_markers = ['build.sbt', 'package.json']
+" slower!!
+let g:ctrlp_user_command = ['.gitignore', 'cd %s && ag --ignore-dir=.git --follow --hidden -g .']
+let g:ctrlp_root_markers = ['build.sbt', 'package.json', '.projectroot']
+let g:ctrlp_working_path_mode = 0
 
 "if exists("g:ctrlp_user_command")
 "unlet g:ctrlp_user_command
@@ -590,3 +619,13 @@ let g:ctrlp_root_markers = ['build.sbt', 'package.json']
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
+" vim-prettier
+autocmd FileType python let b:prettier_ft_default_args = {
+ \ 'parser': 'python',
+ \ }
+autocmd FileType php let b:prettier_ft_default_args = {
+ \ 'parser': 'php',
+ \ }
+
+call jspretmpl#register_tag('sql', 'sql')
