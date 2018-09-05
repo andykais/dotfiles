@@ -1,0 +1,48 @@
+{
+    "border": "normal",
+    "current_border_width": 0,
+    "floating": "auto_off",
+    "name": "i3-save-tree --workspace 2 > layout.json",
+    "percent": 0.5,
+    "swallows": [
+       {
+           "class": "XTerm$"
+       }
+    ],
+    "type": "con"
+}
+
+{
+    "layout": "stacked",
+    "percent": 0.5,
+    "type": "con",
+    "nodes": [
+        {
+            "border": "normal",
+            "current_border_width": 0,
+            "floating": "auto_off",
+            "name": "andrew@andrew-linux: ~",
+            "percent": 0.5,
+            "swallows": [
+               {
+                   "class": "XTerm$"
+               }
+            ],
+            "type": "con"
+        },
+        {
+            "border": "normal",
+            "current_border_width": 0,
+            "floating": "auto_off",
+            "name": "New Tab - Google Chrome",
+            "percent": 0.5,
+            "swallows": [
+               {
+                   "class": "^Google\\-chrome$"
+               }
+            ],
+            "type": "con"
+        }
+    ]
+}
+

@@ -1,3 +1,9 @@
 ~/.npm-packages/lib
+├── browser-sync@2.24.6
+├── now@11.3.10
+├── npm@6.4.1
+├── sane@2.5.0
+├── scrape-ifunny@1.0.1
+├── scrape-pages@3.0.4 -> ~/Build/dev/scrape-pages
 └── tern@0.21.0
 

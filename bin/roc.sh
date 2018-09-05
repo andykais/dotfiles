@@ -1,6 +1,6 @@
 #!/bin/sh
 FORMAT=$(echo -e "\033[1;33m%w%f\033[0m written at $(date +'%r')")
-EXCLUDE_PATTERN="\.(log|aux|dvi|blg|pdf)"
+EXCLUDE_PATTERN="\.git/index.lock|\.(log|aux|dvi|blg|pdf|tern-port)"
 clear
 while true
 do

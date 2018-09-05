@@ -2,7 +2,7 @@
 
 
 wallpaper_dir=~/Pictures/wallpapers
-current_wallpaper_cache=$HOME/bin/data/slideshow_latest.txt
+current_wallpaper_cache=$HOME/.fehbg
 seconds_to_wait=$((60 * 60))
 
 # gets an alphanumeric list of the wallpapers
@@ -15,7 +15,7 @@ get_wallpapers() {
 get_current_wallpaper() {
   if [ -a "$current_wallpaper_cache" ]
   then
-    wallpaper_from_cache=$(cat "$current_wallpaper_cache")
+    wallpaper_from_cache=$(cat .fehbg | tail -1 | awk '{print $3}' | sed -e "s/^'//" -e "s/'$//" )
     if [ -a "$wallpaper_from_cache" ]
     then
       echo $wallpaper_from_cache
@@ -28,7 +28,6 @@ get_current_wallpaper() {
 }
 # sets and logs the background image
 set_current_wallpaper() {
-  echo $1 > $current_wallpaper_cache
   echo setting $1
   feh --bg-max "$1"
 }

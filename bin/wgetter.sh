@@ -25,6 +25,7 @@ wget_options() {
     -D 217.23.10.62
     -D rc.itdragons.com
     -D readcomics.io
+    -D 93.190.142.23
     -H
   '
 }
@@ -234,7 +235,8 @@ if [ $# -ge 2 ]; then
   then
     START=${3:-$2}
     STOP=$2
-    [ $DEBUG != true ] && DEBUG=false
+    # [ $DEBUG != true ] && DEBUG=false
+    [ -z $DEBUG ] || [ $DEBUG != true ] && DEBUG=false
     NAME_IN_ORDER=false
 
     if [ $MANGA_MODE = true ]; then

@@ -10,11 +10,6 @@ if hash npm 2>/dev/null; then
   npm list -g --depth=0 | sed "s/\/home\/$USER/~/" > $PKGS_DIR/npm.list
 fi
 
-if hash yarn 2>/dev/null; then
-  echo "backing up yarn"
-  yarn global list --no-progress 2> /dev/null | grep info > $PKGS_DIR/yarn.list
-fi
-
 if hash apm 2>/dev/null; then
   echo "backing up atom"
   apm list > $PKGS_DIR/apm.list

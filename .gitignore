@@ -4,7 +4,7 @@ npm-debug.log
 
 bin/data
 
-configs-xdg-dir/nvim/spell/en.utf-8.add.spl
+configs-xdg-dir/nvim/spell/
 configs-xdg-dir/nvim/plugged
 configs-xdg-dir/nvim/plugged
 configs-xdg-dir/ranger/history

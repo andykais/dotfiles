@@ -43,7 +43,7 @@ bindsym $mod+Shift+q kill
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
 
 # change focus
 #bindsym $mod+j focus left
@@ -168,10 +168,12 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
     status_command ~/bin/i3status.js
-    # status_command i3status
+    font pango: xos4 Terminus, FontAwesome 9
+    # status_command i3status-rs ~/.config/i3status-rs.toml
+    # font pango:DejaVu Sans Mono, FontAwesome 9
     position top
-    tray_output primary
-    font pango: xos4 Terminus 9
+    # tray_output primary
+    # font pango: xos4 Terminus 9
     #font pango: Sauce Code Pro 10
     colors {
       #background #232323
@@ -258,6 +260,8 @@ bindsym $mod+k exec --no-startup-id keepassx2
 #passmenu shortcut
 #bindsym $mod+Shift+d exec keepass-dmenu --database ~/Dropbox/keepass/oneLockToHoldThemAll.kdbx --keyfile ~/Dropbox/keepass/oneKeyToRuleThemAll.key --cache-password 100
 bindsym $mod+Shift+d exec --no-startup-id ~/.npm-packages/bin/keepass-dmenu --database ~/Dropbox/keepass/oneLockToHoldThemAll.kdbx --keyfile ~/Dropbox/keepass/oneKeyToRuleThemAll.key --cache-password 100
+
+bindsym $mod+Mod1+d exec --no-startup-id ~/bin/environment_launcher.js
 #open a terminal
 bindsym $mod+z exec --no-startup-id i3-sensible-terminal
 
@@ -285,6 +289,7 @@ bindsym $mod+Shift+l exec --no-startup-id i3lock -c 000000
 # for_window [window_role="pop-up"] floating enable focus true
 for_window [title="Minecraft.*"] floating enable
 for_window [class="Arandr"] floating enable
+for_window [title="Pushbullet"] floating enable
 assign [class="ktorrent"] → 10
 assign [class="Spotify"] → 10
 for_window [class="Spotify"] move to workspace 10
