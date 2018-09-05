@@ -12,4 +12,4 @@ do
         && sleep .3;
 
     inotifywait --exclude $EXCLUDE_PATTERN -qre close_write --format "$FORMAT" .
-done
+  done

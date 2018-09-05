@@ -2,8 +2,30 @@
 
 . ~/bin/helpers/func_confirm.sh
 
+human_readable() {
+  echo $1 | awk '
+      function human(x) {
+          if (x<1000) {return x} else {x/=1024}
+          s="kMGTEPZY";
+          while (x>=1000 && length(s)>1)
+              {x/=1024; s=substr(s,2)}
+          return int(x+0.5) substr(s,1,1)
+      }
+      {sub(/^[0-9]+/, human($1)); print}'
+}
+available_space() {
+  df / | tail -1 | awk '{print $4}'
+}
+difference_in_space() {
+  local before=
+}
+
 tee_command() {
+  local before=$(available_space)
   (set -x; "$@")
+  local after=$(available_space)
+  local diff=$((after - before))
+  echo "Freed $(human_readable $diff) bytes"
 }
 
 confirm 'clean yarn cache?' \

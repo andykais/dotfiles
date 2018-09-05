@@ -11,7 +11,7 @@ source "${HOME}/.zgen/zgen.zsh"
 # if the init scipt doesn't exist
 if ! zgen saved; then
   zgen oh-my-zsh
-  zgen oh-my-zsh plugins/git
+  # zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/z
   zgen oh-my-zsh plugins/docker
   zgen oh-my-zsh plugins/dirhistory
@@ -20,5 +20,15 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-completions src
   zgen save # generate the init script from plugins above
 fi
+build_prompt() {
+  RETVAL=$?
+  prompt_status
+  prompt_virtualenv
+  prompt_context
+  prompt_dir
+  prompt_end
+  # git symbolic-ref --short HEAD
+  # git-radar --zsh --fetch
+}
 
 source ~/.bashrc

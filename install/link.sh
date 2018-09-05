@@ -34,8 +34,13 @@ symlink() {
   fi
 }
 
+<<<<<<< HEAD
 printf "\nCreating symlinks\n"
 printf "==============================\n"
+=======
+print "Creating symlinks" "\n%s\n"
+print "=============================="
+>>>>>>> origin/mac
 linkables=$( find -H "$DOTFILES/configs-base-dir" -maxdepth 3 -name '*.symlink' )
 for file in $linkables ; do
   target="$HOME/.$( basename $file '.symlink' )"
