@@ -91,3 +91,15 @@ function notify() {
     inotifywait -qre close_write .
   done
 }
+
+function install_local_package() {
+  local cwd="$PWD" \
+    && local package_folder=$1 \
+    && echo "package_folder $package_folder" \
+    && cd $1 \
+    && local tarball=$(npm pack) \
+    && echo "tarball $tarball" \
+    && local fullpath="$package_folder/$tarball" \
+    && cd "$cwd" \
+    && npm install "$fullpath"
+}
