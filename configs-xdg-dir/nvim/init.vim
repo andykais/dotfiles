@@ -3,7 +3,7 @@
 call plug#begin('~/.vim/plugged')
 "Themes {{{
 Plug 'junegunn/seoul256.vim'
-"Plug 'sickill/vim-monokai'
+" Plug 'sickill/vim-monokai'
 "Plug 'jnurmine/Zenburn'
 "Plug 'Lokaltog/vim-distinguished'
 "}}}
@@ -19,23 +19,26 @@ Plug 'hdima/python-syntax'
 Plug 'cespare/vim-toml'
 Plug 'leafo/moonscript-vim'
 "Plug 'amadeus/vim-css'
-"Plug 'fleischie/vim-styled-components'
-"Plug 'pangloss/vim-javascript'
-"Plug 'mxw/vim-jsx'
-"Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
-"Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
-Plug 'othree/yajs.vim', {'for': 'javascript'}
-Plug 'othree/es.next.syntax.vim', {'for': 'javascript'}
-Plug 'Quramy/vim-js-pretty-template'
-"Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+" Plug 'fleischie/vim-styled-components'
+" Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+" Plug 'jelera/vim-javascript-syntax'
+" Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
+Plug 'othree/yajs.vim'
+Plug 'othree/es.next.syntax.vim'
+" Plug 'Quramy/vim-js-pretty-template' DROPME
+" Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+" Plug 'HerringtonDarkholme/yats.vim'
 Plug 'plasticboy/vim-markdown'
+Plug 'ap/vim-css-color'
+Plug 'vim-scripts/phpfolding.vim', { 'for': 'php' }
+Plug 'Vimjas/vim-python-pep8-indent'
 "}}}
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'tpope/vim-commentary'
 Plug 'scrooloose/NERDtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-vinegar'
-Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -65,7 +68,6 @@ Plug 'w0rp/ale', { 'for': 'javascript' }
 Plug 'mileszs/ack.vim'
 Plug 'timakro/vim-searchant'
 Plug 'wakatime/vim-wakatime'
-Plug 'Vimjas/vim-python-pep8-indent'
 " Plug 'python-mode/python-mode', { 'branch': 'develop', 'do': 'git submodule update --init --recursive' }
 " Plug 'francoiscabrol/ranger.vim'
 " Plug 'rbgrouleff/bclose.vim'
@@ -173,12 +175,10 @@ vnoremap <C-c> "+y<CR>
 noremap g/ y/<C-R>"<CR>
 
 "toggle search highlighting
-"TODO replace with searchant
-nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
+" nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
 
 "folds
 " set foldenable
-set foldmethod=manual
 let g:search_in_folds=1
 function! ToggleFoldSearch()
   if g:search_in_folds
@@ -197,23 +197,25 @@ nnoremap f/ :call ToggleFoldSearch()<CR>
 nnoremap <PageDown> <C-d>
 nnoremap <PageUp>   <C-u>
 " faster switching between splits
-nnoremap ê <C-W><C-J>
-nnoremap ë <C-W><C-K>
-nnoremap ì <C-W><C-L>
-nnoremap è <C-W><C-H>
-inoremap ê <C-O><C-W><C-J>
-inoremap ë <C-O><C-W><C-K>
-inoremap ì <C-O><C-W><C-L>
-inoremap è <C-O><C-W><C-H>
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-l> <C-W><C-L>
+nnoremap <C-h> <C-W><C-H>
+inoremap <C-j> <C-O><C-W><C-J>
+inoremap <C-k> <C-O><C-W><C-K>
+inoremap <C-l> <C-O><C-W><C-L>
+inoremap <C-h> <C-O><C-W><C-H>
 "navigate wrapped text normally
 imap <silent> <Down> <C-o>gj
 imap <silent> <Up>   <C-o>gk
 nmap <silent> <Down> gj
 nmap <silent> <Up>   gk
+
+noremap <S-j> vaw
 "}}}
 
 
-"---------------------------- Filetype Specific Settings {{{
+"---------------------------- Filetype Settings {{{
 
 "Add missing filetypes
 autocmd BufRead,BufNewFile ~/.Xresources.d/*                            setfiletype xdefaults
@@ -241,6 +243,7 @@ autocmd FileType           vim                                          setlocal
 autocmd FileType           vimwiki                                      setlocal syntax=markdown
 autocmd FileType           *                                            let g:AutoPairsMapSpace=1
 autocmd FileType           markdown                                     let g:AutoPairsMapSpace=0
+autocmd Filetype           php                                          :EnableFastPHPFolds
 
 "}}}
 
@@ -288,18 +291,6 @@ inoremap <C-\> <C-O>:NERDTreeToggle<CR>
 vnoremap <C-\> <C-C>:NERDTreeToggle<CR>
 
 "let g:NERDTreeUseSimpleIndicator = 1
-
-"
-"nerdcommenter config
-let NERDSpaceDelims=1
-
-"vim-commentary
-" let g:context#commentstring#table['javascript.jsx'] = {
-      " \ 'jsComment' : '// %s',
-      " \ 'jsImport' : '// %s',
-      " \ 'jsxStatment' : '// %s',
-      " \ 'jsxRegion' : '{/*%s*/}',
-" \}
 "}}}
 
 "vim-airline {{{
@@ -352,8 +343,8 @@ let g:ale_lint_on_enter = 0
 autocmd FileType javascript noremap <C-f> :silent !standard --fix %<CR>
  ":cannot call alelint after because async function ALELint<CR>
 " autocmd FileType javascript noremap <C-S-f> :ALELint<CR>
-nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-Right> <Plug>(ale_previous_wrap)
+nmap <silent> <C-Left> <Plug>(ale_next_wrap)
 " }}}
 
 "editorconfig-vim {{{
@@ -376,7 +367,7 @@ let g:vim_markdown_folding_level=2
 "deoplete {{{
 
 "Debugging
-call g:deoplete#enable_logging("DEBUG", $HOME. "/deoplete-debug.txt")
+" call g:deoplete#enable_logging('DEBUG', $HOME. '/deoplete-debug.txt')
 
 "Activate deoplete
 let g:deoplete#enable_at_startup = 1
@@ -399,6 +390,7 @@ call deoplete#custom#option('ignore_sources', {
   \'markdown': [],
   \'vimwiki':  [],
   \'tex':      [],
+  \'vim':      [],
   \})
 
 "Deoplete Plugins
@@ -488,7 +480,29 @@ autocmd FileType python let b:prettier_ft_default_args = {
 autocmd FileType php let b:prettier_ft_default_args = {
  \ 'parser': 'php',
  \ }
-
-call jspretmpl#register_tag('sql', 'sql')
 "}}}
+
+"vim-js-pretty-template {{{
+
+" call jspretmpl#register_tag('sql', 'sql')
+" call jspretmpl#register_tag('gql', 'graphql')
+"}}}
+
+"vim-searchant {{{
+" let g:searchant_current = 0
+let g:searchant_map_stop=0
+function ToggleSearchant()
+  let l:search_is_highlighted=&hlsearch
+  if search_is_highlighted
+    echo "nohlsearch"
+    :execute "normal \<Plug>SearchantStop"
+  else
+    echo "hlsearch"
+    set hlsearch
+  endif
+endfunction
+nnoremap <silent> <Space> :call ToggleSearchant()<CR>
+" nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
+"}}}
+
 "}}}
