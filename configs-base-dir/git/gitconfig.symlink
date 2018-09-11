@@ -1,22 +1,3 @@
 [user]
-	email = akaiser@wayfair.com
+	email = kaisea.rpi@gmail.com
 	name = Andrew Kaiser
-[pull]
-	rebase = true
-[push]
-	default = current
-[fetch]
-	prune = true
-[core]
-	autocrlf = false
-	preloadindex = true
-	symlinks = false
-[log]
-	decorate = short
-[http]
-	sslVerify = false
-[commit]
-	template = ~/.gitmessage
-[oh-my-zsh]
-	hide-dirty = 1
-	hide-status = 1

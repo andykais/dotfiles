@@ -3,6 +3,7 @@ xterm*termName: xterm-256color
 !xterm*termName: uxterm
 
 xterm*locale: true
+xterm*VT100.geometry:          90x30
 
 xterm*selectToClipboard: true
 !! xterm selects text just by highlighting

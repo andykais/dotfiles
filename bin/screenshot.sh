@@ -14,15 +14,21 @@ done
 case "$1" in
     "root")
         import -window root $FILE
-        notify-send --icon $FILE "Took Screenshot" "filename $FILE"
+        notify-send --icon $FILE "Took Screenshot" "${FILE/#$HOME/'~'}"
         ;;
     "box")
         import $FILE
-        notify-send --icon $FILE "Took Screenshot" "filename $FILE"
+        notify-send --icon $FILE "Took Screenshot" "${FILE/#$HOME/'~'}"
+        ;;
+    "active")
+        window=`xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)" | cut -d' ' -f5`
+        echo $window
+        import -border -window $window $FILE
+        notify-send --icon $FILE "Took Screenshot" "${FILE/#$HOME/'~'}"
         ;;
     *)
         echo "usage: screenshot.sh [root | box]"
-        exit
+        exit 1
         ;;
 esac
 

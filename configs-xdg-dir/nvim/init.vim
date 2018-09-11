@@ -29,6 +29,8 @@ Plug 'othree/es.next.syntax.vim', {'for': 'javascript'}
 Plug 'Quramy/vim-js-pretty-template'
 "Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
 Plug 'plasticboy/vim-markdown'
+Plug 'vim-latex/vim-latex'
+Plug 'Vimjas/vim-python-pep8-indent'
 "}}}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/NERDtree', { 'on': 'NERDTreeToggle' }
@@ -65,7 +67,7 @@ Plug 'w0rp/ale', { 'for': 'javascript' }
 Plug 'mileszs/ack.vim'
 Plug 'timakro/vim-searchant'
 Plug 'wakatime/vim-wakatime'
-Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'lambdalisue/suda.vim'
 " Plug 'python-mode/python-mode', { 'branch': 'develop', 'do': 'git submodule update --init --recursive' }
 " Plug 'francoiscabrol/ranger.vim'
 " Plug 'rbgrouleff/bclose.vim'
@@ -135,6 +137,7 @@ set shell=$SHELL
 set history=1000 " change history to 1000
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
 
 "Language
 set spelllang=en_us
@@ -235,7 +238,7 @@ autocmd Filetype           html,xml                                     setlocal
 autocmd FileType           make                                         setlocal noexpandtab
 autocmd FileType           python                                       setlocal shiftwidth=4
 autocmd FileType           markdown                                     setlocal com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
-autocmd FileType           vim                                          setlocal foldmethod=marker
+autocmd FileType           vim,conf                                     setlocal foldmethod=marker
 autocmd FileType           vimwiki                                      setlocal syntax=markdown
 autocmd FileType           *                                            let g:AutoPairsMapSpace=1
 autocmd FileType           markdown                                     let g:AutoPairsMapSpace=0
@@ -374,7 +377,7 @@ let g:vim_markdown_folding_level=2
 "deoplete {{{
 
 "Debugging
-call g:deoplete#enable_logging("DEBUG", $HOME. "/deoplete-debug.txt")
+" call g:deoplete#enable_logging("DEBUG", $HOME. "/deoplete-debug.txt")
 
 "Activate deoplete
 let g:deoplete#enable_at_startup = 1
@@ -397,6 +400,7 @@ call deoplete#custom#option('ignore_sources', {
   \'markdown': [],
   \'vimwiki':  [],
   \'tex':      [],
+  \'sh':       [],
   \})
 
 "Deoplete Plugins
@@ -417,7 +421,6 @@ let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
 
 "deoplete-jedi {{{
 
-let g:python3_host_prog = '/usr/local/bin/python3'
 "}}}
 "}}}
 
@@ -488,5 +491,11 @@ autocmd FileType php let b:prettier_ft_default_args = {
  \ }
 
 call jspretmpl#register_tag('sql', 'sql')
+"}}}
+
+"vim-latex {{{
+
+" let g:Tex_FoldedEnvironments='tabularx,itemize'
+let g:Tex_FoldedMisc='preamble,<<<'
 "}}}
 "}}}
