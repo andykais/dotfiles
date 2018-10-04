@@ -3,10 +3,15 @@ xterm*termName: xterm-256color
 !xterm*termName: uxterm
 
 xterm*locale: true
-xterm*VT100.geometry:          90x30
+! XTerm*VT100.geometry: 80x24
+! XTerm*geometry: 80x24
+! XTerm.vt100.geometry: 80x32
 
+
+
+! xterm selects text just by highlighting
 xterm*selectToClipboard: true
-!! xterm selects text just by highlighting
+! paste text to terminal
 xterm*VT100.Translations: #override \
   Shift Ctrl <Key>V: insert-selection(CLIPBOARD) \n
 !Shift Ctrl <Key>C: copy-selection(CLIPBOARD)

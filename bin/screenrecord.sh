@@ -7,10 +7,10 @@ set -e
 # can be stopped by clicking tray icon `yad` creates
 
 RECORD_DIR=$HOME/Pictures/screenrecord
+MAX_DURATION=60
+i="000"
 filename="$RECORD_DIR/recording($i)"
 file_type='mp4'
-i="000"
-MAX_DURATION=60
 
 mkdir -p $RECORD_DIR
 while [[ $(ls $filename.*) ]]
@@ -22,8 +22,6 @@ do
 done
 FILE="$filename.${file_type}"
 
-echo $FILE
-exit
 case "$1" in
   "root")
     window_info=`xwininfo -root`

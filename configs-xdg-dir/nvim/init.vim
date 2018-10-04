@@ -3,9 +3,9 @@
 call plug#begin('~/.vim/plugged')
 "Themes {{{
 Plug 'junegunn/seoul256.vim'
-"Plug 'sickill/vim-monokai'
-"Plug 'jnurmine/Zenburn'
-"Plug 'Lokaltog/vim-distinguished'
+" Plug 'sickill/vim-monokai'
+" Plug 'jnurmine/Zenburn'
+" Plug 'Lokaltog/vim-distinguished'
 "}}}
 "Syntax improvements {{{
 Plug 'chr4/nginx.vim'
@@ -21,16 +21,17 @@ Plug 'leafo/moonscript-vim'
 "Plug 'amadeus/vim-css'
 "Plug 'fleischie/vim-styled-components'
 "Plug 'pangloss/vim-javascript'
-"Plug 'mxw/vim-jsx'
-"Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
+Plug 'mxw/vim-jsx'
+" Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 "Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
-Plug 'othree/yajs.vim', {'for': 'javascript'}
-Plug 'othree/es.next.syntax.vim', {'for': 'javascript'}
+" Plug 'othree/yajs.vim', {'for': 'javascript'}
+" Plug 'othree/es.next.syntax.vim', {'for': 'javascript'}
 Plug 'Quramy/vim-js-pretty-template'
-"Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
+Plug 'leafgarland/typescript-vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-latex/vim-latex'
 Plug 'Vimjas/vim-python-pep8-indent'
+" Plug 'Epitrochoid/marko-vim-syntax'
 "}}}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/NERDtree', { 'on': 'NERDTreeToggle' }
@@ -83,12 +84,12 @@ call plug#end()
 
 set t_Co=256
 colorscheme seoul256
-"colorscheme onehalflight
-"colorscheme xoria256
-"colorscheme monokai
-"colorscheme zenburn
-"colorscheme distinguished
-"let g:airline_theme='onehalfdark'
+" colorscheme onehalflight
+" colorscheme xoria256
+" colorscheme monokai
+" colorscheme zenburn
+" colorscheme distinguished
+let g:airline_theme='onehalfdark'
 "}}}
 
 
@@ -217,7 +218,7 @@ nmap <silent> <Up>   gk
 "---------------------------- Filetype Specific Settings {{{
 
 "Add missing filetypes
-autocmd BufRead,BufNewFile ~/.Xresources.d/*                            setfiletype xdefaults
+autocmd BufRead,BufNewFile .Xresources.d/*                              setfiletype xdefaults
 autocmd BufRead,BufNewFile docker-*.yml                                 setfiletype docker-compose
 autocmd BufRead,BufNewFile test-project.txt                             setfiletype Dockerfile
 autocmd BufRead,BufNewFile .eslintrc,.tern-project,.babelrc,.prettierrc setfiletype json

@@ -4,11 +4,13 @@ EXCLUDE_PATTERN="\.git/index.lock|\.(log|aux|dvi|blg|pdf|tern-port)"
 clear
 while true
 do
-    clear\
-        && echo "[Running \"$@\" on files changes in $(pwd) at $(date +'%r')]"\
+        # echo "[Running \"$@\" on files changes in $(pwd) at $(date +'%r')] ..."\
+        echo "Executing command..." \
         && echo ""\
         && echo "$@" > $HOME/bin/data/lastroc.sh\
-        && bash $HOME/bin/data/lastroc.sh 0>/dev/null  \
+        && output=$(bash $HOME/bin/data/lastroc.sh) \
+        && clear \
+        && printf '%s\n' "$output" \
         && sleep .3;
 
     inotifywait --exclude $EXCLUDE_PATTERN -qre close_write --format "$FORMAT" .

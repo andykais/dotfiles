@@ -10,7 +10,6 @@ export LESS_TERMCAP_so=$(printf '\e[1;44;1m')
 
 export EDITOR="nvim"
 export VISUAL="nvim"
-source ~/.bash_aliases
 
 # nodejs & npm
 export NPM_PACKAGES=~/.npm-packages
@@ -24,6 +23,7 @@ export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
 export PATH=$PATH:~/.cargo/bin
 # personal scripts
 export PATH=$PATH:~/bin
-# project scripts
-export PATH=$PATH:~/Build/dev/okcollege/libs/scripts
-export PATH=$PATH:~/Build/dev/telebum2/compose/manager
+# pip install --user scripts
+export PATH=$PATH:~/.local/bin
+
+source ~/.bash_aliases

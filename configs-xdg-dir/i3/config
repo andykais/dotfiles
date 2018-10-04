@@ -139,15 +139,17 @@ bindsym $mod+z exec --no-startup-id i3-sensible-terminal
 bindsym $mod+Shift+Return exec --no-startup-id ~/bin/fancy_terminal.sh
 
 # open google chrome
-bindsym $mod+g exec google-chrome-stable --profile-directory=Default
+bindsym $mod+g exec --no-startup-id google-chrome-stable --profile-directory=Default
 
 # open ktorrent
-bindsym $mod+t exec ktorrent
+bindsym $mod+t exec --no-startup-id ktorrent
 
 # open keepassx
 bindsym $mod+k exec --no-startup-id keepassx2
 # open keepassx dmenu
-bindsym $mod+Shift+d exec --no-startup-id ~/.npm-packages/bin/keepass-dmenu --database ~/Dropbox/keepass/oneLockToHoldThemAll.kdbx --keyfile ~/Dropbox/keepass/oneKeyToRuleThemAll.key --cache-password 100
+# bindsym $mod+Shift+d exec --no-startup-id ~/.npm-packages/bin/keepass-dmenu --database ~/Dropbox/keepass/oneLockToHoldThemAll.kdbx --keyfile ~/Dropbox/keepass/oneKeyToRuleThemAll.key --cache-password 100
+# open bitwarden-dmenu
+bindsym $mod+Shift+d exec --no-startup-id ~/.npm-packages/bin/bitwarden-dmenu --clear-clipboard 30 --session-timeout 100 --sync-vault-after 3600 --on-error 'xargs notify-send --urgency=low'
 
 # open environment dmenu
 bindsym $mod+Mod1+d exec --no-startup-id ~/bin/environment_launcher.js
@@ -167,8 +169,9 @@ bindsym $mod+Mod1+Shift+r exec --no-startup-id ~/bin/screenrecord.sh active
 #toggle the monitor the workspace is displayed on
 bindsym $mod+Shift+m move workspace to output left
 
-bindsym $mod+l exec ~/bin/i3locker.sh
+bindsym $mod+l exec --no-startup-id ~/bin/i3locker.sh
 bindsym $mod+Shift+l exec --no-startup-id i3lock -c 000000
+bindsym $mod+Mod1+l exec --no-startup-id sleep 0.1 && xset dpms force standby
 # }}}
 
 # System Control Bindings {{{
@@ -198,7 +201,7 @@ bar {
     # status_command i3status
     # status_command i3status-rs ~/.config/i3status-rs.toml
     status_command ~/bin/i3status.js
-    # font pango: xos4 Terminus, FontAwesome 9 DROPME
+    # font pango: xos4 Terminus, FontAwesome 9 # DROPME
     # font pango:DejaVu Sans Mono, FontAwesome 9
     position top
     # tray_output primary
@@ -262,9 +265,9 @@ exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 ######################
 # Set up trackpoint  #
 ######################
-exec "synclient TouchpadOff=1"
+exec --no-startup-id "synclient TouchpadOff=1"
 # exec "xinput set-prop \"SynPS/2 Synaptics TouchPad\" 143 1 0 0 0 1 0 0 0 100000"
-exec "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' -0.5"
+exec --no-startup-id "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' -0.5"
 # exec "xset m 7/2 0"
-exec "synclient VertScrollDelta=-99"
+exec --no-startup-id "synclient VertScrollDelta=-99"
 # }}}

@@ -4,7 +4,7 @@
 alias pstop='watch -n1 "ps aux --sort=-pcpu | head -n 6"'
 alias psg='ps ax | ag '
 alias ndone='notify-send -t 3 "CMD finished!" "in folder $(basename $PWD) with code $?"'
-alias dusort='sudo du -h --max-depth=1 | sort -h -r'
+alias dusort='sudo du --all --human-readable --max-depth=1 | sort -h -r'
 alias lstat='stat -c "%a %n" '
 alias v='nvim'
 alias l='ls -hl --group-directories-first'
@@ -13,9 +13,15 @@ alias tar-preview='tar -tf'
 alias run-dockerized=~/Build/prod/dockerized/cli/run-dockerized.js
 
 # docker aliases
-function docker-stop() {docker stop $(docker ps -q)}
-function docker-rmi()  {docker rmi $(docker images -a -q)}
-function docker-rm()   {docker rm $(docker ps -a 2&>1 | awk 'NR>1' | grep "$1" | awk '{print $1}')}
+function docker-stop() {
+  docker stop $(docker ps -q)
+}
+function docker-rmi()  {
+  docker rmi $(docker images -a -q)
+}
+function docker-rm() {
+  docker rm $(docker ps -a 2&>1 | awk 'NR>1' | grep "$1" | awk '{print $1}')
+}
 
 # git aliases
 alias ga='git add --all .'
@@ -30,8 +36,12 @@ function gdf() {
 }
 
 # ruby bundler aliases
-function bjs() { bundle exec jekyll serve --watch }
-function bgu() { bundle exec guard }
+function bjs() {
+  bundle exec jekyll serve --watch
+}
+function bgu() {
+  bundle exec guard
+}
 
 function notify() {
   while true
@@ -54,7 +64,7 @@ function pacman_wrapper() {
       | GREP_COLOR='01;33' grep -Ei --color=always "^|$search_string" \
       | GREP_COLOR='01;31' grep -E --color=always '^|\[installed\]'
   else
-    command pacman $@ 
+    command pacman $@
   fi
 }
 alias pacman='pacman_wrapper'
