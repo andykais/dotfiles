@@ -80,7 +80,7 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 
-# load zgen
+ # load zgen
 source "${HOME}/.zgen/zgen.zsh"
 # if the init scipt doesn't exist
 if ! zgen saved; then
@@ -89,6 +89,7 @@ if ! zgen saved; then
   # zgen oh-my-zsh plugins/git
   zgen oh-my-zsh plugins/z
   zgen oh-my-zsh plugins/docker
+  zgen oh-my-zsh plugins/npm
   zgen oh-my-zsh plugins/dirhistory
   zgen oh-my-zsh themes/agnoster
   # zgen load zsh-users/zsh-syntax-highlighting
@@ -145,3 +146,6 @@ ulimit -n 2048
 
 export FPATH="/Users/akaiser/.wf/zsh-completion:$FPATH"
 compinit
+
+# added by travis gem
+[ -f /Users/andrew/.travis/travis.sh ] && source /Users/andrew/.travis/travis.sh

@@ -1,5 +1,5 @@
-prefix=/Users/akaiser/.npm-packages
-loglevel=error
+prefix=/Users/andrew/.npm-packages
+/* loglevel=warn */
 save=true
 init.author.name=Andrew Kaiser
 init.license=MIT

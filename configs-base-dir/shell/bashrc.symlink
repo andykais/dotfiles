@@ -6,6 +6,12 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# ~/.bashrc or ~/.zshrc
+if [[ -s $HOME/.rvm/scripts/rvm ]]
+then
+    . $HOME/.rvm/scripts/rvm
+fi
+
 # so vim can use ctrl-s
 stty -ixon
 
@@ -45,7 +51,8 @@ PATH="$PATH:$HOME/Build/prod/tidy-html5/build/cmake/Build/tidy-5/bin"
 PATH="$PATH:$HOME/Build/prod/DrMemory-Linux-1.11.0-2/bin64"
 #export ANDROID_HOME=/media/androidSdk
 export ANDROID_HOME=~/.buildozer/android/platform/android-sdk-22
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+# export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+export JAVA_HOME=/Library/Java/Home
 PATH="$PATH:$ANDROID_HOME/tools"
 PATH="$PATH:$ANDROID_HOME/platform-tools"
 PATH="$PATH:$HOME/Build/prod/gzrt"
@@ -59,3 +66,7 @@ export EDITOR="nvim"
 export VISUAL="nvim"
 PATH="$PATH:$HOME/Library/Python/2.7/bin"
 PATH="$PATH:$HOME/Library/Python/3.6/bin"
+PATH="/Users/andrew/.deno/bin:$PATH"
+
+# added by travis gem
+[ -f /Users/andrew/.travis/travis.sh ] && source /Users/andrew/.travis/travis.sh

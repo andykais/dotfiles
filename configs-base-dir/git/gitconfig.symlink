@@ -1,8 +1,6 @@
 [user]
-	email = akaiser@wayfair.com
+	email = kaisea.rpi@gmail.com
 	name = Andrew Kaiser
-[pull]
-	rebase = true
 [push]
 	default = current
 [fetch]
@@ -11,12 +9,20 @@
 	autocrlf = false
 	preloadindex = true
 	symlinks = false
+	pager = diff-so-fancy | less --tabs=4 -RFX
 [log]
 	decorate = short
 [http]
 	sslVerify = false
-[commit]
-	template = ~/.gitmessage
 [oh-my-zsh]
 	hide-dirty = 1
 	hide-status = 1
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[diff]
+	word-diff = color
+[alias]
+	df = diff --word-diff=plain

@@ -15,24 +15,26 @@ Plug 'docker/docker', {'rtp': '/contrib/syntax/vim'}
 Plug 'othree/html5.vim'
 Plug 'elzr/vim-json'
 Plug 'hail2u/vim-css3-syntax'
-Plug 'hdima/python-syntax'
+" Plug 'hdima/python-syntax'
 Plug 'cespare/vim-toml'
 Plug 'leafo/moonscript-vim'
 "Plug 'amadeus/vim-css'
 " Plug 'fleischie/vim-styled-components'
 " Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 " Plug 'jelera/vim-javascript-syntax'
 " Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
 Plug 'othree/yajs.vim'
-Plug 'othree/es.next.syntax.vim'
+" Plug 'othree/es.next.syntax.vim'
 " Plug 'Quramy/vim-js-pretty-template' DROPME
 " Plug 'leafgarland/typescript-vim', {'for': 'typescript'}
-" Plug 'HerringtonDarkholme/yats.vim'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'ap/vim-css-color'
 Plug 'vim-scripts/phpfolding.vim', { 'for': 'php' }
-Plug 'Vimjas/vim-python-pep8-indent'
+" Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'jparise/vim-graphql'
+Plug 'kchmck/vim-coffee-script'
 "}}}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'tpope/vim-commentary'
@@ -53,7 +55,9 @@ Plug 'gregsexton/MatchTag'
 Plug 'suan/vim-instant-markdown', {'do': 'npm -g i instant-markdown-d'}
 Plug 'vimwiki/vimwiki'
 Plug 'vim-scripts/SyntaxAttr.vim'
-Plug 'editorconfig/editorconfig-vim'
+" Plug 'editorconfig/editorconfig-vim'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+" Plug 'leafgarland/typescript-vim'
 Plug 'Chiel92/vim-autoformat', {'do': 'npm -g i js-beautify'}
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-clang'
@@ -64,17 +68,14 @@ Plug 'zchee/deoplete-jedi'
 Plug 'derekwyatt/vim-scala'
 " Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
-Plug 'w0rp/ale', { 'for': 'javascript' }
+" Plug 'w0rp/ale', { 'for': 'javascript' }
 Plug 'mileszs/ack.vim'
 Plug 'timakro/vim-searchant'
 Plug 'wakatime/vim-wakatime'
 " Plug 'python-mode/python-mode', { 'branch': 'develop', 'do': 'git submodule update --init --recursive' }
 " Plug 'francoiscabrol/ranger.vim'
 " Plug 'rbgrouleff/bclose.vim'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install',
-  \ 'for': ['python', 'javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'php'] }
-Plug 'jparise/vim-graphql'
+Plug 'prettier/vim-prettier', {'do': 'npm install'}
 call plug#end()
 "}}}
 
@@ -237,7 +238,7 @@ autocmd FileType           sh,bash,c,cpp                                setlocal
 autocmd FileType           javascript                                   setlocal backupcopy=yes
 autocmd Filetype           html,xml                                     setlocal listchars-=tab:>.
 autocmd FileType           make                                         setlocal noexpandtab
-autocmd FileType           python                                       setlocal shiftwidth=4
+autocmd FileType           python                                       setlocal shiftwidth=2
 autocmd FileType           markdown                                     setlocal com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
 autocmd FileType           vim                                          setlocal foldmethod=marker
 autocmd FileType           vimwiki                                      setlocal syntax=markdown
@@ -415,6 +416,11 @@ let g:python3_host_prog = '/usr/local/bin/python3'
 "}}}
 "}}}
 
+"nvim-typescript {{{
+let g:nvim_typescript#diagnostics_enable = 0
+autocmd BufRead,BufWrite *.ts TSGetDiagnostics
+"}}}
+
 "ensime-vim {{{
 
 " let ensime_server_v2=1
@@ -495,6 +501,7 @@ function ToggleSearchant()
   let l:search_is_highlighted=&hlsearch
   if search_is_highlighted
     echo "nohlsearch"
+    set nohlsearch
     :execute "normal \<Plug>SearchantStop"
   else
     echo "hlsearch"

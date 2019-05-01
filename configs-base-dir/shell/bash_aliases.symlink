@@ -3,6 +3,9 @@
 # Wayfair aliases
 alias wf_log_turbine='ssh -t admindev "turbine tail COMPILER,ERRORS"'
 
+# Warner Bros Games aliases
+alias flake8diff='git diff master | flake8 --diff'
+
 alias psg='ps ax | ag '
 alias ndone='notify-send -t 3 "CMD finished!" "in folder $(basename $PWD) with code $?"'
 alias v='nvim'
@@ -92,7 +95,7 @@ function notify() {
   done
 }
 
-function install_local_package() {
+function npm_install_local_package() {
   local cwd="$PWD" \
     && local package_folder=$1 \
     && echo "package_folder $package_folder" \
