@@ -149,7 +149,7 @@ bindsym $mod+k exec --no-startup-id keepassx2
 # open keepassx dmenu
 # bindsym $mod+Shift+d exec --no-startup-id ~/.npm-packages/bin/keepass-dmenu --database ~/Dropbox/keepass/oneLockToHoldThemAll.kdbx --keyfile ~/Dropbox/keepass/oneKeyToRuleThemAll.key --cache-password 100
 # open bitwarden-dmenu
-bindsym $mod+Shift+d exec --no-startup-id ~/.npm-packages/bin/bitwarden-dmenu --clear-clipboard 30 --session-timeout 100 --sync-vault-after 3600 --on-error 'xargs notify-send --urgency=low'
+bindsym $mod+Shift+d exec --no-startup-id ~/.npm-packages/bin/bitwarden-dmenu --clear-clipboard 30 --session-timeout 100 --sync-vault-after 3600 --dmenu-args='-i' --on-error 'xargs notify-send --urgency=low'
 
 # open environment dmenu
 bindsym $mod+Mod1+d exec --no-startup-id ~/bin/environment_launcher.js
@@ -176,10 +176,12 @@ bindsym $mod+Mod1+l exec --no-startup-id sleep 0.1 && xset dpms force standby
 
 # System Control Bindings {{{
 
-# volume control
-bindsym XF86AudioMute exec amixer -q set Master toggle && pkill -SIGUSR1 i3status.js
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && pkill -SIGUSR1 i3status.js
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && pkill -SIGUSR1 i3status.js
+bindsym XF86AudioMute        exec amixer -q set Master toggle     && pkill -SIGUSR1 i3status-rx
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && pkill -SIGUSR1 i3status-rx
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && pkill -SIGUSR1 i3status-rx
+bindsym Shift+XF86AudioMute        exec amixer -q set Master toggle     && pkill -SIGUSR1 i3status-rx && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+bindsym Shift+XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && pkill -SIGUSR1 i3status-rx && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+bindsym Shift+XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && pkill -SIGUSR1 i3status-rx && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
 
 # brightness control
 bindsym XF86MonBrightnessUp exec xbacklight -inc 5
@@ -195,12 +197,14 @@ bindsym $mod+minus exec playerctl previous
 # }}}
 
 # Appearance {{{
-font pango: xos4 Terminus 9
+font pango: xos4 Terminus 8
 
 bar {
+    font pango: xos4 Terminus 10
     # status_command i3status
     # status_command i3status-rs ~/.config/i3status-rs.toml
-    status_command ~/bin/i3status.js
+    # status_command ~/bin/i3status.js
+    status_command ~/.npm-packages/bin/i3status-rx ~/.config/i3status-rx.toml
     # font pango: xos4 Terminus, FontAwesome 9 # DROPME
     # font pango:DejaVu Sans Mono, FontAwesome 9
     position top
@@ -234,6 +238,9 @@ for_window [class="Spotify"] move to workspace 10
 for_window [class="Steam" instance="Steam - News (1 of 4)"] floating enable
 no_focus [class="love"]
 focus_on_window_activation none
+for_window [window_role="gimp-toolbox"] floating disable; resize shrink right 11px # or 31 ppt
+for_window [window_role="gimp-dock"] floating disable; resize shrink right 11px # layout stacking; move left; resize shrink right 31px or 31 ppt
+
 # }}}
 
 # Launch On Startup {{{

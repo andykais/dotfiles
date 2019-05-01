@@ -1,16 +1,35 @@
 [[ -e ~/.bash_aliases_secret ]] && . ~/.bash_aliases_secret
 
 # shortcuts
+alias beep='echo -ne "\007"'
 alias pstop='watch -n1 "ps aux --sort=-pcpu | head -n 6"'
 alias psg='ps ax | ag '
 alias ndone='notify-send -t 3 "CMD finished!" "in folder $(basename $PWD) with code $?"'
-alias dusort='sudo du --all --human-readable --max-depth=1 | sort -h -r'
 alias lstat='stat -c "%a %n" '
 alias v='nvim'
 alias l='ls -hl --group-directories-first'
 alias la='ls -ahl --group-directories-first'
 alias tar-preview='tar -tf'
 alias run-dockerized=~/Build/prod/dockerized/cli/run-dockerized.js
+alias rm-node_modules='find . -name node_modules -prune -exec rm -fr {} \'
+
+function extract-into-folder() {
+  local archive=$1
+  local extraction_folder="${archive:0:-4}"
+  mkdir "$extraction_folder"
+  if [[ "$archive" =~ ".7z$" ]]; then
+    7z x "$archive" -o"$extraction_folder"
+  elif [[ "$archive" =~ ".(zip|cbz)$" ]]; then
+    unzip "$archive" -d "$extraction_folder"
+  elif [[ "$archive" =~ ".(rar|cbr)$" ]]; then
+    unrar e "$archive" "$extraction_folder"
+  fi
+}
+
+function font-preview() {
+  xrdb ~/.Xresources \
+    && xterm -e 'lsof -p $(ps -a | grep xterm | awk "{print \$1}" | head -1) | grep fonts | awk "{print \$9}";$SHELL'
+}
 
 # docker aliases
 function docker-stop() {
@@ -33,6 +52,10 @@ alias gb='git branch'
 function gdf() {
   current_branch=$(git rev-parse --abbrev-ref HEAD)
   git diff --name-only $current_branch $(git merge-base $current_branch master)
+}
+
+dusort() {
+  sudo du --all --human-readable --max-depth=1 $1 | sort -h -r
 }
 
 # ruby bundler aliases
@@ -69,7 +92,7 @@ function pacman_wrapper() {
 }
 alias pacman='pacman_wrapper'
 
-function install_local_package() {
+function npm_install_local_package() {
   local cwd="$PWD" \
     && local package_folder=$1 \
     && echo "package_folder $package_folder" \

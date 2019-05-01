@@ -1,5 +1,5 @@
 # xterm transparency
-[ -n "$XTERM_VERSION" ] && transset-df --id "$WINDOWID" >/dev/null
+[ -n "$XTERM_VERSION" ] && transset-df --max 0.90 --id "$WINDOWID" >/dev/null
 
 # User configuration
 COMPLETION_WAITING_DOTS="true" # display red dots whilst waiting for completion.

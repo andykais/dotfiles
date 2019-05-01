@@ -1,38 +1,38 @@
-xterm*background: #1e1c1c
-xterm*foreground: #c0c0c0
-xterm*cursorColor: #93a1a1
+*background: #1e1c1c
+*foreground: #c0c0c0
+*cursorColor: #93a1a1
 
 !! black dark/light
 !*color0: #121212
-xterm*color0: #132226
-xterm*color8: #2e3436
+*color0: #132226
+*color8: #2e3436
 
 !! red dark/light
-xterm*color1: #a35b66
-xterm*color9: #ab6b74
+*color1: #a35b66
+*color9: #ab6b74
 
 !! green dark/light
-xterm*color2: #99ab6f
-xterm*color10: #acb972
+*color2: #99ab6f
+*color10: #acb972
 
 !! yellow dark/light
-xterm*color3: #ca9733
-xterm*color11: #ccaa69
+*color3: #ca9733
+*color11: #ccaa69
 
 !! blue dark/light
-xterm*color4: #495d6e
-xterm*color12: #687987
+*color4: #495d6e
+*color12: #687987
 
 !! magenta dark/light
-xterm*color5: #825969
-xterm*color13: #977381
+*color5: #825969
+*color13: #977381
 
 !! cyan dark/light
-xterm*color6: #839191
-xterm*color14: #98a4a4
+*color6: #839191
+*color14: #98a4a4
 
 !! white dark/light
-xterm*color7: #e0e0e0
-color15: #e5e5e5
+*color7: #e0e0e0
+*color15: #e5e5e5
 
 ! vim: set filetype=xdefaults :

@@ -1,3 +1,5 @@
 [user]
 	email = kaisea.rpi@gmail.com
 	name = Andrew Kaiser
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RFX

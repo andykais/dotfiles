@@ -24,10 +24,11 @@ Plug 'leafo/moonscript-vim'
 Plug 'mxw/vim-jsx'
 " Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 "Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
-" Plug 'othree/yajs.vim', {'for': 'javascript'}
+Plug 'othree/yajs.vim', {'for': 'javascript'}
 " Plug 'othree/es.next.syntax.vim', {'for': 'javascript'}
-Plug 'Quramy/vim-js-pretty-template'
-Plug 'leafgarland/typescript-vim'
+" Plug 'Quramy/vim-js-pretty-template'
+" Plug 'leafgarland/typescript-vim'
+Plug 'HerringtonDarkholme/yats.vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-latex/vim-latex'
 Plug 'Vimjas/vim-python-pep8-indent'
@@ -36,7 +37,7 @@ Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/NERDtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'scrooloose/nerdcommenter'
+" Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
@@ -49,7 +50,7 @@ Plug 'vim-airline/vim-airline'
 " Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'suy/vim-context-commentstring'
 Plug 'mattn/emmet-vim'
-Plug 'gregsexton/MatchTag'
+Plug 'gregsexton/MatchTag', { 'for': 'html' }
 Plug 'suan/vim-instant-markdown', {'do': 'npm -g i instant-markdown-d'}
 Plug 'vimwiki/vimwiki'
 Plug 'vim-scripts/SyntaxAttr.vim'
@@ -61,10 +62,11 @@ Plug 'carlitux/deoplete-ternjs', {'do': 'npm -g i tern'}
 " Plug 'wokalski/autocomplete-flow'
 Plug 'zchee/deoplete-jedi'
 " Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
+Plug 'mhartington/nvim-typescript', {'do': './install.sh', 'for': ['typescript', 'typescript.tsx']}
 Plug 'derekwyatt/vim-scala'
 " Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
 Plug 'sonph/onehalf', {'rtp': 'vim/'}
-Plug 'w0rp/ale', { 'for': 'javascript' }
+" Plug 'w0rp/ale', { 'for': 'javascript' }
 Plug 'mileszs/ack.vim'
 Plug 'timakro/vim-searchant'
 Plug 'wakatime/vim-wakatime'
@@ -72,10 +74,9 @@ Plug 'lambdalisue/suda.vim'
 " Plug 'python-mode/python-mode', { 'branch': 'develop', 'do': 'git submodule update --init --recursive' }
 " Plug 'francoiscabrol/ranger.vim'
 " Plug 'rbgrouleff/bclose.vim'
-Plug 'prettier/vim-prettier', {
-  \ 'do': 'npm install',
-  \ 'for': ['python', 'javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'php'] }
+Plug 'prettier/vim-prettier', { 'do': 'npm install'}
 Plug 'jparise/vim-graphql'
+Plug 'cdata/vim-tagged-template'
 call plug#end()
 "}}}
 
@@ -178,7 +179,7 @@ noremap g/ y/<C-R>"<CR>
 
 "toggle search highlighting
 "TODO replace with searchant
-nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
+" nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
 
 "folds
 let g:search_in_folds=1
@@ -218,7 +219,7 @@ nmap <silent> <Up>   gk
 "---------------------------- Filetype Specific Settings {{{
 
 "Add missing filetypes
-autocmd BufRead,BufNewFile .Xresources.d/*                              setfiletype xdefaults
+autocmd BufRead,BufNewFile ~/.Xresources.d/*,.Xresources.d/*            setfiletype xdefaults
 autocmd BufRead,BufNewFile docker-*.yml                                 setfiletype docker-compose
 autocmd BufRead,BufNewFile test-project.txt                             setfiletype Dockerfile
 autocmd BufRead,BufNewFile .eslintrc,.tern-project,.babelrc,.prettierrc setfiletype json
@@ -239,15 +240,18 @@ autocmd Filetype           html,xml                                     setlocal
 autocmd FileType           make                                         setlocal noexpandtab
 autocmd FileType           python                                       setlocal shiftwidth=4
 autocmd FileType           markdown                                     setlocal com=s1:/*,mb:*,ex:*/,://,b:#,:%,:XCOMM,n:>,b:-
-autocmd FileType           vim,conf                                     setlocal foldmethod=marker
+autocmd FileType           vim,conf,typescript                          setlocal foldmethod=marker
 autocmd FileType           vimwiki                                      setlocal syntax=markdown
 autocmd FileType           *                                            let g:AutoPairsMapSpace=1
 autocmd FileType           markdown                                     let g:AutoPairsMapSpace=0
+autocmd FileType           xdefaults                                    setlocal commentstring=!\ %s
+autocmd FileType           typescript                                   setlocal commentstring=//\ %s
 
 "}}}
 
 
 "---------------------------- Plugin Settings {{{
+
 
 "netrw {{{
 
@@ -401,6 +405,7 @@ call deoplete#custom#option('ignore_sources', {
   \'markdown': [],
   \'vimwiki':  [],
   \'tex':      [],
+  \'vim':      [],
   \'sh':       [],
   \})
 
@@ -480,6 +485,7 @@ let g:ctrlp_working_path_mode = 0
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+
 "}}}
 
 "vim-prettier {{{
@@ -490,13 +496,50 @@ autocmd FileType python let b:prettier_ft_default_args = {
 autocmd FileType php let b:prettier_ft_default_args = {
  \ 'parser': 'php',
  \ }
+"}}}
 
-call jspretmpl#register_tag('sql', 'sql')
+"vim-searchant {{{
+" let g:searchant_current = 0
+let g:searchant_map_stop=0
+function ToggleSearchant()
+  let l:search_is_highlighted=&hlsearch
+  if search_is_highlighted
+    echo "nohlsearch"
+    :execute "normal \<Plug>SearchantStop"
+  else
+    echo "hlsearch"
+    set hlsearch
+  endif
+endfunction
+nnoremap <silent> <Space> :call ToggleSearchant()<CR>
+" nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
 "}}}
 
 "vim-latex {{{
 
 " let g:Tex_FoldedEnvironments='tabularx,itemize'
 let g:Tex_FoldedMisc='preamble,<<<'
+"}}}
+
+"vim-typescript {{{
+let g:typescript_indent_disable = 1
+
+"}}}
+
+"nvim-typescript {{{
+let g:nvim_typescript#diagnostics_enable = 0
+autocmd BufWrite *.ts TSGetDiagnostics
+"}}}
+
+"vim-tagged-template {{{
+let g:taggedtemplate#tagSyntaxMap = {
+  \ "html":    "html",
+  \ "md":      "markdown",
+  \ "css":     "css",
+  \ "graphql": "graphql",
+  \ "sql":     "sql"}
+autocmd FileType javascript,typescript : call taggedtemplate#applySyntaxMap()
+"}}}
+
 "}}}
 "}}}
