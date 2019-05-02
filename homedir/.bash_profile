@@ -3,5 +3,4 @@
 PS1='$(if [ $? -eq 0 ]; then echo "\[\033[32m\]:)"; else echo "\[\033[31m\]:("; fi) ${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u : \[\033[01;34m\]$(echo $(pwd) | grep -o "/" | wc -l)/$(basename $(pwd))\[\033[00m\] - '
 
 
-if [ -r ~/.profile ]; then . ~/.profile; fi
-case "$-" in *i*) if [ -r ~/.bashrc ]; then . ~/.bashrc; fi;; esac
+[[ -f ~/.profile ]] && . ~/.profile

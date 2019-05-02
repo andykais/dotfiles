@@ -1,6 +1,6 @@
 "---------------------------- Vim-Plug Package Manager {{{
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 "Themes {{{
 Plug 'junegunn/seoul256.vim'
 " Plug 'sickill/vim-monokai'

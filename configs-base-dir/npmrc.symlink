@@ -1,5 +1,0 @@
-prefix=~/.npm-packages
-loglevel=error
-save=true
-init.author.name=Andrew Kaiser
-init.license=MIT

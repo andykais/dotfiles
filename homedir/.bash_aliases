@@ -1,5 +1,3 @@
-[[ -e ~/.bash_aliases_secret ]] && . ~/.bash_aliases_secret
-
 # shortcuts
 alias beep='echo -ne "\007"'
 alias pstop='watch -n1 "ps aux --sort=-pcpu | head -n 6"'
