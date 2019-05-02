@@ -1,9 +1,10 @@
 #!/bin/bash
 
 #cd $HOME/.root-configs/package-managers/
+BIN_FOLDER=./homedir/bin
 PKGS_DIR=$HOME/.dotfiles/pkgs
 
-. $HOME/.dotfiles/bin/helpers/func_confirm.sh
+. $BIN_FOLDER/helpers/func_confirm.sh
 
 if hash npm 2>/dev/null; then
   echo "backing up npm"
@@ -38,9 +39,9 @@ fi
 if [ -f /etc/arch-release ]; then
   echo "backing up explicitly installed arch packages"
   #yaourt -Qq -e --date > $PKGS_DIR/os-packages/pacman.list
-  $HOME/.dotfiles/bin/sort_pacman.js > $PKGS_DIR/os-packages/pacman.list
+  $BIN_FOLDER/sort_pacman.js > $PKGS_DIR/os-packages/pacman.list
   echo "backing up explicitly installed arch aur packages"
-  $HOME/.dotfiles/bin/sort_pacman.js aur > $PKGS_DIR/os-packages/pacman_aur.list
+  $BIN_FOLDER/sort_pacman.js aur > $PKGS_DIR/os-packages/pacman_aur.list
 
 elif [ -f /etc/debian_version ]; then
   echo "backing up manually installed debian packages"

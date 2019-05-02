@@ -17,4 +17,4 @@ export PATH=$PATH:~/bin
 export PATH=$PATH:~/.local/bin
 
 source ~/.bash_aliases
-[[ -e ~/.bashrc_secrets ]] && source ~/.bashrc_secrets
+[[ -f ~/.bashrc_secrets ]] && source ~/.bashrc_secrets

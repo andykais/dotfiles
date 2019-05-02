@@ -52,19 +52,26 @@ printf "Installing dotfiles\n"
 [[ $DRY_RUN == true ]] && printf "This is a dry run. No files will be changed"
 printf "\nCreating $HOME/* symlinks\n"
 printf "==============================\n"
-linkables=$( find $LOCAL_DOTFILES -maxdepth 1 -mindepth 1 -name '.config' -prune -o -print )
+linkables=$( find $LOCAL_DOTFILES -maxdepth 1 -mindepth 1 \( -name '.config' -o -name '.emacs.d' \) -prune -o -print )
 for file in $linkables
 do
   target="$HOME/$(basename $file)"
   safe-io symlink $file $target
 done
 
+printf "\nCreating $HOME/.emacs.d/* symlinks\n"
+printf "==============================\n"
+emacs_linkables=$( find $LOCAL_DOTFILES/.emacs.d -type f )
+for file in $emacs_linkables
+do
+  target="$HOME/.emacs.d${file#"$LOCAL_DOTFILES/.emacs.d"}"
+  target_folder=$(dirname $target)
+  safe-io mkdir -p $target_folder
+  safe-io symlink $file $target
+done
+
 printf "\nCreating $HOME/.config/* symlinks\n"
 printf "==============================\n"
-if [ ! -d $HOME/.config ]; then
-  printf "Creating ~/.config\n"
-  mkdir -p $HOME/.config
-fi
 config_linkables=$( find $LOCAL_XDG_DIR -type f )
 for file in $config_linkables
 do

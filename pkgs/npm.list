@@ -1,9 +1,22 @@
 ~/.npm-packages/lib
-├── browser-sync@2.24.6
-├── now@11.3.10
-├── npm@6.4.1
-├── sane@2.5.0
-├── scrape-ifunny@1.0.1
-├── scrape-pages@3.0.4 -> ~/Build/dev/scrape-pages
-└── tern@0.21.0
+├── @bitwarden/cli@1.7.0
+├── @zeit/ncc@0.17.4
+├── bitwarden-dmenu@1.4.0
+├── browser-sync@2.26.3
+├── bunyan@1.8.12
+├── diff-so-fancy@1.2.0
+├── http-server@0.11.1
+├── i3status-rx@1.0.9
+├── instant-markdown-d@0.1.0
+├── lighthouse@3.1.1
+├── mustache@2.3.2
+├── neovim@4.5.0
+├── nodemon@1.18.5
+├── now@14.2.4
+├── npm@6.9.0
+├── prettier@1.17.0
+├── scrape-ifunny@1.0.2
+├── sort-package-json@1.15.0
+├── tern@0.23.0
+└── yarn@1.15.2
 

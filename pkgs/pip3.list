@@ -1,0 +1,7 @@
+certifi==2018.10.15
+json2yaml==1.1.1
+pipenv==2018.10.13
+pyaml==17.12.1
+remarshal==0.8.0
+speedtest-cli==2.1.1
+virtualenv-clone==0.4.0
