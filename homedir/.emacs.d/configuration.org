@@ -1,0 +1,180 @@
+* Emacs Core Settings
+
+#+BEGIN_SRC emacs-lisp
+    ;; Emacs Core Settings
+    ;; (global-linum-mode t)
+    ;; (setq linum-format "%3d ")
+
+    (setq inhibit-startup-screen t
+      initial-scratch-message ";; ready\n\n")
+    (setq mouse-wheel-scroll-amount '(1 ((shift) . 1) ((control) . nil)))
+    (setq mouse-wheel-progressive-speed nil)
+    (unless window-system
+        (xterm-mouse-mode 1)
+        (global-set-key (kbd "<mouse-4>") 'scroll-down-line)
+        (global-set-key (kbd "<mouse-5>") 'scroll-up-line))
+
+    (setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+    (setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+    (setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+    (setq scroll-step 1) ;; keyboard scroll one line at a time
+    (setq ns-use-mwheel-momentum nil)
+
+    (setq visible-cursor nil)
+
+    (setq vc-follow-symlinks t)
+
+    ;; (setq gc-cons-threshold 50000000)
+    (setq gnutls-min-prime-bits 4096)
+
+    (setq-default indent-tabs-mode nil)
+    (setq lisp-indent-offset 4)
+    ;; (setq tab-width 2)
+
+    (fset 'yes-or-no-p 'y-or-n-p)
+
+    (setq require-final-newline nil)
+    (setq-default truncate-lines t)
+    ;; (toggle-truncate-lines)
+
+    (defun indent-buffer ()
+        (interactive)
+        (save-excursion
+            (indent-region (point-min) (point-max) nil)))
+
+    ;; Key Bindings
+    (global-set-key (kbd "C-s") nil)
+
+  (setq backup-directory-alist `(("." . "~/.local/share/emacs-saves")))
+  (setq backup-by-copying-when-linked t)
+#+END_SRC
+
+
+* Package Manager Setup
+#+BEGIN_SRC emacs-lisp
+  ;; (require 'package)
+  ;; (setq custom-file "~/.emacs.d/custom")
+  ;; (load custom-file)
+  ;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+  ;; (package-initialize)
+  ;; (unless (package-installed-p 'use-package)
+  ;;     (package-refresh-contents
+  ;;         (package-install 'use-package)))
+  ;; (eval-when-compile
+  ;;     (require 'use-package)
+  ;;     ;; (setq use-package-compute-statistics t) ;; check load time of each package
+  ;;     (require 'use-package-ensure)
+  ;;     (setq use-package-always-ensure t))
+#+END_SRC
+
+* Package Settings
+#+BEGIN_SRC emacs-lisp
+  (use-package use-package-ensure-system-package
+      :ensure t)
+  ;; (use-package yafolding
+  ;;     :config
+  ;;     (global-set-key (kbd "C-s") 'yafolding-toggle-element)
+  ;;     (yafolding-mode)
+  ;;     )
+  ;; (use-package origami
+  ;;     :init
+  ;;     (use-package dash)
+  ;;     (use-package s))
+  (use-package evil
+      :init
+      (use-package evil-leader
+          :config
+          (evil-leader/set-key "i" 'indent-buffer)
+          (evil-leader/set-key "p" 'prettier-js)
+          (evil-leader/set-leader ",")
+          (global-evil-leader-mode))
+      :config
+      (with-eval-after-load 'evil-maps (define-key evil-motion-state-map (kbd ";") 'evil-ex))
+      (evil-mode 1)
+      (use-package evil-commentary
+          :config
+          (evil-commentary-mode))
+      (use-package evil-surround
+          :config
+          (global-evil-surround-mode 1))
+      (use-package evil-terminal-cursor-changer
+          :config
+          (unless (display-graphic-p)
+              (require 'evil-terminal-cursor-changer)
+              (evil-terminal-cursor-changer-activate) ; or (etcc-on)
+              (setq evil-insert-state-cursor 'bar)
+              (setq evil-motion-state-cursor 'box)
+              (setq evil-visual-state-cursor 'box)
+              (setq evil-normal-state-cursor 'box)
+              (setq evil-insert-state-cursor 'bar)
+              (setq evil-emacs-state-cursor  'hbar)
+              )
+          )
+      (use-package evil-org
+          :ensure t
+          :after org
+          :config
+          (add-hook 'org-mode-hook 'evil-org-mode)
+          (add-hook 'evil-org-mode-hook
+              (lambda ()
+                  (evil-org-set-key-theme)))
+          (require 'evil-org-agenda)
+          (evil-org-agenda-set-keys))
+      )
+  ;; (use-package smartparens
+  ;;     :config
+  ;;     (setq sp-highlight-pair-overlay nil)
+  ;;     (setq sp-show-pair-delay 0.05)
+  ;;     (show-smartparens-global-mode t)
+  ;;     (smartparens-global-mode t))
+  (use-package prettier-js
+      ;; :commands prettier-js
+      ;; :commands use-package-ensure-system-package-exists
+      :ensure-system-package (prettier . "npm i -g prettier"))
+  (use-package telephone-line
+      :config
+      (telephone-line-mode 1))
+  (use-package seoul256-theme
+      :config
+      (setq seoul256-background 235)
+      (load-theme 'seoul256 t))
+  ;; (use-package graphql-mode)
+  ;; (use-package typescript-mode)
+  ;; (use-package mmm-mode
+  ;;     :config
+  ;;     (mmm-add-classes
+  ;;         '((js-html
+  ;;               :submode html-mode
+  ;;               :face mmm-declaration-submode-face
+  ;;               :front "[^a-zA-Z]html`"
+  ;;               :back "`")))
+  ;;     (mmm-add-mode-ext-class 'js-mode nil 'js-html)
+  ;;     (mmm-add-classes
+  ;;         '((ts-sql
+  ;;               :submode sql-mode
+  ;;               :face mmm-declaration-submode-face
+  ;;               :front "[^a-zA-Z]sql`"
+  ;;               :back "`")))
+  ;;     (mmm-add-mode-ext-class 'typescript-mode nil 'ts-sql)
+  ;;     (mmm-add-classes
+  ;;         '((js-sql
+  ;;               :submode sql-mode
+  ;;               :face mmm-declaration-submode-face
+  ;;               :front "[^a-zA-Z]sql`"
+  ;;               :back "`")))
+  ;;     (mmm-add-mode-ext-class 'js-mode nil 'js-sql)
+  ;;     (mmm-add-classes
+  ;;         '((js-graphql
+  ;;               :submode graphql-mode
+  ;;               :face mmm-declaration-submode-face
+  ;;               :front "[^a-zA-Z]gql`"
+  ;;               :back "`")))
+  ;;     (mmm-add-mode-ext-class 'js-mode nil 'js-graphql)
+  ;;     (setq mmm-submode-decoration-level 0)
+  ;;     (setq mmm-global-mode 'maybe))
+  ;; (use-package lsp-mode
+  ;;     :commands lsp
+  ;;     :ensure-system-package (typescript-language-server . "npm i -g typescript-language-server")
+  ;;     :config
+  ;;     (add-hook 'typescript-mode-hook #'lsp))
+#+END_SRC

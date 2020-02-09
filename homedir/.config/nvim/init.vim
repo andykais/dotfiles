@@ -6,39 +6,42 @@ Plug 'junegunn/seoul256.vim'
 " Plug 'sickill/vim-monokai'
 " Plug 'jnurmine/Zenburn'
 " Plug 'Lokaltog/vim-distinguished'
+Plug 'sonph/onehalf', {'rtp': 'vim/'}
 "}}}
 "Syntax improvements {{{
 Plug 'chr4/nginx.vim'
 "Plug 'sheerun/vim-polyglot'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'docker/docker', {'rtp': '/contrib/syntax/vim'}
-Plug 'othree/html5.vim'
-Plug 'elzr/vim-json'
-Plug 'hail2u/vim-css3-syntax'
+" Plug 'othree/html5.vim'
+" Plug 'elzr/vim-json'
+" Plug 'hail2u/vim-css3-syntax'
 Plug 'hdima/python-syntax'
 Plug 'cespare/vim-toml'
 Plug 'leafo/moonscript-vim'
 "Plug 'amadeus/vim-css'
 "Plug 'fleischie/vim-styled-components'
 "Plug 'pangloss/vim-javascript'
-Plug 'mxw/vim-jsx'
+" Plug 'mxw/vim-jsx'
 " Plug 'jelera/vim-javascript-syntax', {'for': 'javascript'}
 "Plug 'othree/javascript-libraries-syntax.vim', {'for': 'javascript'}
-Plug 'othree/yajs.vim', {'for': 'javascript'}
+" Plug 'othree/yajs.vim', {'for': 'javascript'}
 " Plug 'othree/es.next.syntax.vim', {'for': 'javascript'}
 " Plug 'Quramy/vim-js-pretty-template'
 " Plug 'leafgarland/typescript-vim'
 Plug 'HerringtonDarkholme/yats.vim'
+Plug 'cdata/vim-tagged-template'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-latex/vim-latex'
 Plug 'Vimjas/vim-python-pep8-indent'
 " Plug 'Epitrochoid/marko-vim-syntax'
+Plug 'evanleck/vim-svelte'
 "}}}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/NERDtree', { 'on': 'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin'
 " Plug 'scrooloose/nerdcommenter'
-Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-commentary'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
@@ -51,21 +54,34 @@ Plug 'vim-airline/vim-airline'
 Plug 'suy/vim-context-commentstring'
 Plug 'mattn/emmet-vim'
 Plug 'gregsexton/MatchTag', { 'for': 'html' }
-Plug 'suan/vim-instant-markdown', {'do': 'npm -g i instant-markdown-d'}
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'vimwiki/vimwiki'
+
 Plug 'vim-scripts/SyntaxAttr.vim'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'Chiel92/vim-autoformat'
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-clang'
-Plug 'carlitux/deoplete-ternjs', {'do': 'npm -g i tern'}
-" Plug 'wokalski/autocomplete-flow'
-Plug 'zchee/deoplete-jedi'
-" Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
-Plug 'mhartington/nvim-typescript', {'do': './install.sh', 'for': ['typescript', 'typescript.tsx']}
-Plug 'derekwyatt/vim-scala'
+"
+" Plug 'editorconfig/editorconfig-vim'
+" Plug 'Chiel92/vim-autoformat'
+
+" Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins' }
+" Plug 'zchee/deoplete-clang'
+" Plug 'carlitux/deoplete-ternjs', {'do': 'npm -g i tern', 'for': 'javascript'}
+" " Plug 'wokalski/autocomplete-flow'
+" Plug 'zchee/deoplete-jedi'
+" " Plug 'padawan-php/deoplete-padawan', { 'do': 'composer install' }
+" Plug 'sebastianmarkow/deoplete-rust', { 'do': 'cargo install racer' }
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+" ncm2 completion sources
+Plug 'ncm2/ncm2-tern',  {'do': 'npm install', 'for': 'javascript'}
+Plug 'ncm2/ncm2-path'
+Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+
+
+
+" Plug 'Shougo/denite.nvim'
+" Plug 'rust-lang/rust.vim', { 'do': 'rustup component add rustfmt' }
+" Plug 'derekwyatt/vim-scala'
 " Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
-Plug 'sonph/onehalf', {'rtp': 'vim/'}
 " Plug 'w0rp/ale', { 'for': 'javascript' }
 Plug 'mileszs/ack.vim'
 Plug 'timakro/vim-searchant'
@@ -74,9 +90,8 @@ Plug 'lambdalisue/suda.vim'
 " Plug 'python-mode/python-mode', { 'branch': 'develop', 'do': 'git submodule update --init --recursive' }
 " Plug 'francoiscabrol/ranger.vim'
 " Plug 'rbgrouleff/bclose.vim'
-Plug 'prettier/vim-prettier', { 'do': 'npm install'}
+Plug 'prettier/vim-prettier', {'do': 'npm install', 'branch': 'release/1.x'}
 Plug 'jparise/vim-graphql'
-Plug 'cdata/vim-tagged-template'
 call plug#end()
 "}}}
 
@@ -139,6 +154,7 @@ set shell=$SHELL
 set history=1000 " change history to 1000
 set backupdir=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
+set backupcopy=yes
 
 
 "Language
@@ -228,6 +244,7 @@ autocmd BufRead,BufNewFile build.sbt                                    setfilet
 autocmd BufRead,BufNewFile *.template                                   setfiletype mustache
 autocmd BufRead,BufNewFile supervisord.conf                             setfiletype dosini
 autocmd BufRead,BufNewFile Jenkinsfile                                  setfiletype groovy
+autocmd BufRead,BufNewFile template.sql.ts                                     setfiletype javascript
 
 "Spellcheck
 autocmd FileType           markdown,plaintex,tex,text                   setlocal spell
@@ -367,10 +384,14 @@ nmap <silent> <C-j> <Plug>(ale_next_wrap)
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 "}}}
 
+"iamcco/markdown-preview.nvim {{{
+nmap <leader>mm <Plug>MarkdownPreview
+"}}}
+
 "vim-markdown-preview {{{
 
-let vim_markdown_preview_toggle=3
-let vim_markdown_preview_github=1
+" let vim_markdown_preview_toggle=3
+" let vim_markdown_preview_github=1
 "}}}
 
 "vim-markdown {{{
@@ -379,66 +400,91 @@ let g:vim_markdown_override_foldtext=1
 let g:vim_markdown_folding_level=2
 "}}}
 
-"deoplete {{{
+""deoplete {{{
 
-"Debugging
-" call g:deoplete#enable_logging("DEBUG", $HOME. "/deoplete-debug.txt")
+""Debugging
+"" call g:deoplete#enable_logging("DEBUG", $HOME. "/deoplete-debug.txt")
 
-"Activate deoplete
-let g:deoplete#enable_at_startup = 1
-" autocmd FileType javascript,c let g:deoplete#enable_at_startup = 1
+""Activate deoplete
+"let g:deoplete#enable_at_startup = 1
+"" autocmd FileType javascript,c let g:deoplete#enable_at_startup = 1
 
-"Auto complete paths relative to working file
-let g:deoplete#file#enable_buffer_path=1
+""Auto complete paths relative to working file
+"let g:deoplete#file#enable_buffer_path=1
 
-"Remove doc from top window
-set completeopt-=preview
+""Remove doc from top window
+"set completeopt-=preview
 
-"Navigate suggestions with tab
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
+""Navigate suggestions with tab
+"inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+"inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<s-tab>"
 
-" only use autocompletes specific to a language
-call deoplete#custom#option('ignore_sources', {
-  \'_':        ['buffer','around'],
-  \'text':     [],
-  \'markdown': [],
-  \'vimwiki':  [],
-  \'tex':      [],
-  \'vim':      [],
-  \'sh':       [],
-  \})
+"" only use autocompletes specific to a language
+"call deoplete#custom#option('ignore_sources', {
+"  \'_':        ['buffer','around'],
+"  \'text':     [],
+"  \'markdown': [],
+"  \'vimwiki':  [],
+"  \'tex':      [],
+"  \'vim':      [],
+"  \'sh':       [],
+"  \})
 
-"Deoplete Plugins
-"----------------
-"deoplete-ternjs {{{
+""Deoplete Plugins
+""----------------
+""deoplete-ternjs {{{
 
-let g:deoplete#sources#ternjs#types = 1
-let g:deoplete#sources#ternjs#case_insensitive = 1
-let g:deoplete#sources#ternjs#docs = 1
+"let g:deoplete#sources#ternjs#types = 1
+"let g:deoplete#sources#ternjs#case_insensitive = 1
+"let g:deoplete#sources#ternjs#docs = 1
+""}}}
+
+""deoplete-clang {{{
+
+"let g:deoplete#auto_complete_start_length = 1
+"let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
+"let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
+"" }}}
+
+""deoplete-jedi {{{
+
+""}}}
+""}}}
+
+"ncm2/ncm2 {{{
+
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not found' messages
+set shortmess+=c
+
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+inoremap <c-c> <ESC>
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+" Use <TAB> to select the popup menu:
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+
 "}}}
 
-"deoplete-clang {{{
-
-let g:deoplete#auto_complete_start_length = 1
-let g:deoplete#sources#clang#libclang_path = "/usr/lib/libclang.so"
-let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
-" }}}
-
-"deoplete-jedi {{{
-
-"}}}
+"deoplete-rust {{{
+let g:deoplete#sources#rust#racer_binary='/home/andrew/.cargo/bin/racer'
+let g:deoplete#sources#rust#rust_source_path='/home/andrew/.rustup/toolchains/nightly-x86_64-unknown-linux-gnu//lib/rustlib/src/rust/src'
 "}}}
 
 "ensime-vim {{{
 
 " let ensime_server_v2=1
-"}}}
-
-"vim-instant-markdown {{{
-
-let g:instant_markdown_autostart = 0
-noremap <leader>mm :InstantMarkdownPreview<CR>
 "}}}
 
 "vimwiki {{{
@@ -505,13 +551,17 @@ function ToggleSearchant()
   let l:search_is_highlighted=&hlsearch
   if search_is_highlighted
     echo "nohlsearch"
-    :execute "normal \<Plug>SearchantStop"
+    " :call <SID>Stop()
+    " :execute "normal \<Plug>SearchantStop"
+    :set nohlsearch
   else
     echo "hlsearch"
     set hlsearch
   endif
 endfunction
-nnoremap <silent> <Space> :call ToggleSearchant()<CR>
+nmap <Space> <Plug>SearchantToggle
+" nnoremap <silent> <Space> <Plug>ToggleSearchant
+" nnoremap <silent> <Space> :call s:Stop()<CR> :nohlsearch<CR>
 " nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
 "}}}
 
@@ -537,8 +587,9 @@ let g:taggedtemplate#tagSyntaxMap = {
   \ "md":      "markdown",
   \ "css":     "css",
   \ "graphql": "graphql",
+  \ "gql":     "graphql",
   \ "sql":     "sql"}
-autocmd FileType javascript,typescript : call taggedtemplate#applySyntaxMap()
+autocmd FileType javascript,javascript.jsx,typescript : call taggedtemplate#applySyntaxMap()
 "}}}
 
 "}}}

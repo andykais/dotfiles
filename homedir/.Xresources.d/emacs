@@ -1,0 +1,8 @@
+Emacs.menuBar: off
+Emacs.verticalScrollbars: off
+Emacs.horizontalScrollbars: off
+Emacs.toolBar: off
+Emacs.cursorBlink: off
+Emacs.cursorColor: red
+Emacs.fontBackend: xft
+Emacs.font: xos4 Terminus

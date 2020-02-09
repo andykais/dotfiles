@@ -135,7 +135,7 @@ bindsym $mod+d exec --no-startup-id j4-dmenu-desktop
 
 # open terminal
 bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+z exec --no-startup-id i3-sensible-terminal
+bindsym $mod+z exec i3-sensible-terminal
 bindsym $mod+Shift+Return exec --no-startup-id ~/bin/fancy_terminal.sh
 
 # open google chrome
@@ -197,10 +197,15 @@ bindsym $mod+minus exec playerctl previous
 # }}}
 
 # Appearance {{{
-font pango: xos4 Terminus 8
+# font pango: Terminus (TTF) 10
+# font pango: Terminus (TTF) 10
+# font: -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
 
 bar {
-    font pango: xos4 Terminus 10
+    # font pango: xos4 Terminus 10
+    # font pango: Terminus 10
+    font pango: Terminus (TTF) 12
+    # font pango: osx4 Terminus 8
     # status_command i3status
     # status_command i3status-rs ~/.config/i3status-rs.toml
     # status_command ~/bin/i3status.js

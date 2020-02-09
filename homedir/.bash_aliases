@@ -11,17 +11,26 @@ alias tar-preview='tar -tf'
 alias run-dockerized=~/Build/prod/dockerized/cli/run-dockerized.js
 alias rm-node_modules='find . -name node_modules -prune -exec rm -fr {} \'
 
-function extract-into-folder() {
+function e() {
   local archive=$1
-  local extraction_folder="${archive:0:-4}"
-  mkdir "$extraction_folder"
-  if [[ "$archive" =~ ".7z$" ]]; then
-    7z x "$archive" -o"$extraction_folder"
-  elif [[ "$archive" =~ ".(zip|cbz)$" ]]; then
-    unzip "$archive" -d "$extraction_folder"
-  elif [[ "$archive" =~ ".(rar|cbr)$" ]]; then
-    unrar e "$archive" "$extraction_folder"
-  fi
+  local extraction_folder="${archive%.*}"
+  local mimetype=$(file --mime-type --brief $archive)
+
+  case $mimetype in
+    application/x-7z-compressed)
+      7z x "$archive" -o"$extraction_folder"
+      ;;
+    application/x-rar)
+      unrar e "$archive" "$extraction_folder"
+      ;;
+    application/zip)
+      unzip "$archive" -d "$extraction_folder"
+      ;;
+    *)
+      echo unknown mime type $mimetype
+      exit 1
+      ;;
+  esac
 }
 
 function font-preview() {
@@ -52,9 +61,9 @@ function gdf() {
   git diff --name-only $current_branch $(git merge-base $current_branch master)
 }
 
-dusort() {
-  sudo du --all --human-readable --max-depth=1 $1 | sort -h -r
-}
+# this command can be augmented with an entry in /etc/sudoers:
+# andrew ALL = (root) NOPASSWD: /home/andrew/bin/dusort.sh
+alias dusort='sudo ~/bin/dusort.sh'
 
 # ruby bundler aliases
 function bjs() {

@@ -20,9 +20,9 @@
 !Xft.rgba: rgb
 !xterm*faceSize: 12
 !
-!uxterm*faceName: Inconsolata
-!uxterm*faceName:Source Code Pro:size=10
-/* uxterm*faceName:DejaVu Sans:size=10 */
+! uxterm*faceName: Inconsolata
+! uxterm*faceName:Source Code Pro:size=10
+! uxterm*faceName:DejaVu Sans:size=10
 !uxterm*faceName: xos4 Terminess Powerline
 !uxterm*faceSize: 18
 !uxterm*faceName: xos4 Terminus Powerline:size=20
@@ -33,10 +33,21 @@
 /* xterm*faceName: Bitstream Vera Sans Mono Nerd Font */
 /* NOTE: bitmap fonts are not working */
 /* xterm*faceName: Tamzen:antialias=1 */
-xterm*faceSize: 12
+! xterm*faceSize: 12
 
 xterm*utf8: 2
+
+! URxvt*font: xft:Terminess Powerline:size=10
 /* XTerm*utf8Title: true */
 
 URxvt*font: xft:xos4 Terminus:size=10
+! URxvt*font: -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
+
 /* URxvt*faceName: xos4 Terminus */
+! Xft.dpi: 96
+! Xft.antialias: true
+! Xft.hinting: true
+! Xft.rgba: rgb
+! Xft.autohint: false
+! Xft.hintstyle: hintslight
+! Xft.lcdfilter: lcddefault

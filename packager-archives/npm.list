@@ -1,22 +1,25 @@
 ~/.npm-packages/lib
-├── @bitwarden/cli@1.7.0
+├── @bitwarden/cli@1.7.4
 ├── @zeit/ncc@0.17.4
-├── bitwarden-dmenu@1.4.0
+├── bitwarden-dmenu@1.5.3
 ├── browser-sync@2.26.3
 ├── bunyan@1.8.12
 ├── diff-so-fancy@1.2.0
 ├── http-server@0.11.1
-├── i3status-rx@1.0.9
-├── instant-markdown-d@0.1.0
+├── i3status-rx@1.0.11
+├── instant-markdown-d@0.1.1
 ├── lighthouse@3.1.1
 ├── mustache@2.3.2
+├── n@6.1.0
 ├── neovim@4.5.0
-├── nodemon@1.18.5
-├── now@14.2.4
-├── npm@6.9.0
+├── nodemon@2.0.2
+├── now@15.8.7
+├── npm@6.13.7
 ├── prettier@1.17.0
+├── psd-cli@0.2.1
 ├── scrape-ifunny@1.0.2
 ├── sort-package-json@1.15.0
-├── tern@0.23.0
+├── tern@0.24.1
+├── typescript@3.6.2
+├── typescript-language-server@0.3.7
 └── yarn@1.15.2
-

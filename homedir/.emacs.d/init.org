@@ -1,0 +1,34 @@
+* Config
+
+
+Local Variables:
+eval: (add-hook 'after-save-hook (lambda () (org-babel-tangle)) nil t)
+End:
+
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'safe-local-variable-values
+             '(eval add-hook 'after-save-hook
+	                (lambda () (org-babel-tangle))
+	                nil t))
+
+(setq gc-cons-threshold 64000000)
+(require 'package)
+(setq custom-file "~/.emacs.d/custom")
+(load custom-file)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+(package-initialize)
+(unless (package-installed-p 'use-package)
+    (package-refresh-contents
+        (package-install 'use-package)))
+; (eval-when-compile
+;     (require 'use-package)
+;     ;; (setq use-package-compute-statistics t) ;; check load time of each package
+;     (require 'use-package-ensure)
+;     (setq use-package-always-ensure t))
+(org-babel-load-file "~/.emacs.d/configuration.org")
+
+(use-package seoul255-theme
+    :config
+    (setq seoul256-background 235)
+    (load-theme 'seoul256 t))
+#+END_SRC

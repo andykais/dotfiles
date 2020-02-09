@@ -2,3 +2,4 @@
 #include ".Xresources.d/fonts"
 #include ".Xresources.d/colors"
 #include ".Xresources.d/urxvt"
+#include ".Xresources.d/emacs"

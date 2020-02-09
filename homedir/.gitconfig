@@ -3,3 +3,16 @@
 	name = Andrew Kaiser
 [core]
 	pager = diff-so-fancy | less --tabs=4 -RFX
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[push]
+	default = current
+[diff]
+  word-diff = color
+  ignore-all-space = true
+[alias]
+  diffw = diff --ignore-all-space
+  df = diff --word-diff=plain

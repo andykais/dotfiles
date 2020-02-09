@@ -2,12 +2,8 @@
 npm-debug.log
 
 
-bin/data
-
-configs-xdg-dir/nvim/spell/
-configs-xdg-dir/nvim/plugged
-configs-xdg-dir/nvim/plugged
-configs-xdg-dir/ranger/history
-configs-xdg-dir/ranger/bookmarks
-configs-xdg-dir/ranger/tagged
-configs-xdg-dir/i3/i3.pyc
+homedir/bin/data
+homedir/.emacs.d/*
+!homedir/.emacs.d/init.org
+!homedir/.emacs.d/configuration.org
+!homedir/.emacs.d/custom.el

@@ -1,10 +1,5 @@
 #!/bin/bash
 
-. $HOME/.dotfiles/bin/helpers/print.sh
-
-TMP_FILE=/tmp/pacman_tmp_sort.txt
-rm -f $TMP_FILE
-
 [[ -z $(which pacman) ]] && echo "ERROR! no pacman program" && exit
 
 
