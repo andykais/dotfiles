@@ -34,8 +34,8 @@ archive() {
 if [[ -f $LAST_RAN_FILE ]]
 then
   last_ran_at=$(cat $LAST_RAN_FILE)
-  days_since_last_run=$($days_since $last_ran_at)
-  echo Last ran: $last_ran_at
+  days_since_last_ran=$($days_since $last_ran_at)
+  echo "Last ran: $last_ran_at ($days_since_last_ran days ago)"
   echo
 else
   echo Running backup.sh for the first time.
