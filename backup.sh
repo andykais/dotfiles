@@ -86,7 +86,7 @@ else
 fi
 
 
-if [[ $(git diff --shortstat) == "" ]]
+if [[ $(git status -s) == "" ]]
 then
   echo "Nothing new to commit, slow week? $SLEEPY_BOI"
 else
