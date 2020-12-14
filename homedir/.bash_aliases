@@ -10,25 +10,33 @@ alias la='ls -ahl --group-directories-first'
 alias tar-preview='tar -tf'
 alias run-dockerized=~/Build/prod/dockerized/cli/run-dockerized.js
 alias rm-node_modules='find . -name node_modules -prune -exec rm -fr {} \'
+alias list-open-fd='lsof -a -p $$ 2>/dev/null'
+
+alias nnpm='~/.npm-packages/bin/npm'
+# alias npm='~/.npm-packages/bin/pnpm'
 
 function e() {
-  local archive=$1
+  local archive="$@"
   local extraction_folder="${archive%.*}"
   local mimetype=$(file --mime-type --brief $archive)
 
   case $mimetype in
-    application/x-7z-compressed)
-      7z x "$archive" -o"$extraction_folder"
+    application/x-bzip2|application/x-7z-compressed)
+      7z x "$archive" -o"$extraction_folder/"
       ;;
     application/x-rar)
-      unrar e "$archive" "$extraction_folder"
+      unrar x "$archive" "$extraction_folder/"
       ;;
     application/zip)
-      unzip "$archive" -d "$extraction_folder"
+      unzip "$archive" -d "$extraction_folder/"
+      ;;
+    application/gzip)
+      mkdir -p "$extraction_folder"
+      tar xzvf "$archive" -C "$extraction_folder/"
       ;;
     *)
       echo unknown mime type $mimetype
-      exit 1
+      return 1
       ;;
   esac
 }

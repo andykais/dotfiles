@@ -57,17 +57,29 @@ $confirm 'clean pip cache?' \
 $confirm 'clean pipenv cache?' \
   && tee_command rm -rf ~/.cache/pipenv
 
+$confirm 'clean pyenv cache?' \
+  && tee_command rm -rf ~/.pyenv
+
+$confirm 'clean z files?' \
+  && tee_command rm -f ~/.z.*
+
+$confirm 'clean zsh autocompletion files?' \
+  && tee_command rm -f ~/.zcompdump*
+
 $confirm 'clean sbt cache?' \
   && tee_command rm -rf ~/.ivy2/cache
 
-$confirm 'remove orphaned os packages?' \
-  && tee_command sudo pacman -Rns $(pacman -Qqtd)
+$confirm "clean orphaned os packages? ($(pacman -Qdtq | tr '\n' ' '))" \
+  && tee_command sudo pacman -Rns $(pacman -Qdtq)
 
 $confirm 'clean pacman cache?' \
   && tee_command sudo pacman -Scc
 
 $confirm 'clean yay cache?' \
   && tee_command yay -Scc
+
+$confirm 'clean deno cache?' \
+  && tee_command rm -r ~/.cache/deno
 
 $confirm 'docker system prune' \
   && tee_command docker system prune
@@ -77,6 +89,16 @@ $confirm 'docker volume prune' \
 
 $confirm 'clean spotify cache?' \
   && tee_command rm -r ~/.cache/spotify
+
+$confirm 'clean geeqie thumbnail cache?' \
+  && tee_command rm -r ~/.cache/geeqie/thumbnails
+
+$confirm 'clean wine cache?' \
+  && tee_command rm -r .cache/wine
+
+$confirm 'clean wine drives?' \
+  && tee_command rm -r .wine
+
 
 # confirm 'remove non-running docker containers?' \
   # && tee_command docker rm $(echo $(docker ps -q --no-trunc) $(docker ps -a -q --no-trunc) | sed 's|\s|\n|g'  | sort | uniq -u)

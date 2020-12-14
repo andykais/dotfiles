@@ -5,7 +5,8 @@
 !! black dark/light
 !*color0: #121212
 *color0: #132226
-*color8: #2e3436
+!!*color8: #2e3436 !! this was wayy to dark to see against the current background
+*color8: #566063
 
 !! red dark/light
 *color1: #a35b66

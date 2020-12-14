@@ -7,20 +7,8 @@ set -e
 # can be stopped by clicking tray icon `yad` creates
 
 RECORD_DIR=$HOME/Pictures/screenrecord
-MAX_DURATION=60
-i="000"
-filename="$RECORD_DIR/recording($i)"
+MAX_DURATION=180
 file_type='mp4'
-
-mkdir -p $RECORD_DIR
-while [[ $(ls $filename.*) ]]
-do
-  i=$(( 10#$i+1 ))
-  printf -v i "%03d" $i
-  filename="$RECORD_DIR/recording($i)"
-  echo $filename
-done
-FILE="$filename.${file_type}"
 
 case "$1" in
   "root")
@@ -30,11 +18,26 @@ case "$1" in
     window=`xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)" | cut -d' ' -f5`
     window_info=`xwininfo -id $window`
     ;;
+  "box")
+    echo TODO with xrectsel
+    exit 1
   *)
     echo "usage: screenrecord.sh [root | active]"
     exit 1
     ;;
 esac
+
+# get recording filename
+mkdir -p $RECORD_DIR
+shopt -s extglob
+last_filename_int=$(ls $RECORD_DIR/recording\(+([0-9])\).* \
+  | tail -1 \
+  | sed -r 's/.*recording.0*([0-9]*).*/\1/'
+)
+new_filename_int=$(($last_filename_int + 1))
+new_filename_int_padded=$(printf '%03d' $new_filename_int)
+FILE="$RECORD_DIR/recording($new_filename_int_padded).${file_type}"
+
 
 # get recording dimensions
 width=`printf "$window_info"  | grep Width                   | awk '{print $2}'`

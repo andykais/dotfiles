@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 i="000"
 FILE="$HOME/Pictures/screenshots/screenshot($i).png"
 mkdir -p $HOME/Pictures/screenshots
@@ -17,7 +19,7 @@ case "$1" in
         notify-send --icon $FILE "Took Screenshot" "${FILE/#$HOME/'~'}"
         ;;
     "box")
-        import $FILE
+        import $FILE >> ~/shot.log
         notify-send --icon $FILE "Took Screenshot" "${FILE/#$HOME/'~'}"
         ;;
     "active")

@@ -19,6 +19,7 @@ Plug 'docker/docker', {'rtp': '/contrib/syntax/vim'}
 Plug 'hdima/python-syntax'
 Plug 'cespare/vim-toml'
 Plug 'leafo/moonscript-vim'
+" Plug 'chrisbra/Colorizer'
 "Plug 'amadeus/vim-css'
 "Plug 'fleischie/vim-styled-components'
 "Plug 'pangloss/vim-javascript'
@@ -33,9 +34,10 @@ Plug 'HerringtonDarkholme/yats.vim'
 Plug 'cdata/vim-tagged-template'
 Plug 'plasticboy/vim-markdown'
 Plug 'vim-latex/vim-latex'
-Plug 'Vimjas/vim-python-pep8-indent'
+" Plug 'Vimjas/vim-python-pep8-indent'
 " Plug 'Epitrochoid/marko-vim-syntax'
 Plug 'evanleck/vim-svelte'
+Plug 'tjvr/vim-nearley'
 "}}}
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/NERDtree', { 'on': 'NERDTreeToggle' }
@@ -72,9 +74,11 @@ Plug 'vim-scripts/SyntaxAttr.vim'
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 " ncm2 completion sources
-Plug 'ncm2/ncm2-tern',  {'do': 'npm install', 'for': 'javascript'}
-Plug 'ncm2/ncm2-path'
+" Plug 'ncm2/ncm2-tern',  {'do': 'npm install', 'for': 'javascript'}
+" Plug 'ncm2/ncm2-path'
 Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'fannheyward/coc-deno'
 
 
 
@@ -85,12 +89,12 @@ Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 " Plug 'w0rp/ale', { 'for': 'javascript' }
 Plug 'mileszs/ack.vim'
 Plug 'timakro/vim-searchant'
-Plug 'wakatime/vim-wakatime'
+" Plug 'wakatime/vim-wakatime'
 Plug 'lambdalisue/suda.vim'
 " Plug 'python-mode/python-mode', { 'branch': 'develop', 'do': 'git submodule update --init --recursive' }
 " Plug 'francoiscabrol/ranger.vim'
 " Plug 'rbgrouleff/bclose.vim'
-Plug 'prettier/vim-prettier', {'do': 'npm install', 'branch': 'release/1.x'}
+Plug 'prettier/vim-prettier', {'do': 'npm i -g prettier prettier-plugin-svelte svelte'}
 Plug 'jparise/vim-graphql'
 call plug#end()
 "}}}
@@ -168,6 +172,8 @@ set spelllang=en_us
 
 let mapleader = ','
 
+vnoremap p "_dP
+
 "disables 'c' alias
 nnoremap s     <nop>
 nnoremap <S-s> <nop>
@@ -196,6 +202,9 @@ noremap g/ y/<C-R>"<CR>
 "toggle search highlighting
 "TODO replace with searchant
 " nnoremap <silent> <Space> :set hlsearch! hlsearch?<CR>
+
+" syn keyword   cTodo   contained    TODO FIXME NOTE
+syntax keyword Todo    NOTE    contained
 
 "folds
 let g:search_in_folds=1
@@ -239,12 +248,14 @@ autocmd BufRead,BufNewFile ~/.Xresources.d/*,.Xresources.d/*            setfilet
 autocmd BufRead,BufNewFile docker-*.yml                                 setfiletype docker-compose
 autocmd BufRead,BufNewFile test-project.txt                             setfiletype Dockerfile
 autocmd BufRead,BufNewFile .eslintrc,.tern-project,.babelrc,.prettierrc setfiletype json
+autocmd BufRead,BufNewFile *.json                                       setfiletype javascript
 autocmd BufRead,BufNewFile *.js.flow                                    setfiletype javascript
 autocmd BufRead,BufNewFile build.sbt                                    setfiletype scala
 autocmd BufRead,BufNewFile *.template                                   setfiletype mustache
 autocmd BufRead,BufNewFile supervisord.conf                             setfiletype dosini
 autocmd BufRead,BufNewFile Jenkinsfile                                  setfiletype groovy
-autocmd BufRead,BufNewFile template.sql.ts                                     setfiletype javascript
+autocmd BufRead,BufNewFile template.sql.ts                              setfiletype javascript
+
 
 "Spellcheck
 autocmd FileType           markdown,plaintex,tex,text                   setlocal spell
@@ -263,6 +274,8 @@ autocmd FileType           *                                            let g:Au
 autocmd FileType           markdown                                     let g:AutoPairsMapSpace=0
 autocmd FileType           xdefaults                                    setlocal commentstring=!\ %s
 autocmd FileType           typescript                                   setlocal commentstring=//\ %s
+autocmd FileType           nearley                                      setlocal textwidth=0 wrapmargin=0
+autocmd FileType           json                                         syntax match Comment +\/\/.\+$+
 
 "}}}
 
@@ -468,11 +481,12 @@ inoremap <c-c> <ESC>
 " When the <Enter> key is pressed while the popup menu is visible, it only
 " hides the menu. Use this mapping to close the menu and also start a new
 " line.
-inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+" inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 
 " Use <TAB> to select the popup menu:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" MOVED: to coc.vim configuration
 
 
 "}}}
@@ -536,6 +550,8 @@ endif
 
 "vim-prettier {{{
 
+let g:prettier#exec_cmd_path = "~/.npm-packages/bin/prettier"
+
 autocmd FileType python let b:prettier_ft_default_args = {
  \ 'parser': 'python',
  \ }
@@ -591,6 +607,58 @@ let g:taggedtemplate#tagSyntaxMap = {
   \ "sql":     "sql"}
 autocmd FileType javascript,javascript.jsx,typescript : call taggedtemplate#applySyntaxMap()
 "}}}
+
+"coc.vim {{{
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" type './' or '../' and the <tab> to get autocompleted paths
+
+
+" " Always show the signcolumn, otherwise it would shift the text each time
+" " diagnostics appear/become resolved.
+" if has("patch-8.1.1564")
+"   " Recently vim can merge signcolumn and number column into one
+"   set signcolumn=number
+" else
+"   set signcolumn=yes
+" endif
+
+"}}}
+
 
 "}}}
 "}}}

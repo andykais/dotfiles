@@ -18,3 +18,7 @@ Photoshop
 config
 pulseaudio
 P2P
+ffmpeg
+ascii
+timeline
+yaml

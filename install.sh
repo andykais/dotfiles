@@ -73,6 +73,7 @@ done
 printf "\nCreating extra vim symlinks\n"
 printf "==============================\n"
 safe-io symlink $LOCAL_XDG_DIR/nvim/init.vim $HOME/.vimrc
+safe-io mkdir -p $HOME/.vim-tmp
 
 
 printf "Done.\n"

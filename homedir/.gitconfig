@@ -16,3 +16,7 @@
 [alias]
   diffw = diff --ignore-all-space
   df = diff --word-diff=plain
+[rerere]
+	enabled = true
+[pull]
+	rebase = false

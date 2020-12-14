@@ -157,9 +157,11 @@ bindsym $mod+Mod1+d exec --no-startup-id ~/bin/environment_launcher.js
 # screenshot screen
 bindsym $mod+Print exec --no-startup-id ~/bin/screenshot.sh root
 # screenshot box
-# bindsym $mod+Shift+Print exec --no-startup-id ~/bin/screenshot.sh box
+bindsym $mod+Shift+Print --release exec --no-startup-id ~/bin/screenshot.sh box
+# bindsym $mod+Shift+Print exec --no-startup-id ~/bin/caller.sh
+# bindsym $mod+Shift+Print exec --no-startup-id ~/bin/screenshot.sh box 2>&1 ~/shot.log
 # screenshot window
-bindsym $mod+Shift+Print exec --no-startup-id ~/bin/screenshot.sh active
+# bindsym $mod+Shift+Print exec --no-startup-id ~/bin/screenshot.sh active
 
 # record screen
 bindsym $mod+Mod1+r exec --no-startup-id ~/bin/screenrecord.sh root
@@ -176,16 +178,29 @@ bindsym $mod+Mod1+l exec --no-startup-id sleep 0.1 && xset dpms force standby
 
 # System Control Bindings {{{
 
-bindsym XF86AudioMute        exec amixer -q set Master toggle     && pkill -SIGUSR1 i3status-rx
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && pkill -SIGUSR1 i3status-rx
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && pkill -SIGUSR1 i3status-rx
-bindsym Shift+XF86AudioMute        exec amixer -q set Master toggle     && pkill -SIGUSR1 i3status-rx && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
-bindsym Shift+XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && pkill -SIGUSR1 i3status-rx && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
-bindsym Shift+XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && pkill -SIGUSR1 i3status-rx && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+bindsym XF86AudioMute        exec amixer -q set Master toggle     && pkill -f -SIGUSR1 i3status-rx
+bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && pkill -f -SIGUSR1 i3status-rx
+bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && pkill -f -SIGUSR1 i3status-rx
+bindsym Shift+XF86AudioMute        exec amixer -q set Master toggle     && pkill -f -SIGUSR1 i3status-rx && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+bindsym Shift+XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && pkill -f -SIGUSR1 i3status-rx && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+bindsym Shift+XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && pkill -f -SIGUSR1 i3status-rx && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
 
 # brightness control
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+# bindsym XF86MonBrightnessUp exec xbacklight -inc 5
+# bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+
+set $backlightpath ~/bin/i3-backlight.sh
+set $volumestep 5
+bindsym XF86MonBrightnessDown   exec $backlightpath -np -d $volumestep -y
+bindsym XF86MonBrightnessUp     exec $backlightpath -np -i $volumestep -y
+bindsym Shift+XF86MonBrightnessDown   exec $backlightpath -np -d 1 -y
+bindsym Shift+XF86MonBrightnessUp     exec $backlightpath -np -i 1 -y
+
+# bindsym XF86MonBrightnessDown         exec ~/bin/backlight.sh -dec 5
+# bindsym XF86MonBrightnessUp           exec ~/bin/backlight.sh -inc 5
+# bindsym Shift+XF86MonBrightnessDown   exec ~/bin/backlight.sh -dec 1
+# bindsym Shift+XF86MonBrightnessUp     exec ~/bin/backlight.sh -inc 1
+
 
 # audio track control
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -194,6 +209,10 @@ bindsym XF86AudioPrev exec playerctl previous
 bindsym $mod+p exec playerctl play-pause
 bindsym $mod+equal exec playerctl next
 bindsym $mod+minus exec playerctl previous
+
+# wallpaper traversal
+bindsym $mod+Mod1+Left exec wallpal prev
+bindsym $mod+Mod1+Right exec wallpal next
 # }}}
 
 # Appearance {{{
@@ -233,10 +252,11 @@ new_window normal 0 px
 # Program Specific Window Behavior {{{
 
 # to get relevant info run ~/bin/i3-get-window-criteria.sh
-# for_window [window_role="pop-up"] floating enable focus true
+for_window [instance="google-chrome" window_role="pop-up"] floating enable focus true
 for_window [title="Minecraft.*"] floating enable
 for_window [class="Arandr"] floating enable
 for_window [title="Pushbullet"] floating enable
+for_window [title="flowbladebatch"] floating enable
 assign [class="ktorrent"] → 10
 assign [class="Spotify"] → 10
 for_window [class="Spotify"] move to workspace 10
@@ -263,7 +283,8 @@ exec --no-startup-id dropbox
 exec --no-startup-id redshift-gtk -c ~/.config/redshift.conf
 
 # background image
-exec --no-startup-id ~/bin/slideshow.sh
+# exec --no-startup-id ~/bin/slideshow.sh
+exec --no-startup-id wallpal daemon # (deno install from ~/bin/wallpal.ts)
 
 # wifi tray applet
 exec --no-startup-id nm-applet
@@ -273,6 +294,9 @@ exec --no-startup-id blueman-applet
 
 # notification daemon
 exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
+
+# automount usb drives
+exec udiskie --tray
 
 ######################
 # Set up trackpoint  #

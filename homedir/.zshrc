@@ -21,10 +21,20 @@ if ! zgen saved; then
   zgen load zsh-users/zsh-completions src
   zgen save # generate the init script from plugins above
 fi
+
+prompt_ranger() {
+  if [[ -n $RANGER_LEVEL ]]
+  then
+    echo -n "(ranger-$RANGER_LEVEL)"
+  fi
+}
+
+
 build_prompt() {
   RETVAL=$?
   prompt_status
   prompt_virtualenv
+  prompt_ranger
   prompt_context
   prompt_dir
   prompt_end

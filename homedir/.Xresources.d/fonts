@@ -40,8 +40,8 @@ xterm*utf8: 2
 ! URxvt*font: xft:Terminess Powerline:size=10
 /* XTerm*utf8Title: true */
 
-URxvt*font: xft:xos4 Terminus:size=10
-! URxvt*font: -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
+! URxvt*font: xft:xos4 Terminus:size=10
+URxvt*font: -xos4-terminus-medium-r-normal--14-140-72-72-c-80-iso10646-1
 
 /* URxvt*faceName: xos4 Terminus */
 ! Xft.dpi: 96

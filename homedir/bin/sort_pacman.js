@@ -6,8 +6,6 @@ const { exec } = require('child_process')
 const { promisify } = require('util')
 const shell = promisify(exec)
 
-process.on('unhandledRejection', err => console.error(err))
-
 const file = '/var/log/pacman.log'
 
 const run = async () => {
@@ -18,7 +16,7 @@ const run = async () => {
   const explicitly_installed_set = new Set(explicitly_installed_packages_output.stdout.split('\n'))
   explicitly_installed_set.delete('')
 
-  const datetime_package_version = /\[(.*?)\] \[.*?\] installed ([a-z-_]+) \((.*?)\)/
+  const datetime_package_version = /\[(.*?)\] \[.*?\] installed ([a-z0-9-_]+) \((.*?)\)/
 
   const packages = {}
   let longestPackage = 0
