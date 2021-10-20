@@ -1,8 +1,0 @@
-"------------------------------------------------------------
-"Vim-Plug Package Manager
-call plug#begin('~/.vim/plugged')
-Plug 'derekwyatt/vim-scala'
-Plug 'ensime/ensime-vim', {'do': ':UpdateRemotePlugins'}
-call plug#end()
-
-let ensime_server_v2=1
