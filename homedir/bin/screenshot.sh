@@ -2,31 +2,37 @@
 
 set -e
 
-i="000"
+i=$(ls ~/Pictures/screenshots | sed 's/.*\([0-9][0-9][0-9]\).*/\1/' | tail -1)
+if [ -z $i ]; then
+  i="000"
+else
+  i=$(( 10#$i+1 ))
+fi
+i=$(printf "%03d\n" $i) # pad zeros
 FILE="$HOME/Pictures/screenshots/screenshot($i).png"
-mkdir -p $HOME/Pictures/screenshots
+if [ -f "$FILE" ]; then
+  echo "Screenshot numbering failed. $FILE already exists."
+  exit 1
+fi
 
-while  [ -f $FILE ];
-do
-    i=$(( 10#$i+1 ))
-    printf -v i "%03d" $i
-    FILE="$HOME/Pictures/screenshots/screenshot($i).png"
-done
+notify-screenshot() {
+  notify-send --icon $FILE "Took Screenshot" "${FILE/#$HOME/'~'}"
+}
 
 case "$1" in
     "root")
-        import -window root $FILE
-        notify-send --icon $FILE "Took Screenshot" "${FILE/#$HOME/'~'}"
+        import -silent -window root $FILE
+        notify-screenshot
         ;;
     "box")
-        import $FILE >> ~/shot.log
-        notify-send --icon $FILE "Took Screenshot" "${FILE/#$HOME/'~'}"
+        import -silent $FILE
+        notify-screenshot
         ;;
     "active")
         window=`xprop -root | grep "_NET_ACTIVE_WINDOW(WINDOW)" | cut -d' ' -f5`
         echo $window
         import -border -window $window $FILE
-        notify-send --icon $FILE "Took Screenshot" "${FILE/#$HOME/'~'}"
+        notify-screenshot
         ;;
     *)
         echo "usage: screenshot.sh [root | box]"

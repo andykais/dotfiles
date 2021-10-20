@@ -5,6 +5,10 @@ PS1='$(if [ $? -eq 0 ]; then echo "\[\033[32m\]:)"; else echo "\[\033[31m\]:("; 
 
 [[ -f ~/.profile ]] && . ~/.profile
 
-if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-  exec startx
+# if systemctl -q is-active graphical.target && [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+#   exec startx
+# fi
+
+if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then
+  exec sway
 fi

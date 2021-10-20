@@ -25,15 +25,15 @@ symlink() {
     printf "Bad scripting: src $file doesnt exist\n"
   else
     if [ -e $target ]; then
-      if [ -h $target ] && [ "$(readlink -e $target)" = "$file" ]; then
+      if [ -h $target ] && [ "$(readlink -e $target)" = $file ]; then
         printf "~${target#$HOME} symlink exists... Skipping\n"
       else
         read -n 1 -p "~${target#$HOME} already exists, replace? (y/n) " choice
         case $choice in
           y|Y)
             printf "\nCreating symlink for $file\n"
-            printf "Moving $target to $target.bck\n"
-            mv $target $target.bck
+            printf "Moving $target to $target.backup\n"
+            mv $target $target.backup
             ln -s $file $target
             ;;
           *)
@@ -52,28 +52,44 @@ printf "Installing dotfiles\n"
 [[ $DRY_RUN == true ]] && printf "This is a dry run. No files will be changed"
 printf "\nCreating $HOME/* symlinks\n"
 printf "==============================\n"
-linkables=$( find $LOCAL_DOTFILES -maxdepth 1 -mindepth 1 -name '.config' -prune -o -print )
-for file in $linkables
-do
-  target="$HOME/$(basename $file)"
-  safe-io symlink $file $target
-done
+link-linkables() {
+  local linkable_dir="$1"
+  local linkables=$(find $linkable_dir -maxdepth 1 -mindepth 1 -print)
+  for file in $linkables
+  do
+    case $file in
+      "$LOCAL_DOTFILES/.config"      |\
+      "$LOCAL_DOTFILES/.config/nvim" |\
+      "$LOCAL_DOTFILES/.gnupg")
+        link-linkables $file
+        ;;
+      *)
+        relative_path=${file#"$LOCAL_DOTFILES/"}
+        homedir_target="$HOME/$relative_path"
+        # target="$HOME/$(basename $file)"
+        safe-io symlink $file $homedir_target
+        ;;
+    esac
+  done
+}
+link-linkables $LOCAL_DOTFILES
+exit
 
-printf "\nCreating $HOME/.config/* symlinks\n"
-printf "==============================\n"
-config_linkables=$( find $LOCAL_XDG_DIR -type f )
-for file in $config_linkables
-do
-  target="$HOME/.config${file#"$LOCAL_XDG_DIR"}"
-  target_folder=$(dirname $target)
-  safe-io mkdir -p $target_folder
-  safe-io symlink $file $target
-done
+# printf "\nCreating $HOME/.config/* symlinks\n"
+# printf "==============================\n"
+# config_linkables=$( find $LOCAL_XDG_DIR -type f )
+# for file in $config_linkables
+# do
+#   target="$HOME/.config${file#"$LOCAL_XDG_DIR"}"
+#   target_folder=$(dirname $target)
+#   safe-io mkdir -p $target_folder
+#   safe-io symlink $file $target
+# done
 
-printf "\nCreating extra vim symlinks\n"
-printf "==============================\n"
-safe-io symlink $LOCAL_XDG_DIR/nvim/init.vim $HOME/.vimrc
-safe-io mkdir -p $HOME/.vim-tmp
+# printf "\nCreating extra vim symlinks\n"
+# printf "==============================\n"
+# safe-io symlink $LOCAL_XDG_DIR/nvim/init.vim $HOME/.vimrc
+# safe-io mkdir -p $HOME/.vim-tmp
 
 
 printf "Done.\n"

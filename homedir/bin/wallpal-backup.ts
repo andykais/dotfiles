@@ -77,8 +77,9 @@ class WallPal {
   async triggerProcess(cmd: string[]) {
     const proc = Deno.run({ cmd })
     this.displayProc = proc
-    await proc.status()
-    // if (proc.pid === this.displayProc.pid) this.displayProc = null
+    const status = await proc.status()
+    console.log({ status })
+    if (proc.pid === this.displayProc.pid) this.displayProc = null
   }
 
   async loadWallpaperDir() {
@@ -100,7 +101,7 @@ class WallPal {
     this.cache = { active: path, activeIndex: this.wallpaperDirIndex }
     if (mimeType === 'image/gif' || mimeType.startsWith('video')) {
       console.log('Setting animated wallpaper', path)
-      this.triggerProcess(['feh', '--bg-max', path])
+      // this.triggerProcess(['feh', '--bg-max', path])
       this.triggerProcess(['mpv', '--wid=0', '--really-quiet', '--mute=yes', '--loop', path])
     } else if (mimeType.startsWith('image')) {
       console.log('Setting wallpaper', path)

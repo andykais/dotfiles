@@ -142,7 +142,7 @@ bindsym $mod+Shift+Return exec --no-startup-id ~/bin/fancy_terminal.sh
 bindsym $mod+g exec --no-startup-id google-chrome-stable --profile-directory=Default
 
 # open ktorrent
-bindsym $mod+t exec --no-startup-id ktorrent
+# bindsym $mod+t exec --no-startup-id ktorrent
 
 # open keepassx
 bindsym $mod+k exec --no-startup-id keepassx2
@@ -158,6 +158,8 @@ bindsym $mod+Mod1+d exec --no-startup-id ~/bin/environment_launcher.js
 bindsym $mod+Print exec --no-startup-id ~/bin/screenshot.sh root
 # screenshot box
 bindsym $mod+Shift+Print --release exec --no-startup-id ~/bin/screenshot.sh box
+# close all notifications
+bindsym $mod+c exec --no-startup-id dunstctl close-all
 # bindsym $mod+Shift+Print exec --no-startup-id ~/bin/caller.sh
 # bindsym $mod+Shift+Print exec --no-startup-id ~/bin/screenshot.sh box 2>&1 ~/shot.log
 # screenshot window
@@ -203,12 +205,12 @@ bindsym Shift+XF86MonBrightnessUp     exec $backlightpath -np -i 1 -y
 
 
 # audio track control
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-bindsym $mod+p exec playerctl play-pause
-bindsym $mod+equal exec playerctl next
-bindsym $mod+minus exec playerctl previous
+bindsym XF86AudioPlay exec playerctl play-pause --player=spotify
+bindsym XF86AudioNext exec playerctl next --player=spotify
+bindsym XF86AudioPrev exec playerctl previous --player=spotify
+bindsym $mod+p exec playerctl play-pause --player=spotify
+bindsym $mod+equal exec playerctl next --player=spotify
+bindsym $mod+minus exec playerctl previous --player=spotify
 
 # wallpaper traversal
 bindsym $mod+Mod1+Left exec wallpal prev
@@ -241,6 +243,9 @@ bar {
 client.focused          #91BF3D #91BF3D #000000 #00DA8E
 new_window normal 0 px
 
+# for_window [class=".*"] border pixel 4
+# gaps inner 20
+
 #########################################
 #                                       #
 # To set gtk theme use                  #
@@ -265,6 +270,7 @@ no_focus [class="love"]
 focus_on_window_activation none
 for_window [window_role="gimp-toolbox"] floating disable; resize shrink right 11px # or 31 ppt
 for_window [window_role="gimp-dock"] floating disable; resize shrink right 11px # layout stacking; move left; resize shrink right 31px or 31 ppt
+for_window [title="Jump to time (Previous frame) v3"] floating enable focus true
 
 # }}}
 
@@ -298,12 +304,16 @@ exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
 # automount usb drives
 exec udiskie --tray
 
+# start a compositor
+# exec picom &
+
 ######################
 # Set up trackpoint  #
 ######################
 exec --no-startup-id "synclient TouchpadOff=1"
 # exec "xinput set-prop \"SynPS/2 Synaptics TouchPad\" 143 1 0 0 0 1 0 0 0 100000"
-exec --no-startup-id "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' -0.5"
+# exec --no-startup-id "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' -0.5"
+exec --no-startup-id "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' 0.07"
 # exec "xset m 7/2 0"
 exec --no-startup-id "synclient VertScrollDelta=-99"
 # }}}

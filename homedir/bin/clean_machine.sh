@@ -42,6 +42,8 @@ else
 fi
 echo
 
+space_before_cleanup=$(available_space)
+
 $confirm 'clean yarn cache?' \
   && tee_command yarn cache clean
 
@@ -81,6 +83,9 @@ $confirm 'clean yay cache?' \
 $confirm 'clean deno cache?' \
   && tee_command rm -r ~/.cache/deno
 
+$confirm 'clean emscripten cache?' \
+  && tee_command rm -r ~/.emscripten_cache
+
 $confirm 'docker system prune' \
   && tee_command docker system prune
 
@@ -111,5 +116,9 @@ $confirm 'clean wine drives?' \
 
 # confirm 'remove dangling docker volumes?' \
   # && tee_command docker volume rm $(docker volume ls -f dangling=true -q)
+
+space_after_cleanup=$(available_space)
+diff=$((space_after_cleanup - space_before_cleanup))
+echo "clean_machine.sh freed $(human_readable $diff) bytes in total"
 
 date > $LAST_RAN_FILE

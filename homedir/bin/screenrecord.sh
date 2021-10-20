@@ -21,6 +21,7 @@ case "$1" in
   "box")
     echo TODO with xrectsel
     exit 1
+    ;;
   *)
     echo "usage: screenrecord.sh [root | active]"
     exit 1

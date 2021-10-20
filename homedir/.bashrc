@@ -17,6 +17,9 @@ export PATH=$PATH:~/bin
 export PATH=$PATH:~/.local/bin
 # deno installed clis
 export PATH=~/.deno/bin:$PATH
+# quiet down tensorflow warnings
+export TF_CPP_MIN_LOG_LEVEL=2
+
 
 source ~/.bash_aliases
 [[ -f ~/.bashrc_secrets ]] && source ~/.bashrc_secrets
@@ -24,3 +27,6 @@ export http_proxy=''
 export https_proxy=''
 export ftp_proxy=''
 export socks_proxy=''
+
+xset -b
+setterm blength 0 

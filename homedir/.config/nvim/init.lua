@@ -183,14 +183,16 @@ cmp.setup({
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
     -- if autocomplete hasnt triggered yet, trigger it. Else, go to next suggestion
-    ['<Tab>'] = function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        --fallback()
-        cmp.complete()
-      end
-    end,
+    ['<S-Space>'] = cmp.mapping(cmp.mapping.complete()),
+    --['<Tab>'] = function(fallback)
+    --  if cmp.visible() then
+    --    cmp.select_next_item()
+    --  else
+    --    --fallback()
+    --    cmp.complete()
+    --  end
+    --end,
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item()),
     ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item()),
 
   },

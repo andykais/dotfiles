@@ -15,5 +15,5 @@ sudo systemctl mask avahi-dnsconfd.service
 # systemctl restart opensnitch
 opensnitch-ui &
 sudo opensnitchd  \
-  --rules-path ./.config/opensnitch/rules \
+  --rules-path ~/.config/opensnitch/rules \
   -ui-socket unix:///tmp/osui.sock
