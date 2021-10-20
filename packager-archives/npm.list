@@ -1,25 +1,23 @@
 ~/.npm-packages/lib
-├── @bitwarden/cli@1.7.4
-├── @zeit/ncc@0.17.4
-├── bitwarden-dmenu@1.5.3
-├── browser-sync@2.26.3
-├── bunyan@1.8.12
-├── diff-so-fancy@1.2.0
-├── http-server@0.11.1
-├── i3status-rx@1.0.11
-├── instant-markdown-d@0.1.1
-├── lighthouse@3.1.1
-├── mustache@2.3.2
-├── n@6.1.0
-├── neovim@4.5.0
-├── nodemon@2.0.2
-├── now@15.8.7
-├── npm@6.13.7
-├── prettier@1.17.0
-├── psd-cli@0.2.1
-├── scrape-ifunny@1.0.2
-├── sort-package-json@1.15.0
-├── tern@0.24.1
-├── typescript@3.6.2
-├── typescript-language-server@0.3.7
-└── yarn@1.15.2
+├── @cloudflare/wrangler@1.12.2
+├── bw@0.0.0
+├── diff-so-fancy@1.2.7
+├── h2url@0.2.0
+├── http-server@0.12.1
+├── i3status-rx@1.1.1 -> ~/Code/development/i3status-rx
+├── instant-markdown-d@0.2.0-rc.2
+├── neovim@4.10.0
+├── nodemon@2.0.13
+├── now@17.1.1
+├── npm@7.11.2
+├── peer@0.6.1
+├── pnpm@6.7.4
+├── prettier-plugin-svelte@2.3.1
+├── prettier@2.3.2
+├── speedtest-net@2.1.1
+├── svelte@3.42.2
+├── tern@0.24.3
+├── tiktok-scraper@1.4.7
+├── ts-rpc@1.0.0 -> ~/Code/development/ts-rpc-proxy
+├── typescript-language-server@0.4.0
+└── yarn@1.22.4
