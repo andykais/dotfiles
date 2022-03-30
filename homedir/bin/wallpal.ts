@@ -125,7 +125,7 @@ class WallPalDaemon {
         } else if (keypress.ctrlKey && keypress.key === 'c') {
           // NOTE: Deno.exit will not cancel the subprocesses (like live wallpapers)
           // see here https://github.com/denoland/deno/issues/8772
-          this.live_wallpaper_proc?.kill('sigkill')
+          this.live_wallpaper_proc?.kill('SIGKILL')
           Deno.exit(0)
         }
       }
@@ -181,7 +181,7 @@ class WallPalDaemon {
     for (const path of walked_files) {
       const mime_proc = Deno.run({ cmd: ['file', '-b', '--mime-type', path], stdout: 'piped' })
       const mime_type = decoder.decode(await mime_proc.output()).trim()
-      console.log('mime', path)
+      console.log('mime', path, mime_type)
       wallpapers_file_info.push({ mime_type, path })
 
     }
@@ -207,7 +207,7 @@ class WallPalDaemon {
     return { ...CONFIG, ...config_raw }
   }
   async set_wallpaper(wallpaper_index: number) {
-    this.live_wallpaper_proc?.kill('sigkill')
+    this.live_wallpaper_proc?.kill('SIGKILL')
     const { path, mime_type } = this.wallpaper_dir[this.wallpaper_index]
     const data: DaemonData = {
       active_path: path,

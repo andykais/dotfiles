@@ -12,3 +12,8 @@ PS1='$(if [ $? -eq 0 ]; then echo "\[\033[32m\]:)"; else echo "\[\033[31m\]:("; 
 if [ -z $DISPLAY ] && [ "$(tty)" == "/dev/tty1" ]; then
   exec sway
 fi
+
+# for burpsuite
+# archlinux-java set java-11-openjdk
+# for everything else
+archlinux-java set java-17-openjdk

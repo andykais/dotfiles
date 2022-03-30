@@ -160,6 +160,7 @@ bindsym $mod+Print exec --no-startup-id ~/bin/screenshot.sh root
 bindsym $mod+Shift+Print --release exec --no-startup-id ~/bin/screenshot.sh box
 # close all notifications
 bindsym $mod+c exec --no-startup-id dunstctl close-all
+bindsym Control+Shift+period exec --no-startup-id dunstctl context
 # bindsym $mod+Shift+Print exec --no-startup-id ~/bin/caller.sh
 # bindsym $mod+Shift+Print exec --no-startup-id ~/bin/screenshot.sh box 2>&1 ~/shot.log
 # screenshot window
@@ -271,6 +272,7 @@ focus_on_window_activation none
 for_window [window_role="gimp-toolbox"] floating disable; resize shrink right 11px # or 31 ppt
 for_window [window_role="gimp-dock"] floating disable; resize shrink right 11px # layout stacking; move left; resize shrink right 31px or 31 ppt
 for_window [title="Jump to time (Previous frame) v3"] floating enable focus true
+for_window [class="Minecraft Launcher"] floating disable focus true
 
 # }}}
 
@@ -278,6 +280,9 @@ for_window [title="Jump to time (Previous frame) v3"] floating enable focus true
 
 #exec --no-startup-id xbacklight -set 100
 #exec --no-startup-id urxvtd -q -o -f
+
+# no idea if this needs to be set on each startup
+exec --no-startup-id dbus-update-activation-environment DISPLAY
 
 # load .Xresources settings
 exec --no-startup-id xrdb -load .Xresources
@@ -313,7 +318,8 @@ exec udiskie --tray
 exec --no-startup-id "synclient TouchpadOff=1"
 # exec "xinput set-prop \"SynPS/2 Synaptics TouchPad\" 143 1 0 0 0 1 0 0 0 100000"
 # exec --no-startup-id "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' -0.5"
-exec --no-startup-id "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' 0.07"
+# exec --no-startup-id "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' 0.07"
+exec --no-startup-id "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' 0.5"
 # exec "xset m 7/2 0"
 exec --no-startup-id "synclient VertScrollDelta=-99"
 # }}}

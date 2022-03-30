@@ -12,9 +12,11 @@ alias run-dockerized=~/Build/prod/dockerized/cli/run-dockerized.js
 alias rm-node_modules='find . -name node_modules -prune -exec rm -fr {} \'
 alias list-open-fd='lsof -a -p $$ 2>/dev/null'
 # alias y='youtube-dl --output "%(title)s-%(id)s.%(uploader)s.%(ext)s"' # seems to be bad at youtube downloads now
-alias y='yt-dlp --output "%(title)s-%(id)s.%(uploader)s.%(ext)s"'
+# alias y='yt-dlp --output "%(title)s-%(id)s.%(uploader)s.%(ext)s"'
+alias y='yt-dlp --output "%(webpage_url_domain)s/%(uploader)s/%(id)s/%(title)s-%(id)s.%(uploader)s.%(ext)s" --no-clean-infojson --write-comments'
 
 alias nnpm='~/.npm-packages/bin/npm'
+alias npm='~/.npm-packages/bin/pnpm'
 # alias npm='~/.npm-packages/bin/pnpm'
 
 function e() {

@@ -62,7 +62,7 @@ START_TIME=$(date +%s)
 ffmpeg \
   -t $MAX_DURATION \
   -video_size ${width}x${height} \
-  -framerate 25 \
+  -framerate 18 \
   -f x11grab -i :0.0+${x},${y} \
   $FILE \
   & ffmpeg_pid=$!
