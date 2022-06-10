@@ -59,7 +59,7 @@ require('packer').startup(function(use)
   -- Auto complete
   use { 'hrsh7th/nvim-cmp', requires = {{ 'hrsh7th/cmp-buffer' }, { 'hrsh7th/cmp-nvim-lsp' }, { 'saadparwaiz1/cmp_luasnip' }, { 'L3MON4D3/LuaSnip' }} }
   -- Treesitter (fancy parsing of a single file)
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use { 'nvim-treesitter/nvim-treesitter', requires= {'nvim-treesitter/playground'}, run = ':TSUpdate' }
   -- Fuzzy finder
   use { 'nvim-telescope/telescope.nvim', requires = {'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim'} }
   -- Git decorations
@@ -145,7 +145,8 @@ util.opt('o', 'spelllang', 'en_us')
 
 
 ----------------------------- Filetype Settings {{{
-util.autocmd("FileType",     "lua,vim",   "setlocal foldmethod=marker")
+util.autocmd("FileType",               "lua,vim",   "setlocal foldmethod=marker")
+util.autocmd("FileType",               "python",   "setlocal shiftwidth=2")
 util.autocmd("BufRead,BufNewFile",     "Jenkinsfile",   "setfiletype groovy")
 util.autocmd("BufRead,BufNewFile",     "*.jenkinsfile",   "setfiletype groovy")
 -- }}}
@@ -208,21 +209,27 @@ local sumneko_lua = {
 -- map buffer local keybindings when the language server attaches
 local servers = {
   pyright = {},
-  -- denols = {},
-  tsserver = {},
-  sumneko_lua = sumneko_lua,
-  rust_analyzer = {},
-  jsonls = {
-    commands = {
-      Format = {
-        function()
-          vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
-        end
-      }
-    }
-  },
-  tailwindcss = {},
-  svelte = {},
+  -- denols = {
+  --   init_options = {
+  --     enable = true,
+  --     lint = false,
+  --     unstable = true,
+  --   }
+  -- },
+  -- tsserver = {},
+  -- sumneko_lua = sumneko_lua,
+  -- rust_analyzer = {},
+  -- jsonls = {
+  --   commands = {
+  --     Format = {
+  --       function()
+  --         vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
+  --       end
+  --     }
+  --   }
+  -- },
+  -- tailwindcss = {},
+  -- svelte = {},
   -- tsserver = {},
   -- jdtls = {},
 }
@@ -354,13 +361,16 @@ util.map('n', '<Space>', '<Plug>(searchhi-clear-all)', { noremap = false })
 require('nvim-treesitter.configs').setup {
   highlight = {
     enable = true,
-    disable = {},
+    disable = {
+      -- "markdown"
+    },
   },
   indent = {
     enable = false,
     disable = {},
   },
   ensure_installed = {
+    -- "markdown",
     "vim",
     "toml",
     "json",
@@ -373,7 +383,26 @@ require('nvim-treesitter.configs').setup {
     "typescript",
     "python",
     "java",
+  },
+  playground = {
+    enable = true,
+    disable = {},
+    updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
+    persist_queries = false, -- Whether the query persists across vim sessions
+    keybindings = {
+      toggle_query_editor = 'o',
+      toggle_hl_groups = 'i',
+      toggle_injected_languages = 't',
+      toggle_anonymous_nodes = 'a',
+      toggle_language_display = 'I',
+      focus_language = 'f',
+      unfocus_language = 'F',
+      update = 'R',
+      goto_node = '<cr>',
+      show_help = '?',
+    },
   }
+
 }
 -- }}}
 

@@ -1,14 +1,9 @@
 [user]
-	email = kaisea.rpi@gmail.com
+	email = andrew.kaiser@wbgames.com
 	name = Andrew Kaiser
-[push]
-	default = current
-[fetch]
-	prune = true
 [core]
 	autocrlf = false
 	preloadindex = true
-	symlinks = false
 	pager = diff-so-fancy | less --tabs=4 -RFX
 [log]
 	decorate = short
@@ -22,7 +17,18 @@
 	required = true
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
-[diff]
-	word-diff = color
 [alias]
 	df = diff --word-diff=plain
+[uploadarchive]
+	; allowUnreachable = 1
+[push]
+	default = current # "git push" without specifying the origin <branch-name>
+[fetch]
+	prune = true # auto delete remote-deleted branches
+[diff]
+	word-diff = color # better diffing
+[rerere] # git rebases become much less painful
+	enabled = true
+	autoupdate = true
+[init]
+	; defaultBranch = main # breaks hydra-ssc tests

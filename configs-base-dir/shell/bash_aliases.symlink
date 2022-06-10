@@ -12,6 +12,7 @@ alias v='nvim'
 alias pstop='watch -n1 "ps aux --sort=-pcpu | head -n 6"'
 alias lstat='stat -c "%a %n" '
 alias dusort='sudo du -h --max-depth=1 | sort -h -r'
+alias dusort='find . -maxdepth 1 -mindepth 1 -exec du -hs {} \; | sort -h -r'
 alias t='i3-sensible-terminal &'
 alias susp='sudo pm-suspend'
 alias rebo='sudo reboot'
@@ -22,6 +23,37 @@ alias l='gls -Flh --group-directories-first --color'
 alias la='gls -aFlh --group-directories-first --color'
 alias apt-get='$HOME/bin/apt-log.sh'
 alias tar-preview='tar -tf'
+alias pydemon='nodemon --ext py --exec python'
+alias pymon='nodemon --ext py --exec python'
+md-to-pdf() {
+  pandoc $1 -o ${1}.pdf --variable=geometry:"margin=1cm"
+}
+
+function e() {
+  local archive="$@"
+  local extraction_folder="${archive%.*}"
+  local mimetype=$(file --mime-type --brief $archive)
+
+  case $mimetype in
+    application/x-bzip2|application/x-7z-compressed)
+      7z x "$archive" -o"$extraction_folder/"
+      ;;
+    application/x-rar)
+      unrar x "$archive" "$extraction_folder/"
+      ;;
+    application/zip)
+      unzip "$archive" -d "$extraction_folder/"
+      ;;
+    application/gzip)
+      mkdir -p "$extraction_folder"
+      tar xzvf "$archive" -C "$extraction_folder/"
+      ;;
+    *)
+      echo unknown mime type $mimetype
+      return 1
+      ;;
+  esac
+}
 
 
 alias pacman='pacman_wrapper'
@@ -62,12 +94,22 @@ function steam() {
 }
 
 #git aliases
-alias ga='git add --all .'
+git() {
+  REGEX=" -[a-z]*f[a-z]*|--force$|--force[^-]"
+  if [[ $@ =~ $REGEX ]];then
+    echo Hey stupid, use --force-with-lease instead
+    return 1
+  else
+    command git "$@"
+  fi
+}
 alias gaA='git add -A'
+alias ga='git add --all .'
 alias gc='git commit -m $1'
 alias gstat='git status'
 alias gd='git diff $@ --name-only'
 alias gb='git branch'
+alias gsp='git stash push -u -m $1'
 function gdf() {
   current_branch=$(git rev-parse --abbrev-ref HEAD)
   git diff --name-only $current_branch $(git merge-base $current_branch master)
@@ -105,4 +147,46 @@ function npm_install_local_package() {
     && local fullpath="$package_folder/$tarball" \
     && cd "$cwd" \
     && npm install "$fullpath"
+}
+
+
+function _build:cpp:cmake() {
+  cmake \
+    -DCMAKE_C_COMPILER=/usr/bin/gcc \
+    -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
+    -DFRAMEWORK_TRANSPORT_CURL:BOOL=ON \
+    -DFRAMEWORK_STD_LIB:STRING=FRAMEWORK_STD \
+    -DFRAMEWORK_STD_FUNCTION_IGNORE_ALLOCATOR:BOOL=ON \
+    -DHYDRA_ENABLE_TESTS:BOOL=ON \
+    -DCMAKE_CXX_FLAGS:STRING=-std=c++11 \
+    -DFRAMEWORK_COMPRESSION_ZLIB:BOOL=ON \
+    -DZLIB_INCLUDE_DIR:STRING=/usr/include \
+    -DZLIB_LIBRARY:STRING=/usr/lib/libz.dylib \
+    -DHYDRA_WITH_SERVER:BOOL=ON \
+    -DFRAMEWORK_STRING:STRING="FRAMEWORK_STD" \
+    -DFRAMEWORK_ALGORITHM:STRING="FRAMEWORK_STD" \
+    -DFRAMEWORK_CONTAINERS:STRING="FRAMEWORK_STD" \
+    -S . -B ./build/cmake
+
+}
+
+function build:cpp:watch() {
+  _build:cpp:cmake
+
+  nodemon \
+    --ext h,cpp \
+    --watch ./src \
+    --watch ./example \
+    --exec "make -j6 -C build/cmake"
+}
+
+function build:cpp:watch() {
+  _build:cpp:cmake
+
+  make -j6 -C build/cmake
+}
+
+function studio:lint:watch() {
+  local $target=${1-master}
+  nodemon --ext py --exec "clear; git diff --name-only $target | ag '.py$' | xargs flake8"
 }

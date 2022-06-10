@@ -7,10 +7,10 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # ~/.bashrc or ~/.zshrc
-if [[ -s $HOME/.rvm/scripts/rvm ]]
-then
-    . $HOME/.rvm/scripts/rvm
-fi
+#if [[ -s $HOME/.rvm/scripts/rvm ]]
+#then
+#    . $HOME/.rvm/scripts/rvm
+#fi
 
 # so vim can use ctrl-s
 stty -ixon
@@ -52,7 +52,7 @@ PATH="$PATH:$HOME/Build/prod/DrMemory-Linux-1.11.0-2/bin64"
 #export ANDROID_HOME=/media/androidSdk
 export ANDROID_HOME=~/.buildozer/android/platform/android-sdk-22
 # export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
-export JAVA_HOME=/Library/Java/Home
+# export JAVA_HOME=/Library/Java/Home
 PATH="$PATH:$ANDROID_HOME/tools"
 PATH="$PATH:$ANDROID_HOME/platform-tools"
 PATH="$PATH:$HOME/Build/prod/gzrt"
@@ -68,5 +68,24 @@ PATH="$PATH:$HOME/Library/Python/2.7/bin"
 PATH="$PATH:$HOME/Library/Python/3.6/bin"
 PATH="/Users/andrew/.deno/bin:$PATH"
 
+# PATH="$PATH:/usr/local/Cellar/mongodb-community@3.6/3.6.17/bin"
+PATH="$PATH:/usr/local/Cellar/mongodb-community/4.2.6/bin"
+
+
 # added by travis gem
 [ -f /Users/andrew/.travis/travis.sh ] && source /Users/andrew/.travis/travis.sh
+
+source /Users/andrew/Library/Preferences/org.dystroy.broot/launcher/bash/br
+
+# export PATH="$HOME/.pyenv/bin:$PATH"
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
+
+export JDTLS_HOME="$HOME/Code/releases/jdt-language-server" # Directory with the plugin and configs directories
+export JAVA_8=$(/usr/libexec/java_home -v1.8.0_252)
+export JAVA_11=$(/usr/libexec/java_home -v11)
+# java 8
+export JAVA_HOME=$JAVA_8
+# java 11 (required for jdtls)
+#export JAVA_HOME=$JAVA_11
+. "$HOME/.cargo/env"

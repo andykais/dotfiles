@@ -149,3 +149,12 @@ compinit
 
 # added by travis gem
 [ -f /Users/andrew/.travis/travis.sh ] && source /Users/andrew/.travis/travis.sh
+
+source /Users/andrew/Library/Preferences/org.dystroy.broot/launcher/bash/br
+
+# eval "$(_HYDRA_CLI_COMPLETE=source_zsh hydra-cli)"
+
+alias luamake=/Users/andrew/Code/scratchwork/lua-language-server/3rd/luamake/luamake
+
+export PNPM_HOME="/Users/andrew/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"

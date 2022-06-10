@@ -3,3 +3,4 @@ prefix=/Users/andrew/.npm-packages
 save=true
 init.author.name=Andrew Kaiser
 init.license=MIT
+//registry.npmjs.org/:_authToken=71f0072a-fc15-4a72-8b69-6de8497c230f
