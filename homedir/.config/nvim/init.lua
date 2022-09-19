@@ -31,12 +31,17 @@ require('packer').startup(function(use)
   use { 'wbthomason/packer.nvim' }
   -- Themes
   use { 'sainnhe/sonokai' }
+  use { 'mcchrish/zenbones.nvim', requires = 'rktjmp/lush.nvim' } -- light theme
   -- Improved search highlighting
   use { 'qxxxb/vim-searchhi' }
   -- expandable HTML shortcuts
   use { 'mattn/emmet-vim' }
   -- LSP
-  use { 'neovim/nvim-lspconfig', run = { 'pnpm i -g pyright typescript typescript-language-server vscode-langservers-extracted @tailwindcss/language-server svelte-language-server', }}
+  use {
+    'neovim/nvim-lspconfig',
+    'williamboman/mason-lspconfig.nvim',
+    'williamboman/mason.nvim',
+  }
   -- Auto complete
   use { 'hrsh7th/nvim-cmp', requires = {'hrsh7th/cmp-nvim-lsp', 'saadparwaiz1/cmp_luasnip', 'L3MON4D3/LuaSnip', 'hrsh7th/cmp-path'} }
   -- Treesitter (fancy parsing of a single file)
@@ -46,7 +51,7 @@ require('packer').startup(function(use)
   -- File Browser
   use { 'kyazdani42/nvim-tree.lua', requires = { 'kyazdani42/nvim-web-devicons' } }
   -- Git decorations
-  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, tag = 'release' }
+  use { 'lewis6991/gitsigns.nvim', requires = { 'nvim-lua/plenary.nvim' }, tag = 'main' }
   -- Status line
   use { 'hoob3rt/lualine.nvim', requires = {'kyazdani42/nvim-web-devicons' } }
   -- comment stuff out
@@ -66,10 +71,37 @@ end)
 
 
 ----------------------------- Theme Settings {{{
-util.opt('o', 'termguicolors', true)
-vim.cmd 'let g:sonokai_enable_italic = 0'
-vim.cmd 'let g:sonokai_disable_italic_comment = 1'
-vim.cmd 'colorscheme sonokai'
+lualine = require('lualine')
+function set_theme(mode)
+  util.opt('o', 'termguicolors', true)
+  if mode == 'light'
+  then
+    vim.cmd 'set background=light'
+    vim.cmd 'colorscheme zenbones'
+    lualine.setup {
+      options = {
+        theme = 'sonokai',
+        icons_enabled = true,
+      }
+    }
+  else
+    -- vim.cmd 'let g:sonokai_enable_italic = 0'
+    -- vim.cmd 'let g:sonokai_disable_italic_comment = 1'
+    vim.g.sonokai_style = 'default'
+    vim.g.sonokai_better_performance = 1
+    vim.cmd 'colorscheme sonokai'
+    lualine.setup {
+      options = {
+        theme = 'everforest',
+        icons_enabled = true,
+      }
+    }
+  end
+end
+
+set_theme('dark')
+
+
 -- }}}
 
 
@@ -137,47 +169,105 @@ util.autocmd("BufRead,BufNewFile",  "Jenkinsfile,*.jenkinsfile",  "setfiletype g
 
 ----------------------------- Plugin Specific Settings {{{
 
+-- {{{ mason
+
+local root_pattern = require('lspconfig.util').root_pattern
+
+-- To appropriately highlight codefences returned from denols
+vim.g.markdown_fenced_languages = { "ts=typescript" }
+
+local servers = {
+  rust_analyzer = {},
+  pyright       = {},
+  tsserver      = {
+                  root_dir = root_pattern("package.json"),
+                },
+  denols        = {
+                  init_options = {
+                    enable = true,
+                    lint = false,
+                    unstable = true,
+                  },
+                  root_dir = root_pattern("deno.json", "deno.jsonc"),
+                },
+  tailwindcss   = {
+                  root_dir = root_pattern("svelte.config.js", "twind.config.ts"),
+                },
+  svelte        = {},
+  yamlls        = {},
+  sumneko_lua   = {
+                  settings = {
+                    Lua = {
+                      runtime = { version = 'LuaJIT' },
+                      -- Get the language server to recognize the `vim` global
+                      diagnostics = { globals = { 'vim' }},
+                      -- Make the server aware of Neovim runtime files
+                      workspace = {
+                        -- library = api.nvim_get_runtime_file("", true),
+                        library = {
+                          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+                          [vim.fn.stdpath('config') .. '/lua'] = true,
+                        },
+                      },
+                      -- Do not send telemetry data containing a randomized but unique identifier
+                      telemetry = { enable = false },
+                    }
+                  }
+  }
+}
+
+require('mason').setup()
+require('mason-lspconfig').setup({
+  ensure_installed = servers,
+  automatic_installation = false,
+})
+-- }}}
+
 -- {{{ nvim-lspconfig
-local nvim_lsp = require('lspconfig')
 
 -- Add additional capabilities supported by nvim-cmp (sets up autocompletion)
+local lspconfig = require('lspconfig')
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 local on_attach = function(client, bufnr)
-  local function set_map(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function set_opt(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-
   -- Mappings.
-  local opts = { noremap=true, silent=true }
+  local opts = { noremap=true, silent=true, buffer=bufnr }
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  set_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-
-
+  -- set_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', '<leader>p', vim.lsp.buf.format, bufopts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
 end
 
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = {
-  'pyright',
-  'denols',
-  'rust_analyzer',
-  -- 'tsserver',
-  'svelte',
-  'tailwindcss',
-  -- 'jsonls',
-  -- 'java_language_server',
-  -- 'yamlls',
-}
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
+-- local servers = {
+--   'pyright',
+--   'denols',
+--   'rust_analyzer',
+--   -- 'yamlls',
+--   -- 'tsserver',
+--   'svelte',
+--   'tailwindcss',
+--   -- 'jsonls',
+--   -- 'java_language_server',
+--   -- 'yamlls',
+-- }
+
+for lsp, lsp_settings in pairs(servers) do
+  local settings = {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
     },
     capabilities = capabilities,
+    root_dir = root_pattern("deno.json", "deno.jsonc"),
   }
+  for k,v in pairs(lsp_settings) do
+    settings[k] = v
+  end
+  lspconfig[lsp].setup(settings)
 end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -251,6 +341,12 @@ cmp.setup({
   --   -- autocomplete = false
   -- },
 })
+cmp.setup.filetype('yaml', {
+  sources = cmp.config.sources {
+    { name = 'buffer', keyword_length = 4 },
+    { name = 'path' },
+  }
+})
 -- cmp.setup.cmdline('/', {
 --   sources = {
 --     { name = 'buffer' }
@@ -307,38 +403,59 @@ util.map('n', '<C-h>', ':Telescope help_tags<CR>')
 -- }}}
 
 -- {{{ nvim-tree.lua
-vim.g.nvim_tree_show_icons = {
-  git = 0,
-  folders = 0,
-  files = 0,
-  folder_arrows = 0,
-}
-require('nvim-tree').setup()
+-- vim.g.nvim_tree_show_icons = {
+-- }
+require('nvim-tree').setup({
+  sort_by = "case_sensitive",
+  view = {
+    adaptive_size = true,
+    mappings = {
+      list = {
+        { key = "u", action = "dir_up" },
+      },
+    },
+  },
+  renderer = {
+    group_empty = true,
+    icons = {
+      show = {
+        git = false,
+        folder = false,
+        file = true,
+        folder_arrow = true,
+      },
+      glyphs = {
+        default = ' ',
+        symlink = 's',
+        git = {
+          unstaged = "✗",
+          staged = "✓",
+          unmerged = "u",
+          renamed = "➜",
+          untracked = "★",
+          deleted = "d",
+          ignored = "◌"
+        },
+        folder = {
+          arrow_open = ">",
+          arrow_closed = "•",
+          default = "d",
+          open = "o",
+          empty = "e",
+          empty_open = "e",
+          symlink = "s",
+          symlink_open = "so",
+        },
+      }
+    }
+  },
+  filters = {
+    dotfiles = true,
+  },
+
+})
 util.map('n', '<C-\\>', ':NvimTreeToggle<CR>', { noremap = true, silent = true })
 
--- vim.g.nvim_tree_icons = {
---   default = 'd',
---   symlink = 's',
---   git = {
---     unstaged = "✗",
---     staged = "✓",
---     unmerged = "u",
---     renamed = "➜",
---     untracked = "★",
---     deleted = "d",
---     ignored = "◌"
---   },
---   folder = {
---     arrow_open = ">",
---     arrow_closed = "<",
---     default = "d",
---     open = "o",
---     empty = "e",
---     empty_open = "e",
---     symlink = "s",
---     symlink_open = "so",
---   },
--- }
 
 --}}}
 
@@ -348,12 +465,6 @@ util.map('n', 'gd', ':Gitsigns diffthis<CR><C-w>w')
 -- }}}
 
 -- {{{ lualine.nvim
-require('lualine').setup {
-  options = {
-    theme = 'everforest',
-    icons_enabled = true,
-  }
-}
 -- }}}
 
 -- {{{ autopairs

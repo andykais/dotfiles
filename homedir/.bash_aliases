@@ -15,8 +15,9 @@ alias list-open-fd='lsof -a -p $$ 2>/dev/null'
 # alias y='yt-dlp --output "%(title)s-%(id)s.%(uploader)s.%(ext)s"'
 alias y='yt-dlp --output "%(webpage_url_domain)s/%(uploader)s/%(id)s/%(title)s-%(id)s.%(uploader)s.%(ext)s" --no-clean-infojson --write-comments --embed-info-json'
 
-alias nnpm='~/.npm-packages/bin/npm'
-alias npm='~/.npm-packages/bin/pnpm'
+alias nnpm='~/.local/share/pnpm/npm'
+alias npm='~/.local/share/pnpm/pnpm'
+# alias npm='~/.npm-packages/bin/pnpm'
 # alias npm='~/.npm-packages/bin/pnpm'
 
 function e() {

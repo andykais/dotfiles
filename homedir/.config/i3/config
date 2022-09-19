@@ -231,7 +231,7 @@ bar {
     # status_command i3status
     # status_command i3status-rs ~/.config/i3status-rs.toml
     # status_command ~/bin/i3status.js
-    status_command ~/.npm-packages/bin/i3status-rx ~/.config/i3status-rx.toml
+    status_command i3status-rx ~/.config/i3status-rx.toml
     # font pango: xos4 Terminus, FontAwesome 9 # DROPME
     # font pango:DejaVu Sans Mono, FontAwesome 9
     position top
@@ -322,4 +322,7 @@ exec --no-startup-id "synclient TouchpadOff=1"
 exec --no-startup-id "xinput --set-prop 'TPPS/2 IBM TrackPoint' 'libinput Accel Speed' 0.5"
 # exec "xset m 7/2 0"
 exec --no-startup-id "synclient VertScrollDelta=-99"
+
+# turn on touchpad
+exec --no-startup-id "synclient TouchpadOff=0"
 # }}}

@@ -1,5 +1,6 @@
 #include ".Xresources.d/xterm"
 #include ".Xresources.d/fonts"
 #include ".Xresources.d/colors"
+/* #include ".Xresources.d/colors.light" */
 #include ".Xresources.d/urxvt"
 #include ".Xresources.d/emacs"
