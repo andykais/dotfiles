@@ -181,12 +181,9 @@ bindsym $mod+Mod1+l exec --no-startup-id sleep 0.1 && xset dpms force standby
 
 # System Control Bindings {{{
 
-bindsym XF86AudioMute        exec amixer -q set Master toggle     && pkill -f -SIGUSR1 i3status-rx
-bindsym XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && pkill -f -SIGUSR1 i3status-rx
-bindsym XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && pkill -f -SIGUSR1 i3status-rx
-bindsym Shift+XF86AudioMute        exec amixer -q set Master toggle     && pkill -f -SIGUSR1 i3status-rx && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
-bindsym Shift+XF86AudioRaiseVolume exec amixer -q set Master 5%+ unmute && pkill -f -SIGUSR1 i3status-rx && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
-bindsym Shift+XF86AudioLowerVolume exec amixer -q set Master 5%- unmute && pkill -f -SIGUSR1 i3status-rx && paplay /usr/share/sounds/freedesktop/stereo/audio-volume-change.oga
+bindsym XF86AudioMute        exec i3-audio toggle && pkill -f -SIGUSR1 i3status-rx
+bindsym XF86AudioRaiseVolume exec i3-audio 5%+ && pkill -f -SIGUSR1 i3status-rx
+bindsym XF86AudioLowerVolume exec i3-audio 5%- && pkill -f -SIGUSR1 i3status-rx
 
 # brightness control
 # bindsym XF86MonBrightnessUp exec xbacklight -inc 5

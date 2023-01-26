@@ -1,7 +1,7 @@
 ----------------------------- Utils {{{
 local util = { }
 
-local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
+local scopes = {o = vim.o, b = vim.bo, w = vim.wo, opt=vim.opt}
 
 function util.opt(scope, key, value)
     scopes[scope][key] = value
@@ -70,14 +70,42 @@ end)
 -- }}}
 
 
+----------------------------- Mapping Settings {{{
+-- Map leader to space
+vim.g.mapleader = ','
+
+-- ;w same as :w
+util.map('n', ';', ':')
+
+-- set paste is for paasting in a computer
+util.map('v', '<C-c>', '"+y<CR>')
+
+-- save with ctrl-s in all modes
+util.map('n', '<C-S>', ':update<CR>', { noremap = true, silent = true })
+util.map('v', '<C-S>', '<C-C>:update<CR>', { noremap = true, silent = true })
+util.map('i', '<C-S>', '<C-O>:update<CR>', { noremap = true, silent = true })
+
+
+-- Language
+util.opt('o', 'spelllang', 'en_us')
+
+-- Folding
+util.map('n', 'zt', ':%foldc<CR>za')
+-- }}}
+
+
 ----------------------------- Theme Settings {{{
 lualine = require('lualine')
 function set_theme(mode)
-  util.opt('o', 'termguicolors', true)
+  theme = mode
+  vim.o.termguicolors = true
   if mode == 'light'
   then
+    vim.g.zenbones_compat = 1
     vim.cmd 'set background=light'
-    vim.cmd 'colorscheme zenbones'
+    -- vim.cmd 'colorscheme neobones'
+    -- vim.cmd 'colorscheme zenbones'
+    vim.cmd 'colorscheme seoulbones'
     lualine.setup {
       options = {
         theme = 'sonokai',
@@ -89,6 +117,7 @@ function set_theme(mode)
     -- vim.cmd 'let g:sonokai_disable_italic_comment = 1'
     vim.g.sonokai_style = 'default'
     vim.g.sonokai_better_performance = 1
+    vim.g.sonokai_disable_italic_comment=1
     vim.cmd 'colorscheme sonokai'
     lualine.setup {
       options = {
@@ -99,7 +128,18 @@ function set_theme(mode)
   end
 end
 
-set_theme('dark')
+function toggle_theme()
+  if theme == 'dark'
+  then
+    set_theme('light')
+  else
+    set_theme('dark')
+  end
+end
+
+theme = 'dark'
+set_theme(theme)
+vim.keymap.set('n', '<leader>g', toggle_theme)
 
 
 -- }}}
@@ -135,32 +175,19 @@ util.opt('o', 'mouse', 'a')
 -- Search
 util.opt('o', 'ignorecase', true)
 util.opt('o', 'smartcase', true)
--- }}}
 
-
------------------------------ Mapping Settings {{{
--- Map leader to space
-vim.g.mapleader = ','
-
--- ;w same as :w
-util.map('n', ';', ':')
-
--- set paste is for paasting in a computer
-util.map('v', '<C-c>', '"+y<CR>')
-
--- save with ctrl-s in all modes
-util.map('n', '<C-S>', ':update<CR>', { noremap = true, silent = true })
-util.map('v', '<C-S>', '<C-C>:update<CR>', { noremap = true, silent = true })
-util.map('i', '<C-S>', '<C-O>:update<CR>', { noremap = true, silent = true })
-
-
--- Language
-util.opt('o', 'spelllang', 'en_us')
+-- Folding
+util.opt('opt', 'foldmethod', 'expr')
+util.opt('opt', 'foldexpr', 'nvim_treesitter#foldexpr()')
+vim.cmd 'set nofoldenable'
+vim.cmd 'set foldlevel=99'
 -- }}}
 
 
 ----------------------------- Filetype Settings {{{
 util.autocmd("FileType",            "lua,vim",                    "setlocal foldmethod=marker")
+util.autocmd("FileType",            "lua,vim",                    "setlocal foldlevel=0")
+util.autocmd("FileType",            "lua,vim",                    "setlocal foldenable")
 util.autocmd("FileType",             "yaml",                       "setlocal ts=2 sts=2 sw=2 expandtab indentkeys-=0# indentkeys-=<:>")
 util.autocmd("BufRead,BufNewFile",  "~/.Xresources.d/*",          "setfiletype xdefaults")
 util.autocmd("BufRead,BufNewFile",  "Jenkinsfile,*.jenkinsfile",  "setfiletype groovy")
@@ -177,11 +204,9 @@ local root_pattern = require('lspconfig.util').root_pattern
 vim.g.markdown_fenced_languages = { "ts=typescript" }
 
 local servers = {
-  rust_analyzer = {},
+  rust_analyzer = { root_dir = root_pattern("Cargo.toml") },
   pyright       = {},
-  tsserver      = {
-                  root_dir = root_pattern("package.json"),
-                },
+  tsserver      = { root_dir = root_pattern("package.json") },
   denols        = {
                   init_options = {
                     enable = true,
@@ -190,9 +215,7 @@ local servers = {
                   },
                   root_dir = root_pattern("deno.json", "deno.jsonc"),
                 },
-  tailwindcss   = {
-                  root_dir = root_pattern("svelte.config.js", "twind.config.ts"),
-                },
+  tailwindcss   = { root_dir = root_pattern("svelte.config.js", "twind.config.ts") },
   svelte        = {},
   yamlls        = {},
   sumneko_lua   = {
@@ -227,48 +250,41 @@ require('mason-lspconfig').setup({
 
 -- Add additional capabilities supported by nvim-cmp (sets up autocompletion)
 local lspconfig = require('lspconfig')
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 local on_attach = function(client, bufnr)
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
   -- Mappings.
-  local opts = { noremap=true, silent=true, buffer=bufnr }
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  -- set_map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', '<leader>p', vim.lsp.buf.format, bufopts)
-  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
 end
 
-
--- Use a loop to conveniently call 'setup' on multiple servers and
--- map buffer local keybindings when the language server attaches
--- local servers = {
---   'pyright',
---   'denols',
---   'rust_analyzer',
---   -- 'yamlls',
---   -- 'tsserver',
---   'svelte',
---   'tailwindcss',
---   -- 'jsonls',
---   -- 'java_language_server',
---   -- 'yamlls',
--- }
 
 for lsp, lsp_settings in pairs(servers) do
   local settings = {
     on_attach = on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    },
+    -- flags = {
+    --   debounce_text_changes = 150,
+    -- },
     capabilities = capabilities,
-    root_dir = root_pattern("deno.json", "deno.jsonc"),
   }
+  -- merge per-lsp settings
   for k,v in pairs(lsp_settings) do
     settings[k] = v
   end
   lspconfig[lsp].setup(settings)
 end
+
+-- debugging lsp means setting the following
+-- vim.lsp.set_log_level("debug")
+-- and calling
+-- :LspInfo
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -397,6 +413,23 @@ require('nvim-treesitter.configs').setup {
 -- }}}
 
 -- {{{ telescope.vim
+-- vim.cmd ':Telescope find_files hidden=true'
+local telescope = require('telescope')
+
+telescope.setup {
+  pickers = {
+    find_files = {
+      hidden = true
+    }
+  },
+  defaults = {
+    file_ignore_patterns = {
+      "^.git/",
+    }
+  }
+}
+
+
 util.map('n', '<C-p>', ':Telescope find_files<CR>')
 util.map('n', '<C-a>', ':Telescope live_grep<CR>')
 util.map('n', '<C-h>', ':Telescope help_tags<CR>')

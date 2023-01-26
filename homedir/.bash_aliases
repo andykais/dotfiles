@@ -13,7 +13,9 @@ alias rm-node_modules='find . -name node_modules -prune -exec rm -fr {} \'
 alias list-open-fd='lsof -a -p $$ 2>/dev/null'
 # alias y='youtube-dl --output "%(title)s-%(id)s.%(uploader)s.%(ext)s"' # seems to be bad at youtube downloads now
 # alias y='yt-dlp --output "%(title)s-%(id)s.%(uploader)s.%(ext)s"'
-alias y='yt-dlp --output "%(webpage_url_domain)s/%(uploader)s/%(id)s/%(title)s-%(id)s.%(uploader)s.%(ext)s" --no-clean-infojson --write-comments --embed-info-json'
+# alias y='yt-dlp --output "%(webpage_url_domain)s/%(uploader)s/%(id)s/%(title)s-%(id)s.%(uploader)s.%(ext)s" --no-clean-infojson --write-comments --embed-info-json'
+# alias y='yt-dlp --output "%(webpage_url_domain)s/%(uploader)s/%(id)s/%(title)s-%(id)s.%(uploader)s.%(ext)s" --no-clean-infojson --write-comments --embed-info-json --write-info-json'
+alias y='yt-dlp --output "%(webpage_url_domain)s/%(uploader)s/%(id)s/%(title)s-%(id)s.%(uploader)s.%(ext)s" --no-clean-infojson --embed-info-json --write-info-json'
 
 alias nnpm='~/.local/share/pnpm/npm'
 alias npm='~/.local/share/pnpm/pnpm'
@@ -38,6 +40,10 @@ function e() {
     application/gzip)
       mkdir -p "$extraction_folder"
       tar xzvf "$archive" -C "$extraction_folder/"
+      ;;
+    application/x-xz)
+      mkdir -p "$extraction_folder"
+      tar xf "$archive" -C "$extraction_folder/"
       ;;
     *)
       echo unknown mime type $mimetype
@@ -104,8 +110,8 @@ function pacman_wrapper() {
   if [[ $purpose_is_search = true ]]
   then
     command pacman $@ \
-      | GREP_COLOR='01;33' grep -Ei --color=always "^|$search_string" \
-      | GREP_COLOR='01;31' grep -E --color=always '^|\[installed\]'
+      | GREP_COLORS='01;33' grep -Ei --color=always "^|$search_string" \
+      | GREP_COLORS='01;31' grep -E --color=always '^|\[installed\]'
   else
     command pacman $@
   fi

@@ -2,22 +2,31 @@
 
 set -e
 
-i=$(ls ~/Pictures/screenshots | sed 's/.*\([0-9][0-9][0-9]\).*/\1/' | tail -1)
-if [ -z $i ]; then
-  i="000"
-else
-  i=$(( 10#$i+1 ))
-fi
-i=$(printf "%03d\n" $i) # pad zeros
-FILE="$HOME/Pictures/screenshots/screenshot($i).png"
-if [ -f "$FILE" ]; then
-  echo "Screenshot numbering failed. $FILE already exists."
-  exit 1
-fi
 
 notify-screenshot() {
   notify-send --icon $FILE "Took Screenshot" "${FILE/#$HOME/'~'}"
 }
+
+
+
+newest_index=$(ls ~/Pictures/screenshots \
+  | sed 's/screenshot(//' \
+  | sed 's/).*//' \
+  | sort -V \
+  | tail -1)
+
+
+if [ -z $newest_index ]; then
+  newest_index="0000"
+else
+  newest_index=$(( 10#$newest_index+1 ))
+fi
+newest_index=$(printf "%04d\n" $newest_index) # pad zeros
+FILE="$HOME/Pictures/screenshots/screenshot($newest_index).png"
+if [ -f "$FILE" ]; then
+  echo "Screenshot numbering failed. $FILE already exists."
+  exit 1
+fi
 
 case "$1" in
     "root")
@@ -39,4 +48,3 @@ case "$1" in
         exit 1
         ;;
 esac
-

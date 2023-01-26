@@ -1,0 +1,5 @@
+{
+  "tasks": {
+    "develop:proctor": "deno run --watch --check --unstable --allow-run=pgrep,lsof,ps proctor.ts"
+  }
+}
