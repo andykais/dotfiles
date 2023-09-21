@@ -17,6 +17,23 @@ alias list-open-fd='lsof -a -p $$ 2>/dev/null'
 # alias y='yt-dlp --output "%(webpage_url_domain)s/%(uploader)s/%(id)s/%(title)s-%(id)s.%(uploader)s.%(ext)s" --no-clean-infojson --write-comments --embed-info-json --write-info-json'
 alias y='yt-dlp --output "%(webpage_url_domain)s/%(uploader)s/%(id)s/%(title)s-%(id)s.%(uploader)s.%(ext)s" --no-clean-infojson --embed-info-json --write-info-json'
 
+top-tools() {
+  local sort_column=$1
+  local process_pattern=$2
+  if [[ $process_pattern ]]
+  then
+    watch -n 1 "ps ax -o 'pid,%cpu,%mem,c,command' | ag '$process_pattern' | ag -v \"ag $process_pattern\" | sort -u -k${sort_column} -r"
+  else
+    watch -n 1 "ps ax -o 'pid,%cpu,%mem,c,command' | sort -u -k${sort_column} -r"
+  fi
+}
+top-cpu() {
+  top-tools 2 $1
+}
+top-mem() {
+  top-tools 3 $1
+}
+
 alias nnpm='~/.local/share/pnpm/npm'
 alias npm='~/.local/share/pnpm/pnpm'
 # alias npm='~/.npm-packages/bin/pnpm'

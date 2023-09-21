@@ -14,6 +14,7 @@ sudo systemctl mask avahi-dnsconfd.service
 
 sudo systemctl --user stop dirmngr.socket
 sudo systemctl --user stop dirmngr.service
+sudo systemctl stop atop
 
 # systemctl restart opensnitch
 opensnitch-ui &

@@ -21,4 +21,4 @@ export PNPM_HOME="/home/andrew/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
 # aseprite
-export PATH="$PATH:~/.local/share/Steam/steamapps/common/Aseprite/aseprite"
+# export PATH="$PATH:~/.local/share/Steam/steamapps/common/Aseprite/aseprite"

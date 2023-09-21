@@ -19,30 +19,30 @@ if ! zgen saved; then
   zgen oh-my-zsh plugins/colored-man-pages
   # mkdir ~/.zgen/robbyrussell/oh-my-zsh-master/custom/plugins/deno
   # deno completions zsh > ~/.zgen/robbyrussell/oh-my-zsh-master/custom/plugins/deno/_deno
-  zgen oh-my-zsh custom/plugins/deno
-  zgen load zdharma/fast-syntax-highlighting # supposedly faster than zsh-users/zsh-syntax-highlighting
+  # zgen oh-my-zsh custom/plugins/deno
+  # zgen load zdharma/fast-syntax-highlighting # supposedly faster than zsh-users/zsh-syntax-highlighting
   zgen load zsh-users/zsh-completions src
   zgen save # generate the init script from plugins above
 fi
 
-prompt_ranger() {
-  if [[ -n $RANGER_LEVEL ]]
-  then
-    echo -n "(ranger-$RANGER_LEVEL)"
-  fi
-}
+# prompt_ranger() {
+#   if [[ -n $RANGER_LEVEL ]]
+#   then
+#     echo -n "(ranger-$RANGER_LEVEL)"
+#   fi
+# }
 
 
-build_prompt() {
-  RETVAL=$?
-  prompt_status
-  prompt_virtualenv
-  prompt_ranger
-  prompt_context
-  prompt_dir
-  prompt_end
-  # git symbolic-ref --short HEAD
-  # git-radar --zsh --fetch
-}
+# build_prompt() {
+#   RETVAL=$?
+#   prompt_status
+#   prompt_virtualenv
+#   prompt_ranger
+#   prompt_context
+#   prompt_dir
+#   prompt_end
+#   # git symbolic-ref --short HEAD
+#   # git-radar --zsh --fetch
+# }
 
 source ~/.bashrc

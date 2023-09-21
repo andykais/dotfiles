@@ -61,11 +61,10 @@ class Proctor {
   private static text_decoder = new TextDecoder()
   private static async exec(cmd: string[]) {
     const [exec_path, ...args] = cmd
-    const proc = await Deno.spawn(exec_path, {
-      args: args
-    })
-    if (proc.success === false) throw new Error(`Deno.spawn(${cmd}) failed with exit code ${proc.code}`)
-    return Proctor.text_decoder.decode(proc.stdout)
+    const proc = new Deno.Command(exec_path, { args })
+    const result = await proc.output()
+    if (result.success === false) throw new Error(`Deno.spawn(${cmd}) failed with exit code ${result.code}`)
+    return Proctor.text_decoder.decode(result.stdout)
   }
   private static async *exec_pipe(cmd: string[]) {
     const [exec_path, ...args] = cmd
@@ -185,3 +184,10 @@ try {
 }
 
 // show processes that have tcp connections open, also resolve foriegn ips to domain names
+//
+// usage:
+// proctor 'grep process filter'
+//
+// proctor 'mpv.*themovietitle' --required-count 1
+//
+// proctor # this is graph everything

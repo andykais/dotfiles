@@ -1,5 +1,8 @@
 {
   "tasks": {
-    "develop:proctor": "deno run --watch --check --unstable --allow-run=pgrep,lsof,ps proctor.ts"
+    "setup:examiner": "deno run --reload --watch --check --unstable --allow-ffi=/home/andrew/.cache/deno/plug --allow-net=github.com,objects.githubusercontent.com --allow-read=/proc,/home/andrew/.cache/deno/plug --allow-write=/home/andrew/.cache/deno/plug --allow-env=PLUGIN_URL,DENO_DIR,XDG_CACHE_HOME,HOME src/examiner.ts",
+    "develop:proctor": "deno run --watch --check --unstable --allow-run=pgrep,lsof,ps src/proctor.ts",
+    "develop:examiner": "deno run --watch --check --unstable --allow-read=/proc,/home/andrew/.cache/deno/plug --allow-write=/home/andrew/.cache/deno/plug --allow-env=PLUGIN_URL,DENO_DIR,XDG_CACHE_HOME,HOME src/examiner.ts",
+    "test:examiner:watch": "deno test --watch --check --unstable --allow-run=getconf,ps --allow-ffi=/home/andrew/.cache/deno/plug --allow-read --allow-write=/home/andrew/.cache/deno/plug --allow-env=PLUGIN_URL,DENO_DIR,XDG_CACHE_HOME,HOME test/examiner.test.ts",
   }
 }

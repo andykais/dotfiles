@@ -39,8 +39,6 @@ require('packer').startup(function(use)
   -- LSP
   use {
     'neovim/nvim-lspconfig',
-    'williamboman/mason-lspconfig.nvim',
-    'williamboman/mason.nvim',
   }
   -- Auto complete
   use { 'hrsh7th/nvim-cmp', requires = {'hrsh7th/cmp-nvim-lsp', 'saadparwaiz1/cmp_luasnip', 'L3MON4D3/LuaSnip', 'hrsh7th/cmp-path'} }
@@ -206,44 +204,52 @@ vim.g.markdown_fenced_languages = { "ts=typescript" }
 local servers = {
   rust_analyzer = { root_dir = root_pattern("Cargo.toml") },
   pyright       = {},
-  tsserver      = { root_dir = root_pattern("package.json") },
+  -- tsserver      = { root_dir = root_pattern("package.json") },
   denols        = {
-                  init_options = {
+                  settings = {
                     enable = true,
                     lint = false,
                     unstable = true,
                   },
                   root_dir = root_pattern("deno.json", "deno.jsonc"),
                 },
-  tailwindcss   = { root_dir = root_pattern("svelte.config.js", "twind.config.ts") },
+  -- tailwindcss   = { root_dir = root_pattern("svelte.config.js", "twind.config.ts") },
   svelte        = {},
-  yamlls        = {},
-  sumneko_lua   = {
+  yamlls        = {
                   settings = {
-                    Lua = {
-                      runtime = { version = 'LuaJIT' },
-                      -- Get the language server to recognize the `vim` global
-                      diagnostics = { globals = { 'vim' }},
-                      -- Make the server aware of Neovim runtime files
-                      workspace = {
-                        -- library = api.nvim_get_runtime_file("", true),
-                        library = {
-                          [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-                          [vim.fn.stdpath('config') .. '/lua'] = true,
-                        },
-                      },
-                      -- Do not send telemetry data containing a randomized but unique identifier
-                      telemetry = { enable = false },
+                    yaml = {
+                      schemaStore = {
+                        enable = false
+                      }
                     }
                   }
-  }
+  },
+  -- sumneko_lua   = {
+  --                 settings = {
+  --                   Lua = {
+  --                     runtime = { version = 'LuaJIT' },
+  --                     -- Get the language server to recognize the `vim` global
+  --                     diagnostics = { globals = { 'vim' }},
+  --                     -- Make the server aware of Neovim runtime files
+  --                     workspace = {
+  --                       -- library = api.nvim_get_runtime_file("", true),
+  --                       library = {
+  --                         [vim.fn.expand('$VIMRUNTIME/lua')] = true,
+  --                         [vim.fn.stdpath('config') .. '/lua'] = true,
+  --                       },
+  --                     },
+  --                     -- Do not send telemetry data containing a randomized but unique identifier
+  --                     telemetry = { enable = false },
+  --                   }
+  --                 }
+  -- }
 }
 
-require('mason').setup()
-require('mason-lspconfig').setup({
-  ensure_installed = servers,
-  automatic_installation = false,
-})
+-- require('mason').setup()
+-- require('mason-lspconfig').setup({
+--   ensure_installed = servers,
+--   automatic_installation = false,
+-- })
 -- }}}
 
 -- {{{ nvim-lspconfig
@@ -263,6 +269,7 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>p', vim.lsp.buf.format, bufopts)
   vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
 end
 
 
@@ -280,6 +287,16 @@ for lsp, lsp_settings in pairs(servers) do
   end
   lspconfig[lsp].setup(settings)
 end
+
+-- lspconfig["denols"].setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   root_dir = root_pattern("deno.json", "deno.jsonc"),
+--   init_options = {
+--     enable = true,
+--     unstable = false,
+--   }
+-- })
 
 -- debugging lsp means setting the following
 -- vim.lsp.set_log_level("debug")
